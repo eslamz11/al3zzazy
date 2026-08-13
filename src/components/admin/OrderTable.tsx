@@ -75,7 +75,7 @@ export function OrderTable({ orders, onStatusChange, onDeleteOrder }: OrderTable
 
               return (
                 <tr key={o.id} className="hover:bg-[#fdfbf7] transition-colors">
-                  <td className="py-4 px-5 font-bold font-mono text-[#c8102e]">
+                  <td className="py-4 px-5 font-bold font-mono text-sky-700">
                     <Link
                       to={`/admin/orders/$id`}
                       params={{ id: o.id }}
@@ -131,7 +131,7 @@ export function OrderTable({ orders, onStatusChange, onDeleteOrder }: OrderTable
                       <Link
                         to={`/admin/orders/$id`}
                         params={{ id: o.id }}
-                        className="inline-flex items-center gap-1.5 rounded-xl border border-[#e5dfd7] bg-white px-3 py-1.5 text-xs font-bold text-gray-700 hover:text-[#c8102e] hover:border-[#c8102e] hover:bg-[#fde8ea] transition-all shadow-xs min-h-[34px]"
+                        className="inline-flex items-center gap-1.5 rounded-xl border border-[#e5dfd7] bg-white px-3 py-1.5 text-xs font-bold text-gray-700 hover:text-sky-600 hover:border-sky-600 hover:bg-sky-50 transition-all shadow-xs min-h-[34px]"
                       >
                         <Eye className="h-3.5 w-3.5" />
                         <span>عرض</span>
@@ -140,7 +140,7 @@ export function OrderTable({ orders, onStatusChange, onDeleteOrder }: OrderTable
                       {onDeleteOrder && (
                         <button
                           onClick={() => setDeletingOrder(o)}
-                          className="inline-flex items-center gap-1.5 rounded-xl border border-red-200 bg-red-50 px-3 py-1.5 text-xs font-bold text-red-600 hover:bg-red-600 hover:text-white transition-all shadow-xs min-h-[34px]"
+                           className="inline-flex items-center gap-1.5 rounded-xl border border-sky-200 bg-sky-50 px-3 py-1.5 text-xs font-bold text-sky-600 hover:bg-sky-600 hover:text-white transition-all shadow-xs min-h-[34px]"
                           title="حذف الطلب"
                         >
                           <Trash2 className="h-3.5 w-3.5" />
@@ -171,7 +171,7 @@ export function OrderTable({ orders, onStatusChange, onDeleteOrder }: OrderTable
               className="rounded-2xl border border-[#e5dfd7] bg-white p-4 shadow-xs space-y-3"
             >
               <div className="flex items-center justify-between">
-                <span className="font-mono font-extrabold text-[#c8102e] text-sm">{o.number}</span>
+                <span className="font-mono font-extrabold text-sky-700 text-sm">{o.number}</span>
                 <span className={`badge-status ${statusCfg.style}`}>{statusCfg.label}</span>
               </div>
 
@@ -199,7 +199,7 @@ export function OrderTable({ orders, onStatusChange, onDeleteOrder }: OrderTable
                   <Link
                     to={`/admin/orders/$id`}
                     params={{ id: o.id }}
-                    className="rounded-xl bg-[#c8102e] px-3.5 py-2 text-xs font-bold text-white shadow-xs min-h-[38px] flex items-center justify-center gap-1.5 hover:bg-[#a50b23] transition-colors"
+                    className="rounded-xl bg-sky-600 px-3.5 py-2 text-xs font-bold text-white shadow-xs min-h-[38px] flex items-center justify-center gap-1.5 hover:bg-sky-700 transition-colors"
                   >
                     <Eye className="w-3.5 h-3.5" />
                     <span>عرض</span>
@@ -208,7 +208,7 @@ export function OrderTable({ orders, onStatusChange, onDeleteOrder }: OrderTable
                   {onDeleteOrder && (
                     <button
                       onClick={() => setDeletingOrder(o)}
-                      className="rounded-xl border border-red-200 bg-red-50 px-3.5 py-2 text-xs font-bold text-red-600 shadow-xs min-h-[38px] flex items-center justify-center gap-1.5 hover:bg-red-600 hover:text-white transition-colors"
+                      className="rounded-xl border border-sky-200 bg-sky-50 px-3.5 py-2 text-xs font-bold text-sky-600 shadow-xs min-h-[38px] flex items-center justify-center gap-1.5 hover:bg-sky-600 hover:text-white transition-colors"
                     >
                       <Trash2 className="w-3.5 h-3.5" />
                       <span>حذف</span>
@@ -225,8 +225,8 @@ export function OrderTable({ orders, onStatusChange, onDeleteOrder }: OrderTable
       {deletingOrder && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
           <div className="w-full max-w-md rounded-2xl border border-border bg-card p-6 shadow-xl space-y-4">
-            <div className="flex items-center gap-3 text-red-600">
-              <div className="rounded-full bg-red-100 p-2.5">
+              <div className="flex items-center gap-3 text-sky-600">
+                <div className="rounded-full bg-sky-100 p-2.5">
                 <AlertTriangle className="h-6 w-6" />
               </div>
               <h3 className="text-base font-bold">تأكيد حذف الطلب</h3>
@@ -249,7 +249,7 @@ export function OrderTable({ orders, onStatusChange, onDeleteOrder }: OrderTable
                 type="button"
                 onClick={handleDeleteConfirm}
                 disabled={deleteLoading}
-                className="inline-flex items-center gap-2 rounded-xl bg-red-600 px-4 py-2 text-xs font-bold text-white hover:bg-red-700 transition-colors disabled:opacity-50"
+                 className="inline-flex items-center gap-2 rounded-xl bg-sky-600 px-4 py-2 text-xs font-bold text-white hover:bg-sky-700 transition-colors disabled:opacity-50"
               >
                 {deleteLoading && <Loader2 className="h-3.5 w-3.5 animate-spin" />}
                 <span>حذف الطلب النهائي</span>

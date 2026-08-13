@@ -59,7 +59,7 @@ export function AccountLayout({ children, activeTab }: AccountLayoutProps) {
          <h1 className="fluid-h2 font-bold text-foreground">{t("account.title")}</h1>
         <button
           onClick={handleLogout}
-          className="flex items-center gap-2 rounded-xl bg-destructive/10 px-4 py-2 font-bold text-destructive hover:bg-destructive/20 transition-colors text-sm"
+          className="flex items-center gap-2 rounded-xl bg-sky-50 px-4 py-2 font-bold text-sky-700 hover:bg-sky-100 transition-colors text-sm border border-sky-200"
         >
           <LogOut className="h-4 w-4" />
            <span>{t("account.logout")}</span>

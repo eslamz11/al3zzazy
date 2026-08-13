@@ -53,7 +53,7 @@ export function AdminGuard({ children }: AdminGuardProps) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-[#fdfbf7] p-4 dir-rtl font-sans">
         <div className="flex flex-col items-center space-y-3 text-center">
-          <div className="h-8 w-8 animate-spin rounded-full border-3 border-[#c8102e] border-t-transparent" />
+          <div className="h-8 w-8 animate-spin rounded-full border-3 border-sky-600 border-t-transparent" />
           <p className="text-xs text-gray-500 font-medium">جاري التحقق من صلاحيات لوحة التحكم...</p>
         </div>
       </div>

@@ -542,7 +542,7 @@ function NewsletterSection() {
             </form>
           )}
           {status === "error" && (
-            <p className="mt-3 text-center text-sm text-red-400 md:text-start">
+            <p className="mt-3 text-center text-sm text-sky-500 md:text-start">
               {t("home.newsletterError")}
             </p>
           )}

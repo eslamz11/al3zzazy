@@ -140,7 +140,7 @@ function ProductDetailsPage() {
          <Link
            to="/$locale"
            params={{ locale }}
-           className="inline-block mt-4 text-[#C8102E] hover:underline font-bold"
+            className="inline-block mt-4 text-sky-700 hover:underline font-bold"
          >
            {t("common.backHome")}
          </Link>

@@ -11,10 +11,10 @@ interface StatsCardProps {
 }
 
 const colorClasses: Record<CardColor, { iconBg: string; iconText: string }> = {
-  brand: { iconBg: "bg-red-50", iconText: "text-red-600" },
+  brand: { iconBg: "bg-sky-50", iconText: "text-sky-600" },
   success: { iconBg: "bg-emerald-50", iconText: "text-emerald-600" },
   warning: { iconBg: "bg-amber-50", iconText: "text-amber-600" },
-  destructive: { iconBg: "bg-red-50", iconText: "text-red-600" },
+  destructive: { iconBg: "bg-sky-50", iconText: "text-sky-600" },
   neutral: { iconBg: "bg-gray-50", iconText: "text-gray-600" },
 };
 

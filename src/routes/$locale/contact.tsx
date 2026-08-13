@@ -249,7 +249,7 @@ function ContactPage() {
           </h2>
 
           {errorMessage && (
-            <div className="p-3.5 rounded-xl bg-red-50 border border-red-200 text-xs font-bold text-red-600">
+            <div className="p-3.5 rounded-xl bg-sky-50 border border-sky-200 text-xs font-bold text-sky-600">
               {errorMessage}
             </div>
           )}

@@ -51,7 +51,7 @@ export function NotificationBell() {
       <button onClick={handleToggle} className="admin-header-btn relative" aria-label="الإشعارات">
         <Bell className="h-5 w-5" />
         {unreadCount > 0 && (
-          <span className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-[#c8102e] text-[10px] font-bold text-white shadow-sm animate-pulse">
+          <span className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-sky-700 text-[10px] font-bold text-white shadow-sm animate-pulse">
             {unreadCount > 9 ? "9+" : unreadCount}
           </span>
         )}
@@ -69,7 +69,7 @@ export function NotificationBell() {
               {unreadCount > 0 && (
                 <button
                   onClick={handleMarkAllRead}
-                  className="flex items-center gap-1 text-xs text-[#c8102e] hover:underline font-bold"
+                  className="flex items-center gap-1 text-xs text-sky-700 hover:underline font-bold"
                 >
                   <CheckCheck className="h-3.5 w-3.5" />
                   <span>تحديد الكل كمقروء</span>
@@ -92,7 +92,7 @@ export function NotificationBell() {
                     className={`p-3 rounded-xl text-xs cursor-pointer transition-all ${
                       n.read
                         ? "bg-white hover:bg-[#fbf9f5] text-gray-600 border border-[#e5dfd7]"
-                        : "bg-[#fde8ea] hover:bg-[#fbd3d7] text-[#1a1c1c] font-semibold border border-[#f5b8c0]"
+                        : "bg-sky-50 hover:bg-sky-100 text-[#1a1c1c] font-semibold border border-sky-200"
                     }`}
                   >
                     <div className="flex items-center justify-between font-bold mb-1">

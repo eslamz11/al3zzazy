@@ -17,9 +17,9 @@ interface StatsCardProps {
 
 const palette: Record<CardColor, { bg: string; iconColor: string; border: string }> = {
   brand: {
-    bg: "#fde8ea",
-    iconColor: "#c8102e",
-    border: "#f8cfd4",
+    bg: "#e0f2fe",
+    iconColor: "#0284c7",
+    border: "#bae6fd",
   },
   success: {
     bg: "#ecfdf5",

@@ -186,7 +186,7 @@ export function VariantEditor({ variants, basePrice, skuPrefix, onChange }: Vari
                     <button
                       type="button"
                       onClick={() => handleDeleteVariant(v.id)}
-                      className="p-1 text-red-500 hover:text-red-700"
+                      className="p-1 text-sky-600 hover:text-sky-700"
                       title="حذف"
                     >
                       <Trash2 className="h-3.5 w-3.5" />

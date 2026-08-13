@@ -22,9 +22,9 @@ const toastStyles: Record<ToastType, { bg: string; text: string; border: string 
     border: "border-emerald-200",
   },
   error: {
-    bg: "bg-red-50",
-    text: "text-red-800",
-    border: "border-red-200",
+    bg: "bg-sky-50",
+    text: "text-sky-800",
+    border: "border-sky-200",
   },
   warning: {
     bg: "bg-amber-50",

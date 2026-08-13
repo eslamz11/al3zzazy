@@ -138,7 +138,7 @@ function AdminProductsPage() {
 
         <Link
           to="/admin/products/new"
-          className="inline-flex items-center gap-2 rounded-xl bg-[#c8102e] px-4 py-2.5 text-xs md:text-sm font-bold text-white shadow-xs hover:bg-[#a50b23] transition-colors min-h-[44px]"
+          className="inline-flex items-center gap-2 rounded-xl bg-sky-600 px-4 py-2.5 text-xs md:text-sm font-bold text-white shadow-xs hover:bg-sky-700 transition-colors min-h-[44px]"
         >
           <Plus className="h-4 w-4" />
           <span>منتج جديد</span>
@@ -154,7 +154,7 @@ function AdminProductsPage() {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="ابحث باسم المنتج أو الـ SKU..."
-            className="w-full rounded-xl border border-[#e5dfd7] bg-[#fbf9f5] pr-9 pl-3 py-2 text-xs focus:bg-white focus:border-[#c8102e] outline-none"
+            className="w-full rounded-xl border border-[#e5dfd7] bg-[#fbf9f5] pr-9 pl-3 py-2 text-xs focus:bg-white focus:border-sky-600 outline-none"
           />
         </div>
 

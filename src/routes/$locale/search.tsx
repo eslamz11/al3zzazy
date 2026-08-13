@@ -102,7 +102,7 @@ function SearchPage() {
     >
       {/* PAGE HEADER */}
       <div className="flex flex-col items-center justify-center space-y-3 text-center max-w-2xl mx-auto">
-        <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-red-50 text-[#C8102E] text-xs font-bold border border-red-100">
+        <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-sky-50 text-sky-700 text-xs font-bold border border-sky-100">
           <Sparkles className="h-3.5 w-3.5" />
           <span>{t("search.title")}</span>
         </div>
@@ -125,7 +125,7 @@ function SearchPage() {
             value={inputVal}
             onChange={(e) => setInputVal(e.target.value)}
             placeholder={t("search.placeholder")}
-            className="w-full rounded-2xl border-2 border-gray-200 bg-white py-4 ltr:pl-12 ltr:pr-24 rtl:pr-12 rtl:pl-24 text-sm font-bold text-gray-900 outline-none focus:border-[#C8102E] focus:ring-4 focus:ring-red-100 transition-all placeholder:text-gray-400"
+            className="w-full rounded-2xl border-2 border-gray-200 bg-white py-4 ltr:pl-12 ltr:pr-24 rtl:pr-12 rtl:pl-24 text-sm font-bold text-gray-900 outline-none focus:border-sky-500 focus:ring-4 focus:ring-sky-100 transition-all placeholder:text-gray-400"
           />
 
           <Search className="absolute ltr:left-4 rtl:right-4 h-5 w-5 text-gray-400 pointer-events-none" />
@@ -145,7 +145,7 @@ function SearchPage() {
           {/* SUBMIT BUTTON */}
           <button
             type="submit"
-            className="absolute ltr:right-2 rtl:left-2 top-2 bottom-2 rounded-xl bg-[#C8102E] hover:bg-red-700 px-5 text-white font-bold text-xs shadow-md transition-colors flex items-center justify-center gap-1.5"
+            className="absolute ltr:right-2 rtl:left-2 top-2 bottom-2 rounded-xl bg-sky-600 hover:bg-sky-700 px-5 text-white font-bold text-xs shadow-md transition-colors flex items-center justify-center gap-1.5"
           >
             <span>{t("header.searchShort")}</span>
           </button>
@@ -162,7 +162,7 @@ function SearchPage() {
                 setInputVal(term);
                 navigate({ to: href("/search"), search: { q: term } });
               }}
-              className="px-3 py-1 bg-gray-100 hover:bg-red-50 hover:text-[#C8102E] border border-gray-200 rounded-full transition-colors text-[11px]"
+              className="px-3 py-1 bg-gray-100 hover:bg-sky-50 hover:text-sky-700 border border-gray-200 rounded-full transition-colors text-[11px]"
             >
               {term}
             </button>
@@ -182,7 +182,7 @@ function SearchPage() {
             </div>
           </div>
         ) : errored ? (
-          <div className="p-6 bg-red-50 border border-red-200 rounded-2xl text-center text-red-700 text-sm font-bold max-w-lg mx-auto">
+          <div className="p-6 bg-sky-50 border border-sky-200 rounded-2xl text-center text-sky-700 text-sm font-bold max-w-lg mx-auto">
             {t("search.failed")}
           </div>
         ) : q && products.length === 0 ? (
@@ -194,7 +194,7 @@ function SearchPage() {
             </div>
             <Link
               to={href("/collections/mattresses")}
-              className="mt-2 inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#C8102E] text-white text-xs font-bold hover:bg-red-700 transition-colors shadow-sm"
+              className="mt-2 inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-sky-600 text-white text-xs font-bold hover:bg-sky-700 transition-colors shadow-sm"
             >
               <span>{t("nav.collections")}</span>
               {dir === "rtl" ? (
@@ -208,7 +208,7 @@ function SearchPage() {
           <div className="space-y-6">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-gray-200 pb-4">
               <h2 className="text-lg font-black text-gray-900">
-                {t("search.resultsFor")} <span className="text-[#C8102E]">"{q}"</span>
+                {t("search.resultsFor")} <span className="text-sky-700">"{q}"</span>
               </h2>
               <span className="text-xs font-bold text-gray-500 bg-gray-100 px-3 py-1 rounded-full border border-gray-200">
                 {t("search.found", { count: products.length })}

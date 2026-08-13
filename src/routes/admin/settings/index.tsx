@@ -92,7 +92,7 @@ function AdminSettingsPage() {
         <button
           type="submit"
           disabled={saving}
-          className="inline-flex items-center space-x-2 space-x-reverse rounded-xl bg-[#c8102e] px-6 py-3 text-xs font-bold text-white hover:bg-red-700 transition-colors shadow-xs disabled:opacity-50 min-h-[44px]"
+          className="inline-flex items-center space-x-2 space-x-reverse rounded-xl bg-sky-600 px-6 py-3 text-xs font-bold text-white hover:bg-sky-700 transition-colors shadow-xs disabled:opacity-50 min-h-[44px]"
         >
           {saving ? (
             <>
@@ -118,7 +118,7 @@ function AdminSettingsPage() {
 
       {/* ERROR ALERTS */}
       {errorMessages.length > 0 && (
-        <div className="rounded-2xl bg-red-50 border border-red-200 p-4 text-xs font-bold text-[#c8102e] space-y-1">
+        <div className="rounded-2xl bg-sky-50 border border-sky-200 p-4 text-xs font-bold text-sky-700 space-y-1">
           <div className="flex items-center space-x-2 space-x-reverse">
             <AlertCircle className="h-5 w-5 shrink-0" />
             <span>يرجى تصحيح الأخطاء التالية قبل الحفظ:</span>
@@ -135,7 +135,7 @@ function AdminSettingsPage() {
         {/* GENERAL BRAND INFO */}
         <div className="rounded-2xl border border-border bg-card p-6 shadow-xs space-y-4 text-xs">
           <h2 className="text-sm font-bold border-b border-border pb-2 flex items-center space-x-2 space-x-reverse">
-            <Store className="h-4 w-4 text-[#c8102e]" />
+            <Store className="h-4 w-4 text-sky-600" />
             <span>بيانات المتجر والماركة</span>
           </h2>
 
@@ -199,7 +199,7 @@ function AdminSettingsPage() {
         {/* CONTACT PHONES & EMAIL */}
         <div className="rounded-2xl border border-border bg-card p-6 shadow-xs space-y-4 text-xs">
           <h2 className="text-sm font-bold border-b border-border pb-2 flex items-center space-x-2 space-x-reverse">
-            <PhoneCall className="h-4 w-4 text-[#c8102e]" />
+            <PhoneCall className="h-4 w-4 text-sky-600" />
             <span>أرقام الهواتف والبريد</span>
           </h2>
 
@@ -245,7 +245,7 @@ function AdminSettingsPage() {
         {/* BRANCHES INFORMATION */}
         <div className="rounded-2xl border border-border bg-card p-6 shadow-xs space-y-4 text-xs">
           <h2 className="text-sm font-bold border-b border-border pb-2 flex items-center space-x-2 space-x-reverse">
-            <MapPin className="h-4 w-4 text-[#c8102e]" />
+            <MapPin className="h-4 w-4 text-sky-600" />
             <span>عنوان الفروع (Branches)</span>
           </h2>
 
@@ -277,7 +277,7 @@ function AdminSettingsPage() {
         {/* SOCIAL MEDIA LINKS */}
         <div className="rounded-2xl border border-border bg-card p-6 shadow-xs space-y-4 text-xs">
           <h2 className="text-sm font-bold border-b border-border pb-2 flex items-center space-x-2 space-x-reverse">
-            <Share2 className="h-4 w-4 text-[#c8102e]" />
+            <Share2 className="h-4 w-4 text-sky-600" />
             <span>حسابات وسائط التواصل</span>
           </h2>
 
@@ -353,7 +353,7 @@ function AdminSettingsPage() {
         {/* SHIPPING & DELIVERY */}
         <div className="rounded-2xl border border-border bg-card p-6 shadow-xs space-y-4 text-xs">
           <h2 className="text-sm font-bold border-b border-border pb-2 flex items-center space-x-2 space-x-reverse">
-            <Truck className="h-4 w-4 text-[#c8102e]" />
+            <Truck className="h-4 w-4 text-sky-600" />
             <span>إعدادات الشحن والتوصيل</span>
           </h2>
 
@@ -393,7 +393,7 @@ function AdminSettingsPage() {
         {/* PAYMENTS */}
         <div className="rounded-2xl border border-border bg-card p-6 shadow-xs space-y-4 text-xs">
           <h2 className="text-sm font-bold border-b border-border pb-2 flex items-center space-x-2 space-x-reverse">
-            <CreditCard className="h-4 w-4 text-[#c8102e]" />
+            <CreditCard className="h-4 w-4 text-sky-600" />
             <span>خيارات الدفع</span>
           </h2>
 
@@ -407,7 +407,7 @@ function AdminSettingsPage() {
                   payments: { ...settings.payments, codEnabled: e.target.checked },
                 })
               }
-              className="h-4 w-4 rounded-md border-input text-[#c8102e]"
+              className="h-4 w-4 rounded-md border-input text-sky-600"
             />
             <span className="font-bold text-gray-900">
               تفعيل الدفع عند الاستلام (Cash On Delivery)

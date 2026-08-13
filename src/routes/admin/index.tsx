@@ -141,7 +141,7 @@ function AdminDashboardHome() {
     return (
       <div className="flex items-center justify-center py-20">
         <div className="flex items-center gap-3 text-gray-600">
-          <Loader2 className="h-6 w-6 animate-spin text-[#c8102e]" />
+          <Loader2 className="h-6 w-6 animate-spin text-sky-600" />
           <span className="text-sm font-medium">جاري تحميل لوحة التحكم...</span>
         </div>
       </div>
@@ -159,21 +159,21 @@ function AdminDashboardHome() {
         <div className="flex flex-wrap items-center gap-2">
           <Link
             to="/admin/products/new"
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-[#c8102e] hover:bg-[#a50b23] text-white text-sm font-semibold transition-colors"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-sky-600 hover:bg-sky-700 text-white text-sm font-semibold transition-colors"
           >
             <Plus className="h-4 w-4" />
             <span>منتج جديد</span>
           </Link>
           <Link
             to="/admin/categories"
-            className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg border border-[#e5dfd7] hover:border-[#c8102e] hover:text-[#c8102e] text-sm font-medium transition-colors"
+            className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg border border-[#e5dfd7] hover:border-sky-600 hover:text-sky-700 text-sm font-medium transition-colors"
           >
             <FolderPlus className="h-4 w-4" />
             <span>التصنيفات</span>
           </Link>
           <Link
             to="/admin/settings"
-            className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg border border-[#e5dfd7] hover:border-[#c8102e] hover:text-[#c8102e] text-sm font-medium transition-colors"
+            className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg border border-[#e5dfd7] hover:border-sky-600 hover:text-sky-700 text-sm font-medium transition-colors"
           >
             <Settings className="h-4 w-4" />
           </Link>
@@ -184,20 +184,20 @@ function AdminDashboardHome() {
       {unreadMessages > 0 && (
         <Link
           to="/admin/reviews"
-          className="flex items-center justify-between gap-4 p-4 rounded-lg border border-red-200 bg-red-50 hover:bg-red-100 transition-colors"
+          className="flex items-center justify-between gap-4 p-4 rounded-lg border border-sky-200 bg-sky-50 hover:bg-sky-100 transition-colors"
         >
           <div className="flex items-center gap-3">
-            <div className="p-2 rounded-md bg-red-600 text-white">
+            <div className="p-2 rounded-md bg-sky-600 text-white">
               <MessageSquare className="h-4 w-4" />
             </div>
             <div>
-              <p className="text-sm font-semibold text-red-900">
+              <p className="text-sm font-semibold text-sky-900">
                 لديك {unreadMessages} رسائل جديدة غير مقروءة
               </p>
-              <p className="text-xs text-red-700">اضغط لعرض الرسائل والرد على العملاء</p>
+              <p className="text-xs text-sky-700">اضغط لعرض الرسائل والرد على العملاء</p>
             </div>
           </div>
-          <ArrowUpRight className="h-4 w-4 text-red-600 shrink-0" />
+          <ArrowUpRight className="h-4 w-4 text-sky-600 shrink-0" />
         </Link>
       )}
 
@@ -251,7 +251,7 @@ function AdminDashboardHome() {
       <div className="border border-[#e5dfd7] bg-white rounded-lg overflow-hidden">
         <div className="flex items-center justify-between px-5 py-3 border-b border-[#f4f0eb]">
           <h2 className="text-sm font-bold text-[#1a1c1c]">أحدث الطلبات</h2>
-          <Link to="/admin/orders" className="text-xs font-semibold text-[#c8102e] hover:underline">
+          <Link to="/admin/orders" className="text-xs font-semibold text-sky-700 hover:underline">
             عرض الكل ({recentOrders.length})
           </Link>
         </div>
@@ -270,7 +270,7 @@ function AdminDashboardHome() {
                     <Link
                       to={`/admin/orders/$id`}
                       params={{ id: order.id }}
-                      className="text-sm font-bold text-[#c8102e] hover:underline font-mono"
+                      className="text-sm font-bold text-sky-700 hover:underline font-mono"
                     >
                       {order.number}
                     </Link>
@@ -284,7 +284,7 @@ function AdminDashboardHome() {
                       value={order.status}
                       onChange={(e) => handleStatusChange(order.id, e.target.value)}
                       disabled={isUpdating}
-                      className="text-xs px-2.5 py-1.5 rounded-md border border-[#e5dfd7] bg-white focus:border-[#c8102e] outline-none disabled:opacity-50 disabled:cursor-not-allowed"
+                       className="text-xs px-2.5 py-1.5 rounded-md border border-[#e5dfd7] bg-white focus:border-sky-600 outline-none disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       <option value="pending">جديد</option>
                       <option value="confirmed">تم التأكيد</option>
@@ -298,13 +298,13 @@ function AdminDashboardHome() {
                     <Link
                       to={`/admin/orders/$id`}
                       params={{ id: order.id }}
-                      className="text-xs px-3 py-1.5 rounded-md border border-[#e5dfd7] hover:border-[#c8102e] hover:text-[#c8102e] transition-colors font-medium"
+                      className="text-xs px-3 py-1.5 rounded-md border border-[#e5dfd7] hover:border-sky-600 hover:text-sky-700 transition-colors font-medium"
                     >
                       عرض
                     </Link>
                     <button
                       onClick={() => handleDeleteOrder(order.id)}
-                      className="text-xs px-3 py-1.5 rounded-md border border-red-200 text-red-600 hover:bg-red-600 hover:text-white hover:border-red-600 transition-colors font-medium"
+                      className="text-xs px-3 py-1.5 rounded-md border border-sky-200 text-sky-600 hover:bg-sky-600 hover:text-white hover:border-sky-600 transition-colors font-medium"
                     >
                       حذف
                     </button>

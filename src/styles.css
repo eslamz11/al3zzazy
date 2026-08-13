@@ -98,6 +98,7 @@
   --destructive-foreground: #ffffff;
   --success: #16a34a;
   --success-foreground: #ffffff;
+
   --warning: #eab308;
 
   --border: #e2e8f0;
@@ -332,7 +333,7 @@
 }
 
 .admin-nav-item-active {
-  background-color: #c8102e;
+  background-color: #0284c7;
   color: #ffffff;
 }
 
@@ -353,7 +354,7 @@
   width: 32px;
   height: 32px;
   border-radius: 8px;
-  background: linear-gradient(135deg, #c8102e, #9b0a22);
+  background: linear-gradient(135deg, #0284c7, #0369a1);
   color: #ffffff;
   font-size: 0.75rem;
   font-weight: 700;
@@ -412,8 +413,8 @@
 
 .admin-search-input:focus {
   background-color: #ffffff;
-  border-color: #c8102e;
-  box-shadow: 0 0 0 3px rgba(200, 16, 46, 0.12);
+  border-color: #0284c7;
+  box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.12);
 }
 
 .admin-search-input::placeholder {
@@ -449,9 +450,9 @@
 }
 
 .admin-header-action:hover {
-  border-color: #c8102e;
-  color: #c8102e;
-  background-color: #fde8ea;
+  border-color: #0284c7;
+  color: #0284c7;
+  background-color: #e0f2fe;
 }
 
 .admin-profile-btn {
@@ -471,12 +472,12 @@
   width: 36px;
   height: 36px;
   border-radius: 10px;
-  background: linear-gradient(135deg, #c8102e, #9b0a22);
+  background: linear-gradient(135deg, #0284c7, #0369a1);
   color: #ffffff;
   font-size: 0.8125rem;
   font-weight: 700;
   flex-shrink: 0;
-  box-shadow: 0 2px 6px rgba(200, 16, 46, 0.25);
+  box-shadow: 0 2px 6px rgba(2, 132, 199, 0.25);
 }
 
 /* ── DROPDOWN ─────────────────────────────────────────────── */

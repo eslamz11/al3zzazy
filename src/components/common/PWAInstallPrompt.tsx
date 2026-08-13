@@ -83,11 +83,11 @@ export function PWAInstallPrompt() {
         }}
       >
         {/* Glowing background circles */}
-        <div className="absolute -top-10 -right-10 h-40 w-40 rounded-full bg-[#C8102E]/20 blur-3xl pointer-events-none" />
-        <div className="absolute -bottom-10 -left-10 h-32 w-32 rounded-full bg-[#C8102E]/10 blur-2xl pointer-events-none" />
+        <div className="absolute -top-10 -right-10 h-40 w-40 rounded-full bg-sky-500/20 blur-3xl pointer-events-none" />
+        <div className="absolute -bottom-10 -left-10 h-32 w-32 rounded-full bg-sky-500/10 blur-2xl pointer-events-none" />
 
         {/* Top bar */}
-        <div className="h-1 w-full bg-gradient-to-r from-[#C8102E] via-[#ff4d6d] to-[#C8102E]" />
+        <div className="h-1 w-full bg-gradient-to-r from-sky-500 via-sky-400 to-sky-500" />
 
         {/* Close button */}
         <button
@@ -102,11 +102,11 @@ export function PWAInstallPrompt() {
           {/* Header */}
           <div className="flex items-center gap-3 pt-1">
             {/* Icon */}
-            <div className="h-12 w-12 rounded-2xl bg-[#C8102E] flex items-center justify-center shrink-0 shadow-lg shadow-[#C8102E]/40">
+            <div className="h-12 w-12 rounded-2xl bg-sky-600 flex items-center justify-center shrink-0 shadow-lg shadow-sky-500/40">
               <span className="text-white font-black text-sm leading-none">SH</span>
             </div>
             <div>
-              <p className="text-[10px] font-bold text-[#C8102E] tracking-widest uppercase mb-0.5">
+              <p className="text-[10px] font-bold text-sky-600 tracking-widest uppercase mb-0.5">
                 {t("pwa.eyebrow")}
               </p>
               <h3 className="text-white font-black text-base leading-tight">
@@ -127,8 +127,8 @@ export function PWAInstallPrompt() {
                 key={label}
                 className="flex flex-col items-center gap-1.5 rounded-2xl bg-white/5 p-2.5 text-center border border-white/5"
               >
-                <div className="h-7 w-7 rounded-full bg-[#C8102E]/20 flex items-center justify-center">
-                  <Icon className="h-3.5 w-3.5 text-[#C8102E]" />
+                <div className="h-7 w-7 rounded-full bg-sky-500/20 flex items-center justify-center">
+                  <Icon className="h-3.5 w-3.5 text-sky-500" />
                 </div>
                 <span className="text-[10px] text-white/70 leading-tight font-medium">{label}</span>
               </div>
@@ -155,9 +155,9 @@ export function PWAInstallPrompt() {
               className={cn(
                 "relative w-full flex items-center justify-center gap-2 py-3.5 rounded-2xl",
                 "font-black text-sm text-white transition-all duration-300",
-                "bg-gradient-to-r from-[#C8102E] to-[#e52237]",
-                "shadow-lg shadow-[#C8102E]/40",
-                "hover:shadow-[#C8102E]/60 hover:scale-[1.02]",
+                "bg-gradient-to-r from-sky-600 to-sky-500",
+                "shadow-lg shadow-sky-500/40",
+                "hover:shadow-sky-500/60 hover:scale-[1.02]",
                 "active:scale-[0.98]",
                 "disabled:opacity-70",
               )}

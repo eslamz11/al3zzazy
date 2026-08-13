@@ -142,7 +142,7 @@ export function GoogleSignInPanel({ context, onSuccess, onError, disabled }: Pro
           type="button"
           onClick={handleFallback}
           disabled={loading || disabled}
-          className="flex w-full items-center justify-center gap-3 rounded-xl border border-gray-200 bg-white hover:bg-gray-50 px-4 py-3.5 text-sm font-bold text-gray-700 shadow-sm transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-red-100 disabled:opacity-50 cursor-pointer"
+          className="flex w-full items-center justify-center gap-3 rounded-xl border border-gray-200 bg-white hover:bg-gray-50 px-4 py-3.5 text-sm font-bold text-gray-700 shadow-sm transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-sky-100 disabled:opacity-50 cursor-pointer"
         >
           <GoogleIcon />
           <span>
