@@ -24,10 +24,10 @@ function TermsOfUsePage() {
               className="hover:text-white transition-colors flex items-center gap-1"
             >
               <Home className="h-3.5 w-3.5" />
-               <span>{t("common.home")}</span>
+              <span>{t("common.home")}</span>
             </Link>
             <ChevronDown className="h-3 w-3 rotate-90" />
-             <span className="text-white font-medium">{t("page.terms")}</span>
+            <span className="text-white font-medium">{t("page.terms")}</span>
           </nav>
           <div className="flex items-center gap-3 mb-4">
             <div className="w-12 h-12 rounded-2xl bg-white/10 backdrop-blur-sm flex items-center justify-center">
@@ -50,7 +50,7 @@ function TermsOfUsePage() {
               {t("terms.s1Title")}
             </h2>
             <p className="text-muted-foreground leading-relaxed text-sm">
-             {t("terms.s1Text")}
+              {t("terms.s1Text")}
             </p>
           </section>
 
@@ -64,15 +64,15 @@ function TermsOfUsePage() {
             <ul className="space-y-2 text-muted-foreground text-sm">
               <li className="flex items-start gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-brand mt-2 shrink-0" />
-                 <span>{t("terms.s2Item1")}</span>
+                <span>{t("terms.s2Item1")}</span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-brand mt-2 shrink-0" />
-                 <span>{t("terms.s2Item2")}</span>
+                <span>{t("terms.s2Item2")}</span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-brand mt-2 shrink-0" />
-                 <span>{t("terms.s2Item3")}</span>
+                <span>{t("terms.s2Item3")}</span>
               </li>
             </ul>
           </section>
@@ -87,19 +87,19 @@ function TermsOfUsePage() {
             <ul className="space-y-2 text-muted-foreground text-sm">
               <li className="flex items-start gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-brand mt-2 shrink-0" />
-                 <span>{t("terms.s3Item1")}</span>
+                <span>{t("terms.s3Item1")}</span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-brand mt-2 shrink-0" />
-                 <span>{t("terms.s3Item2")}</span>
+                <span>{t("terms.s3Item2")}</span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-brand mt-2 shrink-0" />
-                 <span>{t("terms.s3Item3")}</span>
+                <span>{t("terms.s3Item3")}</span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-brand mt-2 shrink-0" />
-                 <span>{t("terms.s3Item4")}</span>
+                <span>{t("terms.s3Item4")}</span>
               </li>
             </ul>
           </section>
@@ -112,7 +112,7 @@ function TermsOfUsePage() {
               {t("terms.s4Title")}
             </h2>
             <p className="text-muted-foreground leading-relaxed text-sm">
-             {t("terms.s4Text")}
+              {t("terms.s4Text")}
             </p>
           </section>
 
@@ -136,7 +136,7 @@ function TermsOfUsePage() {
               {t("terms.s6Title")}
             </h2>
             <p className="text-muted-foreground leading-relaxed text-sm">
-             {t("terms.s6Text")}
+              {t("terms.s6Text")}
             </p>
           </section>
 
@@ -148,11 +148,11 @@ function TermsOfUsePage() {
               تواصل معنا
             </h2>
             <p className="text-muted-foreground leading-relaxed text-sm">
-               {t("terms.s7Text")}{" "}
-               <Link to={href("/contact")} className="text-brand font-bold hover:underline">
-                 {t("policy.contactLink")}
-               </Link>{" "}
-               {t("terms.s7TextEnd")} info@sleephigh-eg.com
+              {t("terms.s7Text")}{" "}
+              <Link to={href("/contact")} className="text-brand font-bold hover:underline">
+                {t("policy.contactLink")}
+              </Link>{" "}
+              {t("terms.s7TextEnd")} info@Al3azzazy-eg.com
             </p>
           </section>
         </div>

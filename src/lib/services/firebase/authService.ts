@@ -21,7 +21,7 @@ import { doc, setDoc, getDoc, updateDoc, serverTimestamp } from "firebase/firest
 import { auth, db } from "@/lib/firebase";
 import type { User, UserRole, Address } from "@/lib/types";
 
-const ADMIN_EMAIL = "sleephigh31@gmail.com";
+const ADMIN_EMAIL = "admin@gmail.com";
 
 function firebaseUserToUser(fbUser: FirebaseUser, role?: UserRole): User {
   return {

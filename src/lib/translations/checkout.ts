@@ -4,8 +4,8 @@ export const checkoutDict = {
   "cart.title": { ar: "سلة المشتريات", en: "Shopping cart" },
   "cart.empty": { ar: "سلة مشترياتك فارغة", en: "Your cart is empty" },
   "cart.emptyHint": {
-    ar: "أضف بعض المنتجات الرائعة واستمتع بنوم مريح.",
-    en: "Add a few great products and start sleeping better.",
+    ar: "أضف بعض المنتجات الرائعة والمستلزمات المدرسية لسلّتك.",
+    en: "Add some great kids wear and school items to your cart.",
   },
   "cart.startShopping": { ar: "تسوق الآن", en: "Shop now" },
   "cart.columnProduct": { ar: "المنتج", en: "Product" },
@@ -19,17 +19,17 @@ export const checkoutDict = {
   "cart.viewCart": { ar: "عرض السلة", en: "View cart" },
   "cart.remove": { ar: "حذف", en: "Remove" },
   "cart.moveToWishlist": { ar: "نقل إلى المفضلة", en: "Move to wishlist" },
-  "cart.freeShipping": { ar: "مجاني", en: "Free" },
+  "cart.freeShipping": { ar: "حسب المنطقة", en: "By location" },
   "cart.itemsCount": { ar: "عنصر", en: "items" },
   "cart.continueShopping": { ar: "الاستمرار في التسوق", en: "Continue shopping" },
   "cart.orderSummary": { ar: "ملخص الطلب", en: "Order summary" },
   "cart.freeShippingUnlocked": {
-    ar: "تهانينا! لقد حصلت على شحن مجاني",
-    en: "Congratulations! You've unlocked free shipping",
+    ar: "شحن سريع وآمن إلى جميع المحافظات",
+    en: "Fast and safe shipping to all governorates",
   },
   "cart.freeShippingRemaining": {
-    ar: "أضف بـ {amount} للحصول على شحن مجاني",
-    en: "Add {amount} more to get free shipping",
+    ar: "شحن سريع وآمن حتى باب منزلك",
+    en: "Fast delivery right to your doorstep",
   },
   "cart.securePayment": { ar: "دفع آمن ومحمي 100%", en: "100% safe and secure payment" },
 

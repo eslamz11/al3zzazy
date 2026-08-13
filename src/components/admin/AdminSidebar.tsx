@@ -193,9 +193,9 @@ export function AdminSidebar({
             }}
           >
             <img
-              src="https://sleephigh-eg.myshopify.com/cdn/shop/files/h_logo_250x.png?v=1697100417"
-              alt="سليب هاي"
-              style={{ height: 24, width: "auto", objectFit: "contain" }}
+              src="https://i.ibb.co/Z5Sxv6K/Chat-GPT-Image-Aug-13-2026-06-46-12-PM.png"
+              alt="العزازي مول"
+              style={{ height: 28, width: "auto", objectFit: "contain" }}
             />
           </div>
 
@@ -214,7 +214,7 @@ export function AdminSidebar({
                     letterSpacing: "-0.01em",
                   }}
                 >
-                  سليب هاي
+                  العزازي مول
                 </p>
                 <span
                   style={{

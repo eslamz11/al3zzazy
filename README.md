@@ -1,8 +1,8 @@
 <div align="center">
 
-<img src="https://i.ibb.co/84sTn2W3/screencapture-localhost-8080-ar-2026-08-11-06-56-31.png" alt="SleepHigh Egypt Banner" width="100%"/>
+<img src="https://i.ibb.co/84sTn2W3/screencapture-localhost-8080-ar-2026-08-11-06-56-31.png" alt="Al3azzazy Egypt Banner" width="100%"/>
 
-# 🛏️ SleepHigh Egypt | سليب هاي مصر
+# 🛏️ Al3azzazy Egypt | العزازي مولمصر
 
 ### Premium Sleep. Delivered.
 
@@ -26,7 +26,7 @@ A high-performance, fully bilingual e-commerce platform for mattresses, pillows 
 
 ## 🇪🇬 نبذة عن المشروع (Arabic Overview)
 
-> **سليب هاي مصر** هي منصة تجارة إلكترونية متكاملة ومتخصصة في بيع المراتب والوسائد ومستلزمات النوم داخل السوق المصري. تم بناء المنصة باستخدام أحدث تقنيات الويب لتوفير تجربة تسوق سريعة وسلسة بالكامل باللغة العربية (مع دعم الاتجاه من اليمين لليسار RTL)، بالإضافة إلى نسخة إنجليزية كاملة.
+> **العزازي مولمصر** هي منصة تجارة إلكترونية متكاملة ومتخصصة في بيع المراتب والوسائد ومستلزمات النوم داخل السوق المصري. تم بناء المنصة باستخدام أحدث تقنيات الويب لتوفير تجربة تسوق سريعة وسلسة بالكامل باللغة العربية (مع دعم الاتجاه من اليمين لليسار RTL)، بالإضافة إلى نسخة إنجليزية كاملة.
 >
 > يحتوي المشروع على واجهة أمامية (Storefront) غنية بالمميزات للعملاء، ولوحة تحكم إدارية (Admin Dashboard) شاملة لإدارة المنتجات والطلبات والمخزون والتحليلات في الوقت الفعلي، مبنية بالكامل على بنية Firebase السحابية.
 >
@@ -61,7 +61,7 @@ A high-performance, fully bilingual e-commerce platform for mattresses, pillows 
 
 ## 🌙 About the Project
 
-**SleepHigh Egypt** is a premium, production-grade e-commerce platform purpose-built for the sleep & bedding industry in Egypt. It combines a blazing-fast, SEO-friendly, server-side rendered storefront with a powerful real-time admin CMS — enabling the business team to manage products, orders, inventory, and homepage content without touching a single line of code.
+**Al3azzazy Egypt** is a premium, production-grade e-commerce platform purpose-built for the sleep & bedding industry in Egypt. It combines a blazing-fast, SEO-friendly, server-side rendered storefront with a powerful real-time admin CMS — enabling the business team to manage products, orders, inventory, and homepage content without touching a single line of code.
 
 The platform is **fully bilingual** (Arabic 🇪🇬 default with native RTL layout, and English 🇬🇧 LTR), fully responsive across devices, and installable as a **Progressive Web App** with offline support.
 
@@ -119,7 +119,7 @@ The platform is **fully bilingual** (Arabic 🇪🇬 default with native RTL lay
 ## 🏗️ Project Architecture
 
 ```
-sleephigh-egypt/
+Al3azzazy-egypt/
 ├── app/
 │   ├── routes/              # TanStack Router file-based routes (storefront + admin)
 │   ├── components/          # Shared UI components (Radix + shadcn/ui based)
@@ -152,8 +152,8 @@ Make sure you have the following installed:
 1. **Clone the repository**
 
    ```bash
-   git clone https://github.com/your-username/sleephigh-egypt.git
-   cd sleephigh-egypt
+   git clone https://github.com/your-username/Al3azzazy-egypt.git
+   cd Al3azzazy-egypt
    ```
 
 2. **Install dependencies**
@@ -204,7 +204,7 @@ VITE_FIREBASE_APP_ID=your_app_id
 
 ## ☁️ Deployment
 
-SleepHigh Egypt is built on **Nitro**, giving it flexible, framework-agnostic deployment options.
+Al3azzazy Egypt is built on **Nitro**, giving it flexible, framework-agnostic deployment options.
 
 ### ▲ Vercel (Recommended — Zero Config)
 
@@ -226,7 +226,7 @@ SleepHigh Egypt is built on **Nitro**, giving it flexible, framework-agnostic de
    ```
 4. (Recommended) Run it behind a process manager like **PM2** and a reverse proxy (Nginx) for SSL termination and uptime management:
    ```bash
-   pm2 start .output/server/index.mjs --name sleephigh-egypt
+   pm2 start .output/server/index.mjs --name Al3azzazy-egypt
    ```
 
 ---
@@ -248,7 +248,7 @@ This project is licensed under the **MIT License**.
 ```
 MIT License
 
-Copyright (c) 2026 SleepHigh Egypt
+Copyright (c) 2026 Al3azzazy Egypt
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -272,6 +272,6 @@ See the [LICENSE](LICENSE) file for full details.
 
 Made with 💤 and ☕ for better sleep in Egypt
 
-**SleepHigh Egypt** © 2026
+**Al3azzazy Egypt** © 2026
 
 </div>

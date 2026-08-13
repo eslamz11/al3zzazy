@@ -1,11 +1,5 @@
 import type { Localized } from "./types";
 
-/**
- * Long-form, bilingual marketing content that belongs to specific pages.
- * Kept out of the translation dictionary because it is structured data
- * (lists/cards) rather than individual UI strings.
- */
-
 export interface HomeTestimonial {
   id: string;
   name: Localized;
@@ -17,42 +11,32 @@ export interface HomeTestimonial {
 export const HOME_TESTIMONIALS: HomeTestimonial[] = [
   {
     id: "1",
-    name: { ar: "سارة", en: "Sara" },
-    city: { ar: "القاهرة", en: "Cairo" },
+    name: { ar: "أم سارة", en: "Om Sara" },
+    city: { ar: "كفر الزيات", en: "Kafr El Zayat" },
     rating: 5,
     body: {
-      ar: "المرتبة اللي اشتريتها من سليب هاي غيّرت تجربة نومي تمامًا. مريحة جدًا، وبصحى كل يوم حاسة بالانتعاش. الجودة ممتازة.",
-      en: "The mattress I bought from SleepHigh completely changed the way I sleep. It's incredibly comfortable and I wake up refreshed every day. Excellent quality.",
+      ar: "الملابس اللي اشتريتها من العزازي مول غاية في الأناقة والقطن مريح جداً للبنات، والأسعار مناسبة جداً.",
+      en: "The clothes I bought from Al3azzazy Store are super stylish, soft cotton, and very reasonably priced.",
     },
   },
   {
     id: "2",
-    name: { ar: "أحمد", en: "Ahmed" },
-    city: { ar: "الإسكندرية", en: "Alexandria" },
+    name: { ar: "أحمد علي", en: "Ahmed Ali" },
+    city: { ar: "طنطا", en: "Tanta" },
     rating: 5,
     body: {
-      ar: "أفضل استثمار عملته لراحتي. الوسائد الطبية ممتازة جداً وتدعم الرقبة بشكل مثالي، وخدمة العملاء كانت راقية.",
-      en: "The best investment I've made in my own comfort. The orthopaedic pillows support my neck perfectly and the customer service was outstanding.",
+      ar: "شنطة المدرسة والمقلمة خامتها ممتازة وتستحمل الاستخدام اليومي للأطفال، وسرعة في التوصيل.",
+      en: "The school backpack and pencil case are extremely durable for daily kids use with fast delivery.",
     },
   },
   {
     id: "3",
-    name: { ar: "محمود", en: "Mahmoud" },
-    city: { ar: "الجيزة", en: "Giza" },
+    name: { ar: "إيمان محمود", en: "Eman Mahmoud" },
+    city: { ar: "المحلة الكبرى", en: "El Mahalla" },
     rating: 5,
     body: {
-      ar: "جودة المراتب تفوق التوقعات، السعر مقابل الجودة ممتاز. التوصيل كان سريع جداً ومندوب التوصيل كان متعاون.",
-      en: "The mattress quality exceeds expectations and the value for money is excellent. Delivery was very fast and the courier was really helpful.",
-    },
-  },
-  {
-    id: "4",
-    name: { ar: "منى", en: "Mona" },
-    city: { ar: "المنصورة", en: "Mansoura" },
-    rating: 5,
-    body: {
-      ar: "الخامات المستخدمة فخمة جداً، بحس إني نايمة في فندق 5 نجوم. شكراً سليب هاي على الجودة الرائعة.",
-      en: "The materials feel truly luxurious — it's like sleeping in a five-star hotel. Thank you SleepHigh for the wonderful quality.",
+      ar: "سالوبيتات حديثي الولادة ناعمة جداً وخامتها آمنة على بشرة البيبي. تعامل محترم وخدمة ممتازة.",
+      en: "Newborn onesies are ultra-soft and safe for baby skin. Great customer service and high quality.",
     },
   },
 ];
@@ -66,34 +50,34 @@ export interface HomeBenefit {
 export const HOME_BENEFITS: HomeBenefit[] = [
   {
     icon: "verified",
-    title: { ar: "جودة لا تتنازل", en: "Uncompromising quality" },
+    title: { ar: "خامات قطنية 100%", en: "100% Cotton Quality" },
     desc: {
-      ar: "نحن ملتزمون بتقديم منتجات عالية الجودة، مصنوعة بعناية للتفاصيل والدقة. التزامنا بالتفوق يضمن أن كل عنصر مصنوع ليتجاوز توقعاتك مما يوفر لك راحة لا مثيل لها.",
-      en: "We are committed to high-quality products, crafted with meticulous attention to detail. Our pursuit of excellence means every item is built to exceed your expectations and deliver unmatched comfort.",
+      ar: "نلتزم بتقديم ملابس مصنّعة من أفضل الأقمشة القطنية المريحة التي تضمن حماية بشرة طفلك وحرية حركته.",
+      en: "We are committed to providing clothing made from ultra-soft cotton fabrics that protect your child's skin.",
     },
   },
   {
     icon: "handshake",
-    title: { ar: "حرفية يدوية", en: "Handcrafted care" },
+    title: { ar: "تشكيلة متكاملة", en: "Complete Selection" },
     desc: {
-      ar: "تم صنع كل منتجاتنا بحب من قبل حرفيين ماهرين يضعون خبرتهم وشغفهم في كل تفصيلة. هذا الحس الحرفي يضمن مستوى من الحرفية والتميز يميز منتجاتنا مما يرتقي بتجربتك.",
-      en: "Every product is made with care by skilled artisans who pour their expertise and passion into each detail. That craftsmanship sets our products apart and elevates your experience.",
+      ar: "كل ما يحتاجه طفلك تحت سقف واحد: ملابس حديثي ولادة، ملابس أطفال، ملابس محير وكافة الأدوات والمستلزمات المدرسية.",
+      en: "Everything your child needs under one roof: newborn items, kids wear, teens fashion, and full school supplies.",
     },
   },
   {
     icon: "price_check",
-    title: { ar: "رفاهية بأسعار معقولة", en: "Affordable luxury" },
+    title: { ar: "أسعار مناسبة لكل عائلة", en: "Best Value Prices" },
     desc: {
-      ar: "نحن نعتقد أن الرفاهية لا يجب أن تأتي بسعر مرتفع. لهذا السبب نقدم منتجاتنا الاستثنائية بأسعار معقولة، مما يجعل الجودة والراحة متاحة للجميع.",
-      en: "We believe luxury shouldn't come with a luxury price tag. That's why we offer exceptional products at fair prices, making quality and comfort accessible to everyone.",
+      ar: "نقدم أعلى مستويات الجودة بأسعار تنافسية ومناسبة للأسرة المصرية مع عروض وخصومات ممتازة طوال العام.",
+      en: "We offer top quality at competitive prices, bringing great value for Egyptian families all year round.",
     },
   },
   {
     icon: "local_shipping",
-    title: { ar: "تكنولوجيا حديثة", en: "Modern technology" },
+    title: { ar: "توصيل سريع ودفع عند الاستلام", en: "Fast Shipping & COD" },
     desc: {
-      ar: "نستغل قوة الآلات عالية التقنية لتعزيز عمليات تصنيعنا من خلال دمج التقنيات المتقدمة، نضمن الدقة والكفاءة والاستمرارية في إنتاج منتجاتنا.",
-      en: "We harness high-tech machinery to strengthen our manufacturing. By integrating advanced technology we guarantee precision, efficiency and consistency in everything we produce.",
+      ar: "تغليف ممتاز وتوصيل سريع حتى باب المنزل مع إمكانية الدفع نقداً عند الاستلام ومعاينة المنتجات.",
+      en: "Protective packaging, fast delivery right to your door, and cash on delivery for convenience.",
     },
   },
 ];

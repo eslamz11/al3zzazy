@@ -1,4 +1,4 @@
-﻿/** Collection listing, category and search page copy. */
+/** Collection listing, category and search page copy. */
 export const catalogDict = {
   // collections
   "collection.all": { ar: "كل المنتجات", en: "All products" },
@@ -27,10 +27,10 @@ export const catalogDict = {
     en: "Try changing the filters or browse all products.",
   },
   "collection.eyebrow": { ar: "تصفح الكتالوج الكامل", en: "Browse the full catalogue" },
-  "collection.heroTitle": { ar: "كل منتجات سليب هاي", en: "All SleepHigh products" },
+  "collection.heroTitle": { ar: "جميع منتجات العزازي مول", en: "All Al3azzazy products" },
   "collection.heroText": {
-    ar: "تصفح الكتالوج الكامل للمراتب، الوسائد، مراتب التطرية ومستلزمات الفراش. اختر ما يناسبك واستمتع بنوم مريح",
-    en: "Browse the full range of mattresses, pillows, toppers and bedding essentials. Pick what suits you and enjoy a restful night.",
+    ar: "تصفح تشكيلة العزازي مول كاملة لملابس الأطفال، حديثي الولادة، المحير، والحقائب والمستلزمات المدرسية الراعية.",
+    en: "Browse the full collection of kids clothing, newborn wear, teens fashion, and school supplies.",
   },
   "collection.showing": {
     ar: "عرض {shown} من {total} منتج",
@@ -51,13 +51,13 @@ export const catalogDict = {
   // search
   "search.title": { ar: "البحث", en: "Search" },
   "search.placeholder": {
-    ar: "ابحث عن مرتبة، وسادة، مقاس...",
-    en: "Search mattresses, pillows, sizes…",
+    ar: "ابحث عن طقم أطفال، مقاس، شنطة مدرسة...",
+    en: "Search kids wear, sizes, school bags…",
   },
-  "search.heading": { ar: "ابحث في منتجات سليب هاي", en: "Search SleepHigh products" },
+  "search.heading": { ar: "ابحث في منتجات العزازي مول", en: "Search Al3azzazy products" },
   "search.subheading": {
-    ar: "اعثر على المراتب الطبية والوسائد ومستلزمات الراحة التي تناسب نومك.",
-    en: "Find the medical mattresses, pillows and bedding essentials tailored to your sleep.",
+    ar: "اعثر على أرقى ملابس الأطفال والمستلزمات المدرسية بسهولة.",
+    en: "Find premium children's clothing and school essentials tailored for you.",
   },
   "search.results": { ar: "نتائج البحث", en: "Search results" },
   "search.resultsFor": { ar: "نتائج البحث عن", en: "Results for" },
@@ -82,19 +82,19 @@ export const catalogDict = {
     en: "Something went wrong while searching. Please try again.",
   },
   "search.metaTitleQuery": {
-    ar: 'البحث عن "{query}" | سليب هاي مصر',
-    en: 'Search results for "{query}" | SleepHigh Egypt',
+    ar: 'البحث عن "{query}" | العزازي مول',
+    en: 'Search results for "{query}" | Al3azzazy',
   },
   "search.metaTitle": {
-    ar: "ابحث عن المراتب والوسائد | سليب هاي مصر",
-    en: "Search mattresses & pillows | SleepHigh Egypt",
+    ar: "ابحث عن ملابس الأطفال والمستلزمات المدرسية | العزازي مول",
+    en: "Search kids clothing & school supplies | Al3azzazy",
   },
   "search.metaDescription": {
-    ar: "ابحث في تشكيلة سليب هاي الشاملة للمراتب الطبية والوسائد ومستلزمات النوم الفاخرة.",
-    en: "Search the complete SleepHigh range of medical mattresses, pillows and premium sleep essentials.",
+    ar: "ابحث في تشكيلة العزازي مول لملابس الأطفال، حديثي الولادة والمستلزمات المدرسية الممتازة.",
+    en: "Search the complete Al3azzazy collection of kids wear, newborn fashion, and school supplies.",
   },
-  "search.popular1": { ar: "مرتبة طبية", en: "Medical mattress" },
-  "search.popular2": { ar: "وسادة ريش", en: "Feather pillow" },
-  "search.popular3": { ar: "تطرية مموري فوم", en: "Memory foam topper" },
-  "search.popular4": { ar: "واقي مرتبة", en: "Mattress protector" },
+  "search.popular1": { ar: "ملابس أطفال", en: "Kids clothing" },
+  "search.popular2": { ar: "حديثي ولادة", en: "Newborn wear" },
+  "search.popular3": { ar: "ملابس محير", en: "Teens fashion" },
+  "search.popular4": { ar: "حقائب مدرسية", en: "School bags" },
 } as const;

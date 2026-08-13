@@ -95,7 +95,7 @@ function AdminProfilePage() {
             <input
               type="email"
               disabled
-              value={currentUser?.email || "sleephigh31@gmail.com"}
+              value={currentUser?.email || "Al3azzazy31@gmail.com"}
               className="w-full rounded-xl border border-input bg-muted px-3 py-2 text-xs dir-ltr cursor-not-allowed"
             />
           </div>

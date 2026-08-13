@@ -4,8 +4,8 @@ import { useDir, useT } from "@/lib/locale";
  * Full-page branded preloader shown during the initial application load.
  *
  * Design goals: instant (no network requests — the brandmark is inline SVG),
- * premium & minimal, and faithful to the SleepHigh identity (brand red, the
- * crescent-moon motif, and the bilingual "SLEEP HIGH / سليب هاي" wordmark).
+ * premium & minimal, and faithful to the Al3azzazy identity (brand red, the
+ * crescent-moon motif, and the bilingual " Al3azzazy / سليب هاي" wordmark).
  *
  * Visibility and removal are owned by <InitialLoadProvider>; this component is
  * purely presentational. Animations are pure CSS (see styles.css) so they run
@@ -60,7 +60,7 @@ export function AppLoadingScreen({ leaving = false }: { leaving?: boolean }) {
         {/* Bilingual wordmark */}
         <div className="mt-6 flex flex-col items-center gap-1">
           <span className="text-xl sm:text-2xl font-black tracking-[0.28em] text-foreground pl-[0.28em]">
-            SLEEP&nbsp;HIGH
+            Al3a&nbsp;zzazy
           </span>
           <span className="text-sm sm:text-base font-bold text-brand tracking-wide">
             {t("brand.name")}

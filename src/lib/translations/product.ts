@@ -1,4 +1,4 @@
-﻿/** Product card, quick view and product detail page copy. */
+/** Product card, quick view and product detail page copy. */
 export const productDict = {
   // product card / product page
   "product.addToCart": { ar: "أضف إلى السلة", en: "Add to cart" },
@@ -50,8 +50,8 @@ export const productDict = {
     ar: "تبقى {count} فقط في المخزون!",
     en: "Only {count} left in stock!",
   },
-  "product.warranty10Alt": { ar: "ضمان 10 سنوات", en: "10-year warranty" },
-  "product.freeShippingAlt": { ar: "شحن مجاني", en: "Free shipping" },
+  "product.warranty10Alt": { ar: "خامات ممتازة high quality", en: "High quality materials" },
+  "product.freeShippingAlt": { ar: "توصيل لكافة المناطق", en: "Nationwide delivery" },
   "product.trustFastShipping": { ar: "شحن سريع خلال 3-5 أيام", en: "Fast shipping in 3–5 days" },
   "product.trustFastShippingShort": { ar: "شحن سريع", en: "Fast shipping" },
   "product.trustSecurePayment": { ar: "دفع آمن 100%", en: "100% secure payment" },

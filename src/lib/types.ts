@@ -1,6 +1,12 @@
 export type Locale = "ar" | "en";
 
-export type CategoryHandle = "mattresses" | "pillows" | "toppers" | "protectors" | "accessories";
+export type CategoryHandle =
+  | "children-clothing"
+  | "school-supplies"
+  | "kids-clothing"
+  | "newborn-clothing"
+  | "teens-clothing"
+  | string;
 
 export interface Localized {
   ar: string;
@@ -13,7 +19,7 @@ export interface ProductImage {
 }
 
 export interface VariantOptionValues {
-  /** e.g. { length: "195", width: "150", height: "25", upgrade: "standard" } */
+  /** e.g. { size: "3-6 شهور", color: "أزرق" } */
   [optionKey: string]: string;
 }
 
@@ -67,6 +73,7 @@ export interface Product {
   tagline: Localized;
   description: Localized;
   category: CategoryHandle;
+  subCategory?: string | undefined;
   images: ProductImage[];
   /** base price, used when no variant is selected */
   price: number;
@@ -75,11 +82,13 @@ export interface Product {
   currency: "EGP";
   options: ProductOption[];
   variants: ProductVariant[];
-  materials: Localized;
-  features: Localized[];
-  usage: Localized;
-  care: Localized;
-  firmness: "soft" | "medium" | "medium-firm" | "firm";
+  materials?: Localized | undefined;
+  features?: Localized[] | undefined;
+  usage?: Localized | undefined;
+  care?: Localized | undefined;
+  firmness?: string | undefined;
+  sizes?: string[] | undefined;
+  colors?: string[] | undefined;
   stock: number;
   lowStockThreshold?: number | undefined;
   sku: string;
@@ -88,14 +97,15 @@ export interface Product {
   reviewCount: number;
   reviews: ProductReview[];
   featured: boolean;
+  isNew?: boolean | undefined;
   active?: boolean | undefined;
   tags: string[];
   seo?: ProductSeo | undefined;
   brand?: string | undefined;
   trust?:
     | {
-        warranty10Years: boolean;
-        freeShipping: boolean;
+        warranty10Years?: boolean | undefined;
+        freeShipping?: boolean | undefined;
       }
     | undefined;
   viewerCount?:
@@ -349,7 +359,10 @@ export interface StoreSettings {
     instagram?: string | undefined;
     tiktok?: string | undefined;
     whatsapp?: string | undefined;
+    telegram?: string | undefined;
   };
+  /** Google Maps / Apple Maps URL for the main branch address */
+  locationUrl?: string | undefined;
   seo: {
     titleAr: string;
     titleEn: string;

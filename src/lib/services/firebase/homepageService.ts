@@ -91,8 +91,8 @@ const DEFAULT_SECTIONS: HomepageSection[] = [
     content: {
       headingAr: "تجربة نوم فندقية في منزلك",
       headingEn: "Hotel sleep experience at home",
-      descriptionAr: "احصل على مراتب وتطريات سليب هاي المميزة بضمان حتى ٥ سنوات.",
-      descriptionEn: "Get premium SleepHigh mattresses with up to 5 years warranty.",
+      descriptionAr: "احصل على مراتب وتطريات العزازي مولالمميزة بضمان حتى ٥ سنوات.",
+      descriptionEn: "Get premium Al3azzazy mattresses with up to 5 years warranty.",
       buttonTextAr: "اكتشف العروض",
       buttonTextEn: "Discover Offers",
       buttonLink: "/ar/collections/mattresses",

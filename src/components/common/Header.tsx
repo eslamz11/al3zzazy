@@ -32,19 +32,11 @@ export function Header() {
   const otherLocale = isRTL ? "en" : "ar";
   const [currentPath, setCurrentPath] = useState(`/${locale}`);
 
-  // Debug: Log user state
-  useEffect(() => {
-    console.log('[Header] User state:', user);
-    console.log('[Header] User role:', user?.role);
-    console.log('[Header] Is admin check:', user && user.role === "admin");
-  }, [user]);
-
   useEffect(() => {
     setMounted(true);
     setCurrentPath(window.location.pathname);
   }, [locale]);
 
-  // Lock body scroll when mobile menu is open
   useEffect(() => {
     if (mobileMenuOpen) {
       document.body.style.overflow = "hidden";
@@ -56,7 +48,6 @@ export function Header() {
     };
   }, [mobileMenuOpen]);
 
-  // Close mobile menu on Escape key press
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape" && mobileMenuOpen) {
@@ -67,7 +58,6 @@ export function Header() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [mobileMenuOpen]);
 
-  // Auto-focus search input when expanded
   useEffect(() => {
     if (searchOpenMobile && searchInputRef.current) {
       searchInputRef.current.focus();
@@ -85,13 +75,14 @@ export function Header() {
 
   const navLinks = [
     { to: href("/"), label: t("nav.home"), exact: true },
-    { to: href("/collections/mattresses"), label: t("nav.mattresses") },
-    { to: href("/collections/pillows"), label: t("nav.pillows") },
+    { to: href("/collections/children-clothing"), label: t("nav.childrenClothing") },
+    { to: href("/collections/school-supplies"), label: t("nav.schoolSupplies") },
     { to: href("/about"), label: t("nav.about") },
     { to: href("/contact"), label: t("nav.contact") },
   ];
 
   const ChevronIcon = isRTL ? ChevronLeft : ChevronRight;
+  const storeLogo = "https://i.ibb.co/Z5Sxv6K/Chat-GPT-Image-Aug-13-2026-06-46-12-PM.png";
 
   const mobileDrawerMarkup = (
     <div
@@ -102,7 +93,6 @@ export function Header() {
       role="dialog"
       aria-hidden={!mobileMenuOpen}
     >
-      {/* Dim backdrop */}
       <div
         className={`fixed inset-0 bg-black/60 backdrop-blur-xs transition-opacity duration-300 ${
           mobileMenuOpen ? "opacity-100" : "opacity-0"
@@ -110,10 +100,9 @@ export function Header() {
         onClick={() => setMobileMenuOpen(false)}
       />
 
-      {/* Drawer Panel — slides from start edge */}
       <div
         className={`
-          fixed top-0 bottom-0 z-10 w-[82vw] max-w-[340px] h-full h-[100dvh] bg-white shadow-2xl
+          fixed top-0 bottom-0 z-10 w-[82vw] max-w-[340px] h-full bg-white shadow-2xl
           flex flex-col overflow-hidden
           transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)]
           ${
@@ -124,30 +113,28 @@ export function Header() {
         `}
         dir={isRTL ? "rtl" : "ltr"}
       >
-        {/* Drawer Header */}
-        <div className="flex items-center justify-between px-4 py-3.5 border-b border-gray-100 shrink-0 bg-gray-50/50">
-          <Link to={href("/")} onClick={() => setMobileMenuOpen(false)}>
-             <img
-               src="https://sleephigh-eg.myshopify.com/cdn/shop/files/h_logo_250x.png?v=1697100417"
-               alt={t("brand.logoAlt")}
-               className="h-12 w-auto object-contain"
-             />
+        <div className="flex items-center justify-between px-4 py-3.5 border-b border-sky-100 shrink-0 bg-sky-50/50">
+          <Link to={href("/")} onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-2">
+            <img
+              src={storeLogo}
+              alt={t("brand.logoAlt")}
+              className="h-11 w-auto object-contain"
+            />
+            <span className="font-bold text-sky-800 text-sm">{t("brand.name")}</span>
           </Link>
           <button
             onClick={() => setMobileMenuOpen(false)}
-            className="p-2 text-gray-500 hover:bg-white hover:text-gray-800 rounded-xl transition-all border border-transparent hover:border-gray-200"
-             aria-label={t("nav.closeMenu")}
+            className="p-2 text-slate-500 hover:bg-white hover:text-slate-800 rounded-xl transition-all border border-transparent hover:border-sky-100"
+            aria-label={t("nav.closeMenu")}
           >
             <X className="h-5 w-5" />
           </button>
         </div>
 
-        {/* Scrollable body */}
         <div className="flex-1 overflow-y-auto">
-          {/* Nav Links */}
           <nav className="px-3 py-3 space-y-0.5">
-            <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest px-4 mb-2">
-               {isRTL ? t("nav.navigation") : "Navigation"}
+            <p className="text-[10px] font-black text-sky-600 uppercase tracking-widest px-4 mb-2">
+              {isRTL ? t("nav.navigation") : "Navigation"}
             </p>
             {navLinks.map((link) => (
               <Link
@@ -156,11 +143,11 @@ export function Header() {
                 activeOptions={{ exact: !!link.exact }}
                 onClick={() => setMobileMenuOpen(false)}
                 activeProps={{
-                  className: "bg-red-50 text-[#C8102E] font-black border-[#C8102E]/20",
+                  className: "bg-sky-50 text-sky-700 font-bold border-sky-200",
                 }}
                 inactiveProps={{
                   className:
-                    "text-gray-800 hover:bg-gray-50 hover:text-[#C8102E] border-transparent",
+                    "text-slate-700 hover:bg-sky-50/50 hover:text-sky-600 border-transparent",
                 }}
                 className="flex items-center justify-between py-3 px-4 rounded-xl transition-all text-sm font-bold border"
               >
@@ -170,76 +157,70 @@ export function Header() {
             ))}
           </nav>
 
-          {/* Divider */}
-          <div className="mx-4 my-1 border-t border-gray-100" />
+          <div className="mx-4 my-1 border-t border-sky-100" />
 
-          {/* Account section */}
           <div className="px-3 py-3 space-y-0.5">
-            <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest px-4 mb-2">
+            <p className="text-[10px] font-black text-sky-600 uppercase tracking-widest px-4 mb-2">
               {isRTL ? "الحساب" : "Account"}
             </p>
 
-            {/* Account */}
             <Link
               to={user ? href("/account") : href("/account/login")}
               onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center gap-3 py-3 px-4 text-sm font-bold text-gray-700 hover:bg-gray-50 hover:text-[#C8102E] rounded-xl transition-all"
+              className="flex items-center gap-3 py-3 px-4 text-sm font-bold text-slate-700 hover:bg-sky-50 hover:text-sky-700 rounded-xl transition-all"
             >
-              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-red-50 shrink-0">
-                <User className="h-4 w-4 text-[#C8102E]" />
+              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-sky-100 shrink-0">
+                <User className="h-4 w-4 text-sky-700" />
               </span>
-               <span>{user ? t("header.account") : t("nav.signIn")}</span>
+              <span>{user ? t("header.account") : t("nav.signIn")}</span>
             </Link>
 
-            {/* Admin (Mobile) */}
             {user && user.role === "admin" && (
               <Link
                 to="/admin"
                 onClick={() => setMobileMenuOpen(false)}
-                className="flex items-center gap-3 py-3 px-4 text-sm font-bold text-gray-700 hover:bg-red-50 hover:text-[#C8102E] rounded-xl transition-all"
+                className="flex items-center gap-3 py-3 px-4 text-sm font-bold text-slate-700 hover:bg-amber-50 hover:text-amber-700 rounded-xl transition-all"
               >
-                <span className="flex h-8 w-8 items-center justify-center rounded-full bg-red-100 shrink-0">
-                  <ShieldCheck className="h-4 w-4 text-[#C8102E]" />
+                <span className="flex h-8 w-8 items-center justify-center rounded-full bg-amber-100 shrink-0">
+                  <ShieldCheck className="h-4 w-4 text-amber-600" />
                 </span>
-                 <span>{t("nav.adminDashboard")}</span>
+                <span>{t("nav.adminDashboard")}</span>
               </Link>
             )}
 
-            {/* Wishlist */}
             <Link
               to={href("/wishlist")}
               onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center justify-between py-3 px-4 text-sm font-bold text-gray-700 hover:bg-gray-50 hover:text-[#C8102E] rounded-xl transition-all"
+              className="flex items-center justify-between py-3 px-4 text-sm font-bold text-slate-700 hover:bg-sky-50 hover:text-sky-700 rounded-xl transition-all"
             >
               <div className="flex items-center gap-3">
-                <span className="flex h-8 w-8 items-center justify-center rounded-full bg-red-50 shrink-0">
-                  <Heart className="h-4 w-4 text-[#C8102E]" />
+                <span className="flex h-8 w-8 items-center justify-center rounded-full bg-sky-100 shrink-0">
+                  <Heart className="h-4 w-4 text-sky-700" />
                 </span>
                 <span>{t("header.wishlist")}</span>
               </div>
               {wishlist.length > 0 && (
-                <span className="bg-[#C8102E] text-white px-2 py-0.5 rounded-full text-[10px] font-black">
+                <span className="bg-amber-500 text-white px-2 py-0.5 rounded-full text-[10px] font-black">
                   {wishlist.length}
                 </span>
               )}
             </Link>
 
-            {/* Cart */}
             <button
               onClick={() => {
                 setMobileMenuOpen(false);
                 setCartOpen(!cartOpen);
               }}
-              className="w-full flex items-center justify-between py-3 px-4 text-sm font-bold text-gray-700 hover:bg-gray-50 hover:text-[#C8102E] rounded-xl transition-all"
+              className="w-full flex items-center justify-between py-3 px-4 text-sm font-bold text-slate-700 hover:bg-sky-50 hover:text-sky-700 rounded-xl transition-all"
             >
               <div className="flex items-center gap-3">
-                <span className="flex h-8 w-8 items-center justify-center rounded-full bg-red-50 shrink-0">
-                  <ShoppingBag className="h-4 w-4 text-[#C8102E]" />
+                <span className="flex h-8 w-8 items-center justify-center rounded-full bg-sky-100 shrink-0">
+                  <ShoppingBag className="h-4 w-4 text-sky-700" />
                 </span>
                 <span>{t("header.cart")}</span>
               </div>
               {cartCount > 0 && (
-                <span className="bg-[#C8102E] text-white px-2 py-0.5 rounded-full text-[10px] font-black">
+                <span className="bg-sky-600 text-white px-2 py-0.5 rounded-full text-[10px] font-black">
                   {cartCount}
                 </span>
               )}
@@ -247,17 +228,16 @@ export function Header() {
           </div>
         </div>
 
-        {/* Language Switcher — pinned at bottom */}
-        <div className="border-t border-gray-100 px-3 py-3 shrink-0 bg-gray-50/50">
+        <div className="border-t border-sky-100 px-3 py-3 shrink-0 bg-sky-50/50">
           <a
             href={swapLocaleInPath(currentPath, otherLocale)}
-            className="flex items-center justify-between w-full py-3 px-4 bg-white hover:bg-red-50 text-sm font-bold text-gray-800 rounded-xl border border-gray-200 hover:border-red-200 transition-all"
+            className="flex items-center justify-between w-full py-3 px-4 bg-white hover:bg-sky-50 text-sm font-bold text-slate-800 rounded-xl border border-sky-100 hover:border-sky-200 transition-all"
           >
             <div className="flex items-center gap-2.5">
-              <Globe className="h-4 w-4 text-[#C8102E]" />
+              <Globe className="h-4 w-4 text-sky-600" />
               <span>{t("nav.language")}</span>
             </div>
-            <span className="text-[#C8102E] text-xs font-black bg-red-50 px-2.5 py-1 rounded-lg">
+            <span className="text-sky-700 text-xs font-black bg-sky-100 px-2.5 py-1 rounded-lg">
               {isRTL ? "English" : "العربية"}
             </span>
           </a>
@@ -267,22 +247,19 @@ export function Header() {
   );
 
   return (
-    <header className="w-full bg-white/97 backdrop-blur-md border-b border-gray-200/80 shadow-sm relative z-30">
-      {/* ─── MAIN BAR ─── */}
+    <header className="w-full bg-white/95 backdrop-blur-md border-b border-sky-100 shadow-xs relative z-30">
       <div
-        className="w-full px-3 sm:px-5 lg:px-8 h-[58px] sm:h-[66px] lg:h-20 flex items-center justify-between"
+        className="w-full px-3 sm:px-5 lg:px-8 h-[60px] sm:h-[68px] lg:h-20 flex items-center justify-between"
         dir={isRTL ? "rtl" : "ltr"}
       >
-        {/* ── START SIDE: Hamburger (mobile only) + Logo ── */}
-        <div className="flex items-center gap-1">
-          {/* Mobile Hamburger — left of logo on mobile */}
+        <div className="flex items-center gap-2">
           <button
             onClick={() => {
               setMobileMenuOpen(!mobileMenuOpen);
               setSearchOpenMobile(false);
             }}
             className={`lg:hidden p-2 rounded-xl transition-all shrink-0 ${
-              mobileMenuOpen ? "bg-red-50 text-[#C8102E]" : "text-gray-700 hover:bg-gray-100"
+              mobileMenuOpen ? "bg-sky-100 text-sky-700" : "text-slate-700 hover:bg-sky-50"
             }`}
             aria-label={t("nav.menu")}
             aria-expanded={mobileMenuOpen}
@@ -294,18 +271,19 @@ export function Header() {
             )}
           </button>
 
-          {/* LOGO */}
-          <Link to={href("/")} className="flex items-center shrink-0 group py-1 px-1">
-             <img
-               src="https://sleephigh-eg.myshopify.com/cdn/shop/files/h_logo_250x.png?v=1697100417"
-               alt={t("brand.logoAlt")}
-               className="h-12 sm:h-14 lg:h-[60px] w-auto object-contain transition-transform duration-300 group-hover:scale-105"
-             />
+          <Link to={href("/")} className="flex items-center gap-2.5 shrink-0 group py-1 px-1">
+            <img
+              src={storeLogo}
+              alt={t("brand.logoAlt")}
+              className="h-10 sm:h-12 lg:h-[52px] w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+            />
+            <span className="font-extrabold text-sky-900 text-base sm:text-lg hidden sm:inline-block">
+              {t("brand.name")}
+            </span>
           </Link>
         </div>
 
-        {/* ── CENTER: Desktop Nav Links ── */}
-        <nav className="hidden lg:flex items-center gap-5 xl:gap-7 font-bold text-xs xl:text-sm text-gray-800">
+        <nav className="hidden lg:flex items-center gap-6 xl:gap-8 font-bold text-sm text-slate-700">
           {navLinks.map((link) => (
             <Link
               key={link.to}
@@ -313,114 +291,106 @@ export function Header() {
               activeOptions={{ exact: !!link.exact }}
               activeProps={{
                 className:
-                  "text-[#C8102E] font-black relative after:absolute after:-bottom-2 after:left-0 after:right-0 after:h-0.5 after:bg-[#C8102E] after:rounded-full",
+                  "text-sky-600 font-black relative after:absolute after:-bottom-2 after:left-0 after:right-0 after:h-0.5 after:bg-sky-500 after:rounded-full",
               }}
-              inactiveProps={{ className: "hover:text-[#C8102E] transition-colors" }}
+              inactiveProps={{ className: "hover:text-sky-600 transition-colors" }}
             >
               {link.label}
             </Link>
           ))}
         </nav>
 
-        {/* ── END SIDE: Action Icons ── */}
-        <div className="flex items-center gap-0.5 sm:gap-1.5">
-          {/* Desktop Search Bar */}
+        <div className="flex items-center gap-1 sm:gap-2">
           <form onSubmit={handleSearchSubmit} className="hidden lg:flex items-center relative">
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder={isRTL ? "بحث عن منتج..." : "Search products..."}
-              className="w-40 xl:w-52 py-2 px-3.5 text-xs bg-gray-100/80 border border-gray-200 rounded-xl focus:bg-white focus:outline-none focus:border-[#C8102E] focus:ring-2 focus:ring-red-100 transition-all placeholder:text-gray-400"
+              placeholder={isRTL ? "بحث في المتجر..." : "Search store..."}
+              className="w-44 xl:w-56 py-2 px-3.5 text-xs bg-sky-50/60 border border-sky-100 rounded-xl focus:bg-white focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-100 transition-all placeholder:text-slate-400"
             />
             {searchQuery && (
               <button
                 type="button"
                 onClick={() => setSearchQuery("")}
-                className="absolute ltr:right-8 rtl:left-8 text-gray-400 hover:text-gray-600 text-xs font-bold"
+                className="absolute ltr:right-8 rtl:left-8 text-slate-400 hover:text-slate-600 text-xs font-bold"
               >
                 ✕
               </button>
             )}
             <button
               type="submit"
-              className="absolute ltr:right-2.5 rtl:left-2.5 text-gray-400 hover:text-[#C8102E] transition-colors"
+              className="absolute ltr:right-2.5 rtl:left-2.5 text-sky-500 hover:text-sky-700 transition-colors"
               aria-label="Search"
             >
               <Search className="h-4 w-4" />
             </button>
           </form>
 
-          {/* Language Switcher — desktop only */}
           <a
             href={swapLocaleInPath(currentPath, otherLocale)}
-            className="hidden lg:flex items-center gap-1.5 text-xs font-bold text-gray-700 hover:text-[#C8102E] bg-gray-100/80 hover:bg-red-50 border border-gray-200 hover:border-red-200 px-3 py-2 rounded-xl transition-all"
+            className="hidden lg:flex items-center gap-1.5 text-xs font-bold text-slate-700 hover:text-sky-700 bg-sky-50 hover:bg-sky-100/70 border border-sky-100 px-3 py-2 rounded-xl transition-all"
             title={t("nav.switchLanguage")}
           >
-            <Globe className="h-4 w-4 text-[#C8102E]" />
+            <Globe className="h-4 w-4 text-sky-600" />
             <span>{isRTL ? "English" : "العربية"}</span>
           </a>
 
-          {/* Account — desktop + tablet */}
           <Link
             to={user ? href("/account") : href("/account/login")}
             preload="intent"
-            className="hidden sm:flex p-2 text-gray-700 hover:text-[#C8102E] hover:bg-gray-100 rounded-xl transition-all"
+            className="hidden sm:flex p-2 text-slate-700 hover:text-sky-600 hover:bg-sky-50 rounded-xl transition-all"
             title={t("header.account")}
           >
             <User className="h-5 w-5 stroke-[2]" />
           </Link>
 
-          {/* Admin — desktop + tablet */}
           {user && user.role === "admin" && (
             <Link
               to="/admin"
               preload="intent"
-              className="hidden sm:flex p-2 text-[#C8102E] bg-red-50 hover:bg-[#C8102E] hover:text-white rounded-xl transition-all shadow-sm"
-               title={t("nav.adminDashboard")}
+              className="hidden sm:flex p-2 text-amber-700 bg-amber-50 hover:bg-amber-100 rounded-xl transition-all shadow-xs"
+              title={t("nav.adminDashboard")}
             >
               <ShieldCheck className="h-5 w-5 stroke-[2]" />
             </Link>
           )}
 
-          {/* Wishlist — desktop + tablet */}
           <Link
             to={href("/wishlist")}
             preload="intent"
-            className="relative p-2 text-gray-700 hover:text-[#C8102E] hover:bg-gray-100 rounded-xl transition-all hidden sm:flex"
+            className="relative p-2 text-slate-700 hover:text-sky-600 hover:bg-sky-50 rounded-xl transition-all hidden sm:flex"
             title={t("header.wishlist")}
           >
             <Heart className="h-5 w-5 stroke-[2]" />
             {wishlist.length > 0 && (
-              <span className="absolute top-0.5 ltr:right-0.5 rtl:left-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-[#C8102E] text-[10px] font-black text-white shadow-sm">
+              <span className="absolute top-0.5 ltr:right-0.5 rtl:left-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-amber-500 text-[10px] font-black text-white shadow-xs">
                 {wishlist.length}
               </span>
             )}
           </Link>
 
-          {/* Mobile Search Toggle */}
           <button
             onClick={() => {
               setSearchOpenMobile(!searchOpenMobile);
               setMobileMenuOpen(false);
             }}
             className={`p-2 rounded-xl transition-all lg:hidden ${
-              searchOpenMobile ? "bg-red-50 text-[#C8102E]" : "text-gray-700 hover:bg-gray-100"
+              searchOpenMobile ? "bg-sky-100 text-sky-700" : "text-slate-700 hover:bg-sky-50"
             }`}
             aria-label={t("header.search")}
           >
             <Search className="h-5 w-5 stroke-[2]" />
           </button>
 
-          {/* Cart Button — always visible */}
           <button
             onClick={() => setCartOpen(!cartOpen)}
-            className="relative p-2 text-gray-700 hover:text-[#C8102E] hover:bg-gray-100 rounded-xl transition-all"
+            className="relative p-2 text-slate-700 hover:text-sky-600 hover:bg-sky-50 rounded-xl transition-all"
             title={t("header.cart")}
           >
             <ShoppingBag className="h-5 w-5 stroke-[2]" />
             {cartCount > 0 && (
-              <span className="absolute top-0.5 ltr:right-0.5 rtl:left-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-[#C8102E] text-[10px] font-black text-white shadow-sm">
+              <span className="absolute top-0.5 ltr:right-0.5 rtl:left-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-sky-600 text-[10px] font-black text-white shadow-xs">
                 {cartCount}
               </span>
             )}
@@ -428,25 +398,24 @@ export function Header() {
         </div>
       </div>
 
-      {/* ─── MOBILE SEARCH BAR (smooth height expansion) ─── */}
       <div
         className={`overflow-hidden transition-all duration-300 lg:hidden ${
           searchOpenMobile ? "max-h-20 opacity-100" : "max-h-0 opacity-0"
         }`}
       >
-        <div className="px-3 pb-3 pt-2 border-t border-gray-100 bg-white">
+        <div className="px-3 pb-3 pt-2 border-t border-sky-100 bg-white">
           <form onSubmit={handleSearchSubmit} className="relative">
             <input
               ref={searchInputRef}
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-               placeholder={t("header.searchPlaceholderMobile")}
-              className="w-full py-2.5 ltr:pl-4 ltr:pr-10 rtl:pr-4 rtl:pl-10 text-sm bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:bg-white focus:border-[#C8102E] focus:ring-2 focus:ring-red-100 transition-all"
+              placeholder={t("header.searchPlaceholderMobile")}
+              className="w-full py-2.5 ltr:pl-4 ltr:pr-10 rtl:pr-4 rtl:pl-10 text-sm bg-sky-50/50 border border-sky-100 rounded-xl focus:outline-none focus:bg-white focus:border-sky-500 focus:ring-2 focus:ring-sky-100 transition-all"
             />
             <button
               type="submit"
-              className="absolute ltr:right-3 rtl:left-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-[#C8102E] transition-colors"
+              className="absolute ltr:right-3 rtl:left-3 top-1/2 -translate-y-1/2 text-sky-500 hover:text-sky-700 transition-colors"
             >
               <Search className="h-4 w-4" />
             </button>
@@ -454,7 +423,6 @@ export function Header() {
         </div>
       </div>
 
-      {/* ─── MOBILE DRAWER OVERLAY (PORTALED TO DOCUMENT.BODY) ─── */}
       {mounted ? createPortal(mobileDrawerMarkup, document.body) : null}
     </header>
   );

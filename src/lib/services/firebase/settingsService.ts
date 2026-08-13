@@ -9,22 +9,22 @@ import type { StoreSettings } from "@/lib/types";
 const SETTINGS_DOC = "settings/store";
 
 const DEFAULT_SETTINGS: StoreSettings = {
-  nameAr: "سليب هاي",
-  nameEn: "SleepHigh",
+  nameAr: "العزازي مول",
+  nameEn: "Al3azzazy",
   phone: "01207864015",
   customerServicePhone: "01207864015",
   salesPhone: "01016787142",
-  email: "info@sleephigh-eg.com",
+  email: "info@al3azzazy.com",
   address: "كفر الزيات — محافظة الغربية — مصر",
   branch1: "كفر الزيات — شارع مجلس المدينة، بجوار البوسطة الجديدة",
   branch2: "كفر الزيات — بنوفر، بجوار بنك ناصر الاجتماعي",
   descriptionAr:
-    "سليب هاي هي العلامة التجارية المصرية الأولى المتخصصة في إنتاج وتفصيل المراتب الطبية والوسائد المصنعة وفق مواصفات النوم الفندقي الفاخر.",
+    "العزازي مول — عالم من الأناقة لملابس الأطفال، حديثي الولادة والمحير مع أجود المستلزمات والحقائب المدرسية.",
   descriptionEn:
-    "SleepHigh is Egypt's leading bedding brand specializing in medical mattresses, luxury pillows, and hotel-grade sleep accessories.",
+    "Al3azzazy Store is your primary destination for kids fashion, newborn wear, teens clothing, and premium school supplies.",
   shipping: {
-    fee: 150,
-    freeThreshold: 5000,
+    fee: 80,
+    freeThreshold: 999999,
     areas: ["القاهرة", "الجيزة", "الإسكندرية", "كفر الزيات", "الغربية"],
   },
   payments: {
@@ -32,15 +32,15 @@ const DEFAULT_SETTINGS: StoreSettings = {
     onlineEnabled: false,
   },
   social: {
-    tiktok: "https://www.tiktok.com/@sleephigh29",
-    facebook: "https://www.facebook.com/share/18dusX3iui/",
+    facebook: "https://www.facebook.com/share/1LmRjaCWsU/?mibextid=wwXIfr",
+    tiktok: "",
+    telegram: "",
   },
   seo: {
-    titleAr: "سليب هاي — مراتب ووسائد مصرية فاخرة",
-    titleEn: "SleepHigh — Egyptian Premium Mattresses & Pillows",
-    descriptionAr: "اكتشف مراتب، وسائد، ومراتب تطرية مصممة لأفضل تجربة نوم.",
-    descriptionEn:
-      "Discover mattresses, pillows, and toppers designed for the best sleep experience.",
+    titleAr: "العزازي مول — ملابس أطفال ومستلزمات مدرسية",
+    titleEn: "Al3azzazy Mall — Kids Clothing & School Supplies",
+    descriptionAr: "تسوق أفضل ملابس الأطفال والمستلزمات المدرسية بأسعار مناسبة.",
+    descriptionEn: "Shop the best kids clothing and school supplies at great prices.",
   },
 };
 
@@ -104,6 +104,10 @@ export function validateSettings(data: Partial<StoreSettings>): { ok: boolean; e
   }
   if (data.social?.tiktok && !data.social.tiktok.startsWith("http")) {
     errors.push("رابط تيك توك يجب أن يبدأ بـ http:// أو https://");
+  }
+
+  if (data.social?.telegram && !data.social.telegram.startsWith("http") && !data.social.telegram.startsWith("https://t.me")) {
+    errors.push("رابط تيليجرام يجب أن يبدأ بـ https://t.me أو https://");
   }
 
   return { ok: errors.length === 0, errors };

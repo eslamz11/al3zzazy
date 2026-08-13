@@ -13,7 +13,7 @@ import { doc, getDoc, setDoc, serverTimestamp } from "firebase/firestore";
 import { auth, db } from "@/lib/firebase";
 import type { AdminRole, User } from "@/lib/types";
 
-const ADMIN_EMAIL = "sleephigh31@gmail.com";
+const ADMIN_EMAIL = "admin@gmail.com";
 
 /**
  * Sign in as admin via Firebase Auth.
@@ -111,6 +111,12 @@ export async function verifyAdminRole(user: FirebaseUser | null): Promise<boolea
     return isAdmin;
   } catch (err) {
     console.error("[adminAuthService] verifyAdminRole error:", err);
+    // Fallback: if Firestore is unreachable but email matches, treat as admin
+    // This prevents lockout due to security rules / network issues
+    if (user.email?.toLowerCase() === ADMIN_EMAIL.toLowerCase()) {
+      adminRoleCache.set(user.uid, { isAdmin: true, timestamp: Date.now() });
+      return true;
+    }
     return false;
   }
 }

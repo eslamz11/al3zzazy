@@ -7,7 +7,7 @@ export const Route = createFileRoute("/admin/login")({
   head: () => ({
     meta: [
       { name: "robots", content: "noindex, nofollow" },
-      { title: "تسجيل دخول الأدمن | سليب هاي مصر" },
+      { title: "تسجيل دخول الأدمن | العزازي مول" },
     ],
   }),
   component: AdminLoginPage,
@@ -51,11 +51,15 @@ function AdminLoginPage() {
       <div className="relative z-10 w-full max-w-md space-y-6">
         {/* Logo & Header */}
         <div className="text-center space-y-2">
-          <div className="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-brand text-brand-foreground font-extrabold text-2xl shadow-lg shadow-brand/20 mb-2">
-            S
+          <div className="inline-flex items-center justify-center mb-2">
+            <img
+              src="https://i.ibb.co/Z5Sxv6K/Chat-GPT-Image-Aug-13-2026-06-46-12-PM.png"
+              alt="العزازي مول"
+              className="h-16 w-16 rounded-2xl object-cover shadow-lg shadow-brand/20"
+            />
           </div>
           <h1 className="text-2xl font-bold text-foreground tracking-tight">
-            سليب هاي — لوحة التحكم
+            العزازي مول — لوحة التحكم
           </h1>
           <p className="text-xs text-muted-foreground">
             تسجيل الدخول الآمن لإدارة المتجر الإلكتروني

@@ -24,10 +24,10 @@ function PrivacyPolicyPage() {
               className="hover:text-white transition-colors flex items-center gap-1"
             >
               <Home className="h-3.5 w-3.5" />
-               <span>{t("common.home")}</span>
+              <span>{t("common.home")}</span>
             </Link>
             <ChevronDown className="h-3 w-3 rotate-90" />
-             <span className="text-white font-medium">{t("privacy.title")}</span>
+            <span className="text-white font-medium">{t("privacy.title")}</span>
           </nav>
           <div className="flex items-center gap-3 mb-4">
             <div className="w-12 h-12 rounded-2xl bg-white/10 backdrop-blur-sm flex items-center justify-center">
@@ -50,7 +50,7 @@ function PrivacyPolicyPage() {
               {t("privacy.s1Title")}
             </h2>
             <p className="text-muted-foreground leading-relaxed text-sm">
-             {t("privacy.s1Text")}
+              {t("privacy.s1Text")}
             </p>
           </section>
 
@@ -64,19 +64,19 @@ function PrivacyPolicyPage() {
             <ul className="space-y-2 text-muted-foreground text-sm">
               <li className="flex items-start gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-brand mt-2 shrink-0" />
-                 <span>{t("privacy.s2Item1Label")} {t("privacy.s2Item1")}</span>
+                <span>{t("privacy.s2Item1Label")} {t("privacy.s2Item1")}</span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-brand mt-2 shrink-0" />
-                 <span>{t("privacy.s2Item2Label")} {t("privacy.s2Item2")}</span>
+                <span>{t("privacy.s2Item2Label")} {t("privacy.s2Item2")}</span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-brand mt-2 shrink-0" />
-                 <span>{t("privacy.s2Item3Label")} {t("privacy.s2Item3")}</span>
+                <span>{t("privacy.s2Item3Label")} {t("privacy.s2Item3")}</span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-brand mt-2 shrink-0" />
-                 <span>{t("privacy.s2Item4Label")} {t("privacy.s2Item4")}</span>
+                <span>{t("privacy.s2Item4Label")} {t("privacy.s2Item4")}</span>
               </li>
             </ul>
           </section>
@@ -91,19 +91,19 @@ function PrivacyPolicyPage() {
             <ul className="space-y-2 text-muted-foreground text-sm">
               <li className="flex items-start gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-brand mt-2 shrink-0" />
-                 <span>{t("privacy.s3Item1")}</span>
+                <span>{t("privacy.s3Item1")}</span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-brand mt-2 shrink-0" />
-                 <span>{t("privacy.s3Item2")}</span>
+                <span>{t("privacy.s3Item2")}</span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-brand mt-2 shrink-0" />
-                 <span>{t("privacy.s3Item3")}</span>
+                <span>{t("privacy.s3Item3")}</span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-brand mt-2 shrink-0" />
-                 <span>{t("privacy.s3Item4")}</span>
+                <span>{t("privacy.s3Item4")}</span>
               </li>
             </ul>
           </section>
@@ -116,7 +116,7 @@ function PrivacyPolicyPage() {
               {t("privacy.s4Title")}
             </h2>
             <p className="text-muted-foreground leading-relaxed text-sm">
-             {t("privacy.s4Text")}
+              {t("privacy.s4Text")}
             </p>
           </section>
 
@@ -130,15 +130,15 @@ function PrivacyPolicyPage() {
             <ul className="space-y-2 text-muted-foreground text-sm">
               <li className="flex items-start gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-brand mt-2 shrink-0" />
-                 <span>{t("privacy.s5Item1")}</span>
+                <span>{t("privacy.s5Item1")}</span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-brand mt-2 shrink-0" />
-                 <span>{t("privacy.s5Item2")}</span>
+                <span>{t("privacy.s5Item2")}</span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-brand mt-2 shrink-0" />
-                 <span>{t("privacy.s5Item3")}</span>
+                <span>{t("privacy.s5Item3")}</span>
               </li>
             </ul>
           </section>
@@ -151,11 +151,11 @@ function PrivacyPolicyPage() {
               {t("policy.contactUs")}
             </h2>
             <p className="text-muted-foreground leading-relaxed text-sm">
-               {t("privacy.s6Text")}{" "}
-               <Link to={href("/contact")} className="text-brand font-bold hover:underline">
-                 {t("policy.contactLink")}
-               </Link>{" "}
-               {t("privacy.s6TextEnd")} info@sleephigh-eg.com
+              {t("privacy.s6Text")}{" "}
+              <Link to={href("/contact")} className="text-brand font-bold hover:underline">
+                {t("policy.contactLink")}
+              </Link>{" "}
+              {t("privacy.s6TextEnd")} info@Al3azzazy-eg.com
             </p>
           </section>
         </div>

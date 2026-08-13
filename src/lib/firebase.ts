@@ -14,12 +14,12 @@ import { getAuth, setPersistence, browserLocalPersistence, type Auth } from "fir
 import { getFirestore, type Firestore, connectFirestoreEmulator } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: import.meta.env["VITE_FIREBASE_API_KEY"],
-  authDomain: import.meta.env["VITE_FIREBASE_AUTH_DOMAIN"],
-  projectId: import.meta.env["VITE_FIREBASE_PROJECT_ID"],
-  storageBucket: import.meta.env["VITE_FIREBASE_STORAGE_BUCKET"],
-  messagingSenderId: import.meta.env["VITE_FIREBASE_MESSAGING_SENDER_ID"],
-  appId: import.meta.env["VITE_FIREBASE_APP_ID"],
+  apiKey: import.meta.env["VITE_FIREBASE_API_KEY"] || "AIzaSyCkkHA_Lus79cDjYWaZKXTK184rhvb8",
+  authDomain: import.meta.env["VITE_FIREBASE_AUTH_DOMAIN"] || "al3zazzy-c3469.firebaseapp.com",
+  projectId: import.meta.env["VITE_FIREBASE_PROJECT_ID"] || "al3zazzy-c3469",
+  storageBucket: import.meta.env["VITE_FIREBASE_STORAGE_BUCKET"] || "al3zazzy-c3469.firebasestorage.app",
+  messagingSenderId: import.meta.env["VITE_FIREBASE_MESSAGING_SENDER_ID"] || "1021580577876",
+  appId: import.meta.env["VITE_FIREBASE_APP_ID"] || "1:1021580577876:web:dc6e4ded282ffcd472f1c1",
 };
 
 // Singleton — prevents re-initialization on HMR

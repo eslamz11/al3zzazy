@@ -5,7 +5,7 @@ export const Route = createFileRoute("/")({
   beforeLoad: () => {
     let savedLocale = DEFAULT_LOCALE;
     if (typeof window !== "undefined") {
-      const stored = localStorage.getItem("sleephigh_locale");
+      const stored = localStorage.getItem("Al3azzazy_locale");
       if (stored === "ar" || stored === "en") {
         savedLocale = stored;
       }

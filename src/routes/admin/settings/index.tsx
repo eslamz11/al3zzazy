@@ -17,7 +17,7 @@ import {
   updateSettings,
   validateSettings,
 } from "@/lib/services/firebase/settingsService";
-import { SleepHighLoader } from "@/components/common/SleepHighLoader";
+import { Al3azzazyLoader } from "@/components/common/SleepHighLoader";
 import { useLocale } from "@/lib/locale";
 import type { StoreSettings } from "@/lib/types";
 
@@ -71,7 +71,7 @@ function AdminSettingsPage() {
   if (loading || !settings) {
     return (
       <div className="py-16">
-        <SleepHighLoader label="جاري تحميل إعدادات متجر سليب هاي..." />
+        <Al3azzazyLoader label="جاري تحميل إعدادات متجر سليب هاي..." />
       </div>
     );
   }
@@ -83,9 +83,9 @@ function AdminSettingsPage() {
       {/* PAGE HEADER */}
       <div className="flex flex-wrap items-center justify-between gap-4 border-b border-border pb-4">
         <div>
-          <h1 className="text-xl font-bold text-foreground">إعدادات المتجر العامة (Sleep High)</h1>
+          <h1 className="text-xl font-bold text-foreground">إعدادات المتجر العامة ( Al3azzazy)</h1>
           <p className="text-xs text-muted-foreground mt-0.5">
-            إدارة بيانات سليب هاي الفعليه، الفروع، أرقام التواصل، الشحن والتوصيل والروابط الرسمية
+            إدارة بيانات العزازي مول الفعليه، الفروع، أرقام التواصل، الشحن والتوصيل والروابط الرسمية
           </p>
         </div>
 
@@ -182,6 +182,18 @@ function AdminSettingsPage() {
               className="w-full rounded-xl border border-input bg-background px-3 py-2.5"
             />
           </div>
+
+          <div>
+            <label className="font-bold block mb-1">رابط الخريطة (Google Maps / Location URL)</label>
+            <input
+              type="url"
+              value={settings.locationUrl || ""}
+              onChange={(e) => setSettings({ ...settings, locationUrl: e.target.value })}
+              placeholder="https://maps.google.com/?q=..."
+              className="w-full rounded-xl border border-input bg-background px-3 py-2.5 dir-ltr"
+            />
+            <p className="text-[11px] text-muted-foreground mt-1">عند إضافة رابط، سيصبح العنوان قابلاً للنقر في الفوتر وصفحة التواصل</p>
+          </div>
         </div>
 
         {/* CONTACT PHONES & EMAIL */}
@@ -224,7 +236,7 @@ function AdminSettingsPage() {
               required
               value={settings.email || ""}
               onChange={(e) => setSettings({ ...settings, email: e.target.value })}
-              placeholder="info@sleephigh-eg.com"
+              placeholder="info@Al3azzazy-eg.com"
               className="w-full rounded-xl border border-input bg-background px-3 py-2.5 dir-ltr text-right"
             />
           </div>
@@ -281,7 +293,7 @@ function AdminSettingsPage() {
                     social: { ...settings.social, tiktok: e.target.value },
                   })
                 }
-                placeholder="https://www.tiktok.com/@sleephigh29"
+                placeholder="https://www.tiktok.com/@username"
                 className="w-full rounded-xl border border-input bg-background px-3 py-2.5 dir-ltr"
               />
             </div>
@@ -297,26 +309,44 @@ function AdminSettingsPage() {
                     social: { ...settings.social, facebook: e.target.value },
                   })
                 }
-                placeholder="https://www.facebook.com/share/18dusX3iui/"
+                placeholder="https://www.facebook.com/share/..."
                 className="w-full rounded-xl border border-input bg-background px-3 py-2.5 dir-ltr"
               />
             </div>
           </div>
 
-          <div>
-            <label className="font-bold block mb-1">واتساب (WhatsApp Link/Number)</label>
-            <input
-              type="text"
-              value={settings.social.whatsapp || ""}
-              onChange={(e) =>
-                setSettings({
-                  ...settings,
-                  social: { ...settings.social, whatsapp: e.target.value },
-                })
-              }
-              placeholder="https://wa.me/201207864015"
-              className="w-full rounded-xl border border-input bg-background px-3 py-2.5 dir-ltr"
-            />
+          <div className="grid gap-3 sm:grid-cols-2">
+            <div>
+              <label className="font-bold block mb-1">واتساب (WhatsApp Link/Number)</label>
+              <input
+                type="text"
+                value={settings.social.whatsapp || ""}
+                onChange={(e) =>
+                  setSettings({
+                    ...settings,
+                    social: { ...settings.social, whatsapp: e.target.value },
+                  })
+                }
+                placeholder="https://wa.me/201207864015"
+                className="w-full rounded-xl border border-input bg-background px-3 py-2.5 dir-ltr"
+              />
+            </div>
+
+            <div>
+              <label className="font-bold block mb-1">تيليجرام (Telegram)</label>
+              <input
+                type="text"
+                value={settings.social.telegram || ""}
+                onChange={(e) =>
+                  setSettings({
+                    ...settings,
+                    social: { ...settings.social, telegram: e.target.value },
+                  })
+                }
+                placeholder="https://t.me/username"
+                className="w-full rounded-xl border border-input bg-background px-3 py-2.5 dir-ltr"
+              />
+            </div>
           </div>
         </div>
 

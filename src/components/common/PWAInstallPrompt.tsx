@@ -8,7 +8,7 @@ interface BeforeInstallPromptEvent extends Event {
   userChoice: Promise<{ outcome: "accepted" | "dismissed" }>;
 }
 
-const STORAGE_KEY = "sleephigh-pwa-dismissed";
+const STORAGE_KEY = "Al3azzazy-pwa-dismissed";
 const SHOW_DELAY_MS = 2 * 60 * 1000; // 2 minutes
 
 export function PWAInstallPrompt() {
@@ -106,13 +106,13 @@ export function PWAInstallPrompt() {
               <span className="text-white font-black text-sm leading-none">SH</span>
             </div>
             <div>
-               <p className="text-[10px] font-bold text-[#C8102E] tracking-widest uppercase mb-0.5">
-                 {t("pwa.eyebrow")}
-               </p>
-               <h3 className="text-white font-black text-base leading-tight">
-                 {t("pwa.title")}
-               </h3>
-               <p className="text-white/50 text-xs">{t("pwa.brand")}</p>
+              <p className="text-[10px] font-bold text-[#C8102E] tracking-widest uppercase mb-0.5">
+                {t("pwa.eyebrow")}
+              </p>
+              <h3 className="text-white font-black text-base leading-tight">
+                {t("pwa.title")}
+              </h3>
+              <p className="text-white/50 text-xs">{t("pwa.brand")}</p>
             </div>
           </div>
 
@@ -146,7 +146,7 @@ export function PWAInstallPrompt() {
           {/* Install button */}
           {installed ? (
             <div className="flex items-center justify-center gap-2 py-3 rounded-2xl bg-green-500/20 border border-green-500/30">
-               <span className="text-green-400 font-bold text-sm">✓ {t("pwa.installed")}</span>
+              <span className="text-green-400 font-bold text-sm">✓ {t("pwa.installed")}</span>
             </div>
           ) : (
             <button
@@ -179,7 +179,7 @@ export function PWAInstallPrompt() {
                       d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
                     />
                   </svg>
-                   {t("pwa.installing")}
+                  {t("pwa.installing")}
                 </span>
               ) : (
                 <>

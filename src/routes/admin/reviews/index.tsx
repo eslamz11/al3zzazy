@@ -19,7 +19,7 @@ import {
   setSiteMessageRead,
   deleteSiteMessage,
 } from "@/lib/services/firebase/messageService";
-import { SleepHighLoader } from "@/components/common/SleepHighLoader";
+import { Al3azzazyLoader } from "@/components/common/SleepHighLoader";
 import type { SiteMessage } from "@/lib/types";
 
 export const Route = createFileRoute("/admin/reviews/")({
@@ -103,11 +103,10 @@ function AdminSiteMessagesPage() {
           <button
             key={tab.key}
             onClick={() => setFilter(tab.key as "all" | "unread" | "read")}
-            className={`rounded-xl px-4 py-2 text-xs font-bold transition-all min-h-[38px] ${
-              filter === tab.key
+            className={`rounded-xl px-4 py-2 text-xs font-bold transition-all min-h-[38px] ${filter === tab.key
                 ? "bg-[#c8102e] text-white shadow-xs"
                 : "bg-card text-muted-foreground hover:bg-accent border border-border"
-            }`}
+              }`}
           >
             {tab.label}
           </button>
@@ -117,7 +116,7 @@ function AdminSiteMessagesPage() {
       {/* MESSAGES CONTENT AREA */}
       {loading ? (
         <div className="py-16">
-          <SleepHighLoader label="جاري تحميل رسائل الموقع..." />
+          <Al3azzazyLoader label="جاري تحميل رسائل الموقع..." />
         </div>
       ) : messages.length === 0 ? (
         <div className="rounded-2xl border border-dashed border-border p-12 text-center space-y-3 bg-card">
@@ -135,21 +134,19 @@ function AdminSiteMessagesPage() {
             return (
               <div
                 key={msg.id}
-                className={`rounded-2xl border p-5 shadow-xs transition-all flex flex-col justify-between space-y-4 ${
-                  !msg.read
+                className={`rounded-2xl border p-5 shadow-xs transition-all flex flex-col justify-between space-y-4 ${!msg.read
                     ? isNewsletter
                       ? "bg-blue-50/40 border-blue-200 shadow-sm"
                       : "bg-red-50/40 border-red-200 shadow-sm"
                     : "bg-card border-border hover:border-gray-300"
-                }`}
+                  }`}
               >
                 <div className="space-y-3">
                   <div className="flex items-start justify-between gap-2">
                     <div className="flex items-center gap-2">
                       <div
-                        className={`h-9 w-9 rounded-full flex items-center justify-center font-bold text-xs shrink-0 ${
-                          !msg.read ? "bg-[#c8102e] text-white" : "bg-gray-100 text-gray-700"
-                        }`}
+                        className={`h-9 w-9 rounded-full flex items-center justify-center font-bold text-xs shrink-0 ${!msg.read ? "bg-[#c8102e] text-white" : "bg-gray-100 text-gray-700"
+                          }`}
                       >
                         {msg.name.charAt(0).toUpperCase()}
                       </div>
@@ -158,20 +155,18 @@ function AdminSiteMessagesPage() {
                           <span>{msg.name}</span>
                           {!msg.read && (
                             <span
-                              className={`w-2 h-2 rounded-full animate-pulse ${
-                                isNewsletter ? "bg-blue-600" : "bg-[#c8102e]"
-                              }`}
+                              className={`w-2 h-2 rounded-full animate-pulse ${isNewsletter ? "bg-blue-600" : "bg-[#c8102e]"
+                                }`}
                             />
                           )}
                         </h3>
                         {msg.subject && (
                           <div className="mt-1">
                             <span
-                              className={`text-[11px] font-bold inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md ${
-                                isNewsletter
+                              className={`text-[11px] font-bold inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md ${isNewsletter
                                   ? "bg-blue-100 text-blue-700"
                                   : "bg-red-50 text-[#c8102e]"
-                              }`}
+                                }`}
                             >
                               {isNewsletter && <Newspaper className="h-3 w-3" />}
                               {msg.subject}
@@ -222,11 +217,10 @@ function AdminSiteMessagesPage() {
                 <div className="flex items-center justify-between border-t border-border/80 pt-3">
                   <button
                     onClick={() => handleToggleRead(msg)}
-                    className={`text-xs font-bold flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-colors ${
-                      msg.read
+                    className={`text-xs font-bold flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-colors ${msg.read
                         ? "text-muted-foreground hover:text-foreground bg-accent/50"
                         : "text-[#c8102e] bg-red-100/60 hover:bg-red-100"
-                    }`}
+                      }`}
                   >
                     {msg.read ? (
                       <MailOpen className="h-3.5 w-3.5" />
@@ -287,11 +281,10 @@ function AdminSiteMessagesPage() {
                 <div className="flex items-center justify-between bg-muted/40 p-3 rounded-xl">
                   <span className="font-bold text-gray-700">الموضوع:</span>
                   <span
-                    className={`font-bold inline-flex items-center gap-1.5 ${
-                      selectedMessage.subject === "طلب اشتراك في النشرة البريدية"
+                    className={`font-bold inline-flex items-center gap-1.5 ${selectedMessage.subject === "طلب اشتراك في النشرة البريدية"
                         ? "text-blue-600"
                         : "text-[#c8102e]"
-                    }`}
+                      }`}
                   >
                     {selectedMessage.subject === "طلب اشتراك في النشرة البريدية" && (
                       <Newspaper className="h-4 w-4" />

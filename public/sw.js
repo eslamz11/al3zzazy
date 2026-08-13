@@ -1,4 +1,4 @@
-const CACHE_NAME = "sleephigh-v1";
+const CACHE_NAME = "Al3azzazy-v1";
 
 // Files to cache on install
 const PRECACHE_URLS = ["/", "/ar", "/manifest.json", "/favicon.ico"];

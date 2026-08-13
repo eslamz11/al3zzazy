@@ -1,19 +1,19 @@
-import { Moon } from "lucide-react";
+import { Sparkles } from "lucide-react";
 import { useT } from "@/lib/locale";
 
-interface SleepHighLoaderProps {
+interface Al3azzazyLoaderProps {
   fullScreen?: boolean;
   size?: "sm" | "md" | "lg";
   label?: string;
   className?: string;
 }
 
-export function SleepHighLoader({
+export function Al3azzazyLoader({
   fullScreen = false,
   size = "md",
   label,
   className = "",
-}: SleepHighLoaderProps) {
+}: Al3azzazyLoaderProps) {
   const t = useT();
   const loaderLabel = label || t("common.loading");
   const logoSizes = {
@@ -28,34 +28,33 @@ export function SleepHighLoader({
     lg: "p-8 space-y-4",
   };
 
+  const storeLogo = "https://i.ibb.co/Z5Sxv6K/Chat-GPT-Image-Aug-13-2026-06-46-12-PM.png";
+
   const content = (
     <div
       className={`flex flex-col items-center justify-center text-center ${containerSizes[size]} ${className}`}
     >
-      {/* Brand Icon/Logo Box with soft pulsing glow */}
       <div className="relative flex items-center justify-center">
-        <div className="absolute inset-0 rounded-full bg-[#c8102e]/20 blur-xl animate-pulse" />
-        <div className="relative bg-white p-3 rounded-2xl border border-gray-100 shadow-md flex items-center justify-center space-x-2 space-x-reverse">
+        <div className="absolute inset-0 rounded-full bg-sky-500/20 blur-xl animate-pulse" />
+        <div className="relative bg-white p-3 rounded-2xl border border-sky-100 shadow-md flex items-center justify-center space-x-2 space-x-reverse">
           <img
-            src="https://sleephigh-eg.myshopify.com/cdn/shop/files/h_logo_250x.png?v=1697100417"
-            alt="سليب هاي SLEEP HIGH"
+            src={storeLogo}
+            alt="العزازي مول Al3azzazy"
             className={`${logoSizes[size]} object-contain animate-pulse`}
           />
-          <Moon className="h-4 w-4 text-[#c8102e] animate-bounce" />
+          <Sparkles className="h-4 w-4 text-amber-500 animate-bounce" />
         </div>
       </div>
 
-      {/* Subtle indicator line */}
-      <div className="w-24 h-1 bg-gray-100 rounded-full overflow-hidden relative">
-        <div className="h-full bg-gradient-to-r from-[#c8102e] via-[#e63950] to-[#c8102e] rounded-full animate-[shimmer_1.5s_infinite]" />
+      <div className="w-24 h-1 bg-sky-100 rounded-full overflow-hidden relative">
+        <div className="h-full bg-gradient-to-r from-sky-500 via-amber-400 to-sky-500 rounded-full animate-[shimmer_1.5s_infinite]" />
       </div>
 
-      {/* Calm label */}
-           {loaderLabel && (
-         <p className="text-xs md:text-sm font-bold text-gray-600 tracking-tight animate-pulse">
-           {loaderLabel}
-         </p>
-       )}
+      {loaderLabel && (
+        <p className="text-xs md:text-sm font-bold text-slate-600 tracking-tight animate-pulse">
+          {loaderLabel}
+        </p>
+      )}
     </div>
   );
 

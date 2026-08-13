@@ -54,9 +54,8 @@ interface ProductFormProps {
 }
 
 const CATEGORIES: Array<{ handle: CategoryHandle; nameAr: string }> = [
-  { handle: "mattresses", nameAr: "المراتب" },
-  { handle: "pillows", nameAr: "الوسائد" },
-  { handle: "toppers", nameAr: "مراتب التطرية" },
+  { handle: "children-clothing", nameAr: "ملابس أطفال" },
+  { handle: "school-supplies", nameAr: "مستلزمات مدرسية" },
 ];
 
 export function ProductForm({ initialValues, isEditing = false, onSubmit }: ProductFormProps) {
@@ -71,7 +70,7 @@ export function ProductForm({ initialValues, isEditing = false, onSubmit }: Prod
   const [descriptionEn, setDescriptionEn] = useState(initialValues?.descriptionEn || "");
   const [slug, setSlug] = useState(initialValues?.slug || "");
   const [categoryId, setCategoryId] = useState<CategoryHandle>(
-    initialValues?.categoryId || "mattresses",
+    initialValues?.categoryId || "children-clothing",
   );
   const [price, setPrice] = useState<number>(initialValues?.price || 0);
   const [compareAtPrice, setCompareAtPrice] = useState<number | undefined>(
@@ -87,7 +86,7 @@ export function ProductForm({ initialValues, isEditing = false, onSubmit }: Prod
   const [featured, setFeatured] = useState<boolean>(initialValues?.featured || false);
   const [active, setActive] = useState<boolean>(initialValues?.active !== false);
   const [tagsInput, setTagsInput] = useState<string>((initialValues?.tags || []).join(", "));
-  const [brand, setBrand] = useState<string>(initialValues?.brand || "سليب هاي");
+  const [brand, setBrand] = useState<string>(initialValues?.brand || "العزازي مول");
   const [firmness, setFirmness] = useState<Product["firmness"]>(
     initialValues?.firmness || "medium",
   );
@@ -157,9 +156,9 @@ export function ProductForm({ initialValues, isEditing = false, onSubmit }: Prod
     if (!seoTitleAr) setSeoTitleAr(`شراء ${nameAr} بأفضل سعر`);
     if (!seoTitleEn && nameEn) setSeoTitleEn(`Buy ${nameEn} at the best price`);
     if (!seoDescAr)
-      setSeoDescAr(descriptionAr.substring(0, 150) || `تسوق ${nameAr} من سليب هاي مصر`);
+      setSeoDescAr(descriptionAr.substring(0, 150) || `تسوق ${nameAr} من العزازي مول`);
     if (!seoDescEn && descriptionEn)
-      setSeoDescEn(descriptionEn.substring(0, 150) || `Shop ${nameEn} from SleepHigh Egypt`);
+      setSeoDescEn(descriptionEn.substring(0, 150) || `Shop ${nameEn} from Al3azzazy Egypt`);
   };
 
   const handleNameArChange = (val: string) => {
@@ -657,7 +656,7 @@ export function ProductForm({ initialValues, isEditing = false, onSubmit }: Prod
                 type="text"
                 value={seoTitleEn}
                 onChange={(e) => setSeoTitleEn(e.target.value)}
-                placeholder="Pocket+ Mattress | SleepHigh"
+                placeholder="Pocket+ Mattress | Al3azzazy"
                 className="mt-1 w-full rounded-xl border border-input bg-background px-3 py-2 text-xs dir-ltr"
               />
             </div>

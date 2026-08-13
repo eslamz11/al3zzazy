@@ -3,4 +3,4 @@ Allow: /
 Disallow: /admin/
 Disallow: /admin
 
-Sitemap: https://sleephigh-eg.com/sitemap.xml
+Sitemap: https://Al3azzazy-eg.com/sitemap.xml

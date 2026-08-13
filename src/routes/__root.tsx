@@ -19,7 +19,7 @@ import { SpeedInsights } from "@vercel/speed-insights/react";
 /** Brand logo used across the storefront header — preloaded so it is ready the
  *  moment the preloader lifts. */
 const SITE_LOGO_URL =
-  "https://sleephigh-eg.myshopify.com/cdn/shop/files/h_logo_250x.png?v=1697100417";
+  "https://i.ibb.co/Z5Sxv6K/Chat-GPT-Image-Aug-13-2026-06-46-12-PM.png";
 
 export function NotFoundComponent() {
   const locale = useLocale();
@@ -93,40 +93,36 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "SleepHigh Egypt — Mattresses & Pillows | سليب هاي مصر" },
+      { title: "العزازي مول | Al3azzazy — ملابس أطفال ومستلزمات مدرسية" },
       {
         name: "description",
         content:
-          "اكتشف مراتب، وسائد، ومراتب تطرية مصممة لأفضل تجربة نوم | Discover mattresses, pillows and toppers for the best sleep experience.",
+          "العزازي مول — تسوق أرقى ملابس الأطفال، ملابس حديثي الولادة والمحير، وحقائب ومستلزمات المدرسة بأفضل الجودة والأسعار.",
       },
-      { name: "author", content: "SleepHigh Egypt" },
-      { name: "theme-color", content: "#C8102E" },
+      { name: "author", content: "العزازي مول Al3azzazy" },
+      { name: "theme-color", content: "#0284c7" },
       { name: "mobile-web-app-capable", content: "yes" },
       { name: "apple-mobile-web-app-capable", content: "yes" },
       { name: "apple-mobile-web-app-status-bar-style", content: "default" },
-      { name: "apple-mobile-web-app-title", content: "سليب هاي" },
-      { property: "og:title", content: "SleepHigh Egypt — سليب هاي مصر" },
+      { name: "apple-mobile-web-app-title", content: "العزازي مول" },
+      { property: "og:title", content: "العزازي مول | Al3azzazy" },
       {
         property: "og:description",
         content:
-          "تسوق أفضل المراتب الطبية والوسائد ومستلزمات النوم الفاخرة مع ضمان حقيقي وتوصيل لجميع المحافظات | Shop medical mattresses, pillows and premium sleep essentials with genuine warranty and delivery across Egypt.",
+          "تسوق أرقى ملابس الأطفال ومستلزمات المدرسة | Shop kids fashion, newborn wear & school supplies with Al3azzazy.",
       },
       { property: "og:type", content: "website" },
-      { property: "og:site_name", content: "SleepHigh Egypt" },
+      { property: "og:site_name", content: "العزازي مول Al3azzazy" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@SleepHighEG" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
       { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
       { rel: "manifest", href: "/manifest.json" },
       { rel: "apple-touch-icon", href: "/icons/icon-192.svg" },
-      // Warm up connections to the external image CDNs so critical imagery
-      // (hero, logo, products) starts downloading sooner.
-      { rel: "preconnect", href: "https://sleephigh-eg.myshopify.com", crossOrigin: "anonymous" },
+      { rel: "preconnect", href: "https://i.ibb.co", crossOrigin: "anonymous" },
       { rel: "preconnect", href: "https://lh3.googleusercontent.com", crossOrigin: "anonymous" },
       { rel: "preconnect", href: "https://images.unsplash.com", crossOrigin: "anonymous" },
-      // Preload the storefront logo so it appears the instant the loader lifts.
       { rel: "preload", as: "image", href: SITE_LOGO_URL, fetchPriority: "high" },
     ],
   }),

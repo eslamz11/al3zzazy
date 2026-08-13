@@ -23,7 +23,7 @@ function StorefrontLayout() {
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      localStorage.setItem("sleephigh_locale", locale);
+      localStorage.setItem("Al3azzazy_locale", locale);
       document.documentElement.lang = locale;
       document.documentElement.dir = dir;
     }

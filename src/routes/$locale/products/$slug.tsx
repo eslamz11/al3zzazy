@@ -15,6 +15,7 @@ import { WishlistButton } from "@/components/shop/WishlistButton";
 import { ProductGrid } from "@/components/shop/ProductGrid";
 import { Price } from "@/components/shop/Price";
 import { ProductPageSkeleton } from "@/components/common/Skeletons";
+import { SizeGuide } from "@/components/shop/SizeGuide";
 import {
   ShoppingCart,
   Share2,
@@ -184,14 +185,14 @@ function ProductDetailsPage() {
     sku: product.sku || product.id,
     brand: {
       "@type": "Brand",
-      name: "سليب هاي SleepHigh",
+      name: "العزازي مول Al3azzazy",
     },
     offers: {
       "@type": "Offer",
       url:
         typeof window !== "undefined"
           ? window.location.href
-          : `https://sleephigh-eg.com/products/${product.slug}`,
+          : `https://al3zazzy-c3469.web.app/products/${product.slug}`,
       priceCurrency: "EGP",
       price: price,
       availability: isAvailable ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
@@ -364,35 +365,22 @@ function ProductDetailsPage() {
             <Price price={price} compareAtPrice={compareAt} size="lg" />
           </div>
 
-          <div className="flex flex-col items-center justify-center gap-6 py-4 bg-gray-50/50 rounded-2xl border border-gray-100">
-            {/* Trust Badges */}
-            {(product.trust?.warranty10Years || product.trust?.freeShipping) && (
-              <div className="flex flex-wrap items-center justify-center gap-6">
-                {product.trust?.warranty10Years && (
-                  <div className="flex flex-col items-center gap-2">
-                    <img
-                      src="https://www.sleephigh-eg.com/cdn/shop/files/w-ar@2x.png?v=1704697997"
-                      alt="ضمان 10 سنوات"
-                      className="h-16 w-auto object-contain drop-shadow-sm transition-transform hover:scale-105"
-                    />
-                  </div>
-                )}
-                {product.trust?.freeShipping && (
-                  <div className="flex flex-col items-center gap-2">
-                    <img
-                      src="https://www.sleephigh-eg.com/cdn/shop/files/fd-ar@2x.png?v=1704697995"
-                      alt="شحن مجاني"
-                      className="h-16 w-auto object-contain drop-shadow-sm transition-transform hover:scale-105"
-                    />
-                  </div>
-                )}
-              </div>
-            )}
+          <div className="flex flex-col items-center justify-center gap-4 py-4 bg-sky-50/50 rounded-2xl border border-sky-100">
+            <div className="flex flex-wrap items-center justify-center gap-4 text-xs font-bold text-slate-700">
+              <span className="inline-flex items-center gap-1.5 bg-white px-3 py-1.5 rounded-xl border border-sky-100 shadow-2xs">
+                <ShieldCheck className="h-4 w-4 text-sky-600" />
+                خامات قطنية 100% عالية الجودة
+              </span>
+              <span className="inline-flex items-center gap-1.5 bg-white px-3 py-1.5 rounded-xl border border-sky-100 shadow-2xs">
+                <Truck className="h-4 w-4 text-amber-500" />
+                توصيل لكافة المحافظات
+              </span>
+            </div>
 
             {/* Simulated Viewer Count */}
             {viewerCount !== null && (
-              <div className="flex items-center justify-center gap-2 text-base font-bold text-gray-800 bg-white shadow-sm border border-gray-100 px-5 py-3 rounded-full animate-in fade-in slide-in-from-bottom-2">
-                <Eye className="h-6 w-6 text-brand" />
+              <div className="flex items-center justify-center gap-2 text-xs font-bold text-slate-800 bg-white shadow-xs border border-sky-100 px-4 py-2 rounded-full">
+                <Eye className="h-4 w-4 text-sky-600 animate-pulse" />
                 <span>{t("product.viewers", { count: viewerCount })}</span>
               </div>
             )}
@@ -400,29 +388,18 @@ function ProductDetailsPage() {
 
           <div className="h-px bg-border w-full" />
 
-          {/* Mattress Size Guide */}
-          {product.category === "mattresses" && (
+          {/* Clothing Size Guide */}
+          {(product.category === "children-clothing" || product.category === "kids-clothing" || product.options.some(o => o.key === "size")) && (
             <div className="flex justify-end mb-[-1rem] relative z-10">
               <Dialog>
                 <DialogTrigger asChild>
-                  <button className="flex items-center gap-1.5 text-sm font-bold text-gray-500 hover:text-brand transition-colors">
-                   <Ruler className="h-4 w-4" />
-                   {t("product.sizeGuide")}
+                  <button className="flex items-center gap-1.5 text-xs font-bold text-sky-700 hover:text-sky-800 transition-colors">
+                    <Ruler className="h-4 w-4" />
+                    {t("product.sizeGuide")}
                   </button>
                 </DialogTrigger>
-                <DialogContent className="max-w-3xl p-0 overflow-hidden bg-white border-none rounded-2xl">
-                  <div className="relative">
-                    <DialogClose asChild>
-                      <button className="absolute top-4 right-4 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-black/50 text-white hover:bg-black/70 transition-colors">
-                        <X className="h-4 w-4" />
-                      </button>
-                    </DialogClose>
-                    <img
-                      src="https://www.sleephigh-eg.com/cdn/shop/files/mattresse-sizechart.jpg?v=7540685469412662580"
-                      alt="دليل المقاسات"
-                      className="w-full h-auto object-contain"
-                    />
-                  </div>
+                <DialogContent className="max-w-2xl p-6 bg-white border border-sky-100 rounded-3xl dir-rtl">
+                  <SizeGuide />
                 </DialogContent>
               </Dialog>
             </div>
@@ -454,8 +431,6 @@ function ProductDetailsPage() {
               <button
                 onClick={() => {
                   handleAddToCart();
-                  // In a real flow, this would redirect directly to checkout
-                  // navigate({ to: '/checkout' });
                 }}
                 disabled={!isAvailable}
                 className="w-full flex items-center justify-center gap-2 rounded-2xl bg-gray-200 px-6 h-[52px] font-bold text-black transition-transform hover:bg-gray-300 active:scale-[0.98] disabled:opacity-50"
@@ -512,7 +487,7 @@ function ProductDetailsPage() {
           </div>
         </div>
 
-        {(L(product.materials) || product.features.length > 0) && (
+        {(L(product.materials) || (product.features && product.features.length > 0)) && (
           <div className="grid md:grid-cols-2 gap-8 bg-card p-8 rounded-3xl border border-border">
             {L(product.materials) && (
               <div className="space-y-4">
@@ -522,7 +497,7 @@ function ProductDetailsPage() {
                 </p>
               </div>
             )}
-            {product.features.length > 0 && (
+            {product.features && product.features.length > 0 && (
               <div className="space-y-4">
                  <h3 className="text-lg font-bold text-foreground">{t("product.featuresTitle")}</h3>
                 <ul className="space-y-2">

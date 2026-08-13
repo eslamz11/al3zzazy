@@ -7,34 +7,37 @@
  */
 export const coreDict = {
   // brand
-  "brand.name": { ar: "سليب هاي", en: "SleepHigh" },
-  "brand.tagline": { ar: "نوم مصري فاخر", en: "Egyptian premium sleep" },
-  "brand.logoAlt": { ar: "سليب هاي SLEEP HIGH", en: "SleepHigh" },
+  "brand.name": { ar: "العزازي مول", en: "Al3azzazy" },
+  "brand.tagline": { ar: "ملابس أطفال ومستلزمات مدرسية", en: "Kids Wear & School Supplies" },
+  "brand.logoAlt": { ar: "العزازي مول Al3azzazy", en: "Al3azzazy Store" },
   "brand.fullName": {
-    ar: "سليب هاي (SleepHigh Egyptian Bedding System)",
-    en: "SleepHigh Egyptian Bedding System",
+    ar: "العزازي مول (Al3azzazy Kids & School Supplies)",
+    en: "Al3azzazy Kids & School Store",
   },
   "brand.description": {
-    ar: "سليب هاي هي العلامة التجارية المصرية الأولى المتخصصة في إنتاج وتفصيل المراتب الطبية والوسائد المصنعة وفق مواصفات النوم الفندقي الفاخر.",
-    en: "SleepHigh is Egypt's leading bedding brand, specialising in medical mattresses and pillows built to luxury hotel sleep standards.",
+    ar: "العزازي مول هو وجهتك الأولى لأرقى ملابس الأطفال، ملابس حديثي الولادة، المحير، وكافة المستلزمات الأدوات المدرسية بجودة عالية وأسعار ممتازة.",
+    en: "Al3azzazy Store is your primary destination for kids' clothing, newborn wear, teens fashion, and full school supplies with premium quality.",
   },
 
   // announcement
   "announce.freeShipping": {
-    ar: "التوصيل المجاني لكل أهالي كفر الزيات",
-    en: "Free delivery across Kafr El Zayat",
+    ar: "أحدث التشكيلات لملابس الأطفال والمستلزمات المدرسية بأفضل الأسعار",
+    en: "Newest collections for kids clothing & school supplies at best prices",
   },
   "announce.cod": { ar: "الدفع عند الاستلام متاح", en: "Cash on delivery available" },
-  "announce.warranty": { ar: "ضمان يصل إلى ٥ سنوات", en: "Up to 5 years warranty" },
-  "announce.warrantyShort": { ar: "ضمان ٥ سنوات", en: "5-year warranty" },
+  "announce.warranty": { ar: "خامات ممتازة عالية الجودة", en: "High quality materials" },
+  "announce.warrantyShort": { ar: "خامات راقية", en: "Premium Quality" },
   "announce.close": { ar: "إغلاق الإعلان", en: "Dismiss announcement" },
 
   // nav
   "nav.home": { ar: "الرئيسية", en: "Home" },
-  "nav.mattresses": { ar: "المراتب", en: "Mattresses" },
-  "nav.pillows": { ar: "الوسائد", en: "Pillows" },
-  "nav.collections": { ar: "كل المنتجات", en: "Shop all" },
-  "nav.collectionsShort": { ar: "المجموعة", en: "Shop" },
+  "nav.childrenClothing": { ar: "ملابس أطفال", en: "Kids Clothing" },
+  "nav.schoolSupplies": { ar: "مستلزمات مدرسية", en: "School Supplies" },
+  "nav.kidsClothing": { ar: "ملابس أطفال", en: "Children's Wear" },
+  "nav.newborn": { ar: "ملابس حديثي ولادة", en: "Newborn Wear" },
+  "nav.teens": { ar: "ملابس محير", en: "Teens Wear" },
+  "nav.collections": { ar: "جميع المنتجات", en: "Shop all" },
+  "nav.collectionsShort": { ar: "المتجر", en: "Shop" },
   "nav.about": { ar: "من نحن", en: "About us" },
   "nav.contact": { ar: "تواصل معنا", en: "Contact" },
   "nav.menu": { ar: "القائمة", en: "Menu" },
@@ -49,9 +52,9 @@ export const coreDict = {
   "nav.switchLanguage": { ar: "Switch to English", en: "التحويل للعربية" },
 
   // header actions
-  "header.search": { ar: "ابحث عن منتج", en: "Search products" },
+  "header.search": { ar: "ابحث عن منتج أو مستلزمات مدرسية", en: "Search clothing or school supplies" },
   "header.searchShort": { ar: "بحث", en: "Search" },
-  "header.searchPlaceholder": { ar: "بحث عن منتج...", en: "Search products…" },
+  "header.searchPlaceholder": { ar: "بحث عن ملابس، مقاسات، أدوات مدرسية...", en: "Search clothes, sizes, school tools…" },
   "header.searchPlaceholderMobile": { ar: "ابحث عن أي شيء...", en: "Search anything…" },
   "header.searchClear": { ar: "مسح البحث", en: "Clear search" },
   "header.account": { ar: "حسابي", en: "Account" },
@@ -59,42 +62,42 @@ export const coreDict = {
   "header.cart": { ar: "السلة", en: "Cart" },
 
   // hero
-  "hero.title": { ar: "نوم أفضل يبدأ من هنا", en: "Better sleep starts here" },
+  "hero.title": { ar: "أشيك ملابس الأطفال وأفضل المستلزمات المدرسية", en: "Stylish Kids Wear & Best School Essentials" },
   "hero.subtitle": {
-    ar: "اكتشف منتجات نوم مصممة لتمنحك الراحة والدعم كل ليلة، بخامات مختارة وتصنيع مصري بمعايير عالية.",
-    en: "Discover sleep essentials engineered for comfort and support every night, with carefully selected materials and high-standard Egyptian craftsmanship.",
+    ar: "تشكيلة متكاملة وعصرية للأطفال وحديثي الولادة والمحير مع أدوات وحقائب مدرسية ممتازة تناسب كل الأذواق.",
+    en: "Explore trendy fashion for babies, kids, and teens along with high-quality school bags and supplies.",
   },
   "hero.ctaPrimary": { ar: "تسوق الآن", en: "Shop now" },
-  "hero.ctaSecondary": { ar: "اكتشف المراتب", en: "Explore mattresses" },
+  "hero.ctaSecondary": { ar: "تصفح مستلزمات المدرسة", en: "Explore School Supplies" },
   "hero.slide": { ar: "شريحة {index}", en: "Slide {index}" },
 
   // sections
   "section.categories": { ar: "تسوق حسب الفئة", en: "Shop by category" },
   "section.categoriesSub": {
-    ar: "مجموعات مصممة لتناسب كل احتياج نوم",
-    en: "Collections built around every sleep need",
+    ar: "تشكيلات متخصصة للأطفال والمدرسة",
+    en: "Collections for kids fashion and school supplies",
   },
   "section.popular": { ar: "الأكثر مبيعًا", en: "Best sellers" },
   "section.popularSub": {
-    ar: "اختيارات عملائنا الأكثر طلبًا",
-    en: "Our customers' most requested picks",
+    ar: "المنتجات الأكثر طلبًا من عملائنا",
+    en: "Our customers' top favorites",
   },
-  "section.mattresses": { ar: "المراتب", en: "Mattresses" },
-  "section.mattressesSub": {
-    ar: "دعم متوازن ونوم أعمق مع تشكيلة المراتب",
-    en: "Balanced support and deeper sleep",
+  "section.childrenClothing": { ar: "ملابس الأطفال", en: "Children's Clothing" },
+  "section.childrenClothingSub": {
+    ar: "تشكيلات مريحة وأنيقة تناسب جميع الأعمار",
+    en: "Comfortable & trendy outfits for all ages",
   },
-  "section.pillows": { ar: "الوسائد", en: "Pillows" },
-  "section.pillowsSub": {
-    ar: "ارتفاعات وخامات مختلفة لكل وضعية نوم",
-    en: "Different lofts and fills for every sleep position",
+  "section.schoolSupplies": { ar: "المستلزمات المدرسية", en: "School Supplies" },
+  "section.schoolSuppliesSub": {
+    ar: "شنط ومقالم وأدوات كتابية بأفضل الخامات",
+    en: "Bags, pencil cases, and stationeries",
   },
-  "section.toppers": { ar: "التطرية وواقي المرتبة", en: "Toppers & protectors" },
+  "section.toppers": { ar: "أدوات ومقالم", en: "Stationery & Accessories" },
   "section.toppersSub": {
-    ar: "طبقة راحة إضافية وحماية تدوم",
-    en: "An extra comfort layer and lasting protection",
+    ar: "تجهيزات متكاملة للعام الدراسي",
+    en: "Full supplies for the school year",
   },
-  "section.benefits": { ar: "لماذا سليب هاي", en: "Why SleepHigh" },
+  "section.benefits": { ar: "لماذا العزازي مول", en: "Why Al3azzazy" },
   "section.testimonials": { ar: "آراء عملائنا", en: "What our customers say" },
   "section.related": { ar: "منتجات مشابهة", en: "You may also like" },
   "section.viewAll": { ar: "عرض الكل", en: "View all" },
@@ -224,7 +227,7 @@ export const coreDict = {
   // PWA install prompt
   "pwa.eyebrow": { ar: "تجربة أفضل", en: "A better experience" },
   "pwa.title": { ar: "حمّل التطبيق مجاناً!", en: "Install the app for free" },
-  "pwa.brand": { ar: "سليب هاي مصر", en: "SleepHigh Egypt" },
+  "pwa.brand": { ar: "العزازي مول", en: "Al3azzazy Egypt" },
   "pwa.offline": { ar: "تصفح بدون إنترنت", en: "Browse offline" },
   "pwa.notifications": { ar: "إشعارات العروض", en: "Offer alerts" },
   "pwa.faster": { ar: "تجربة أسرع", en: "Faster experience" },

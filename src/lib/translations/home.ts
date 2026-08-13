@@ -1,20 +1,20 @@
-﻿/** Homepage section copy. */
+/** Homepage section copy. */
 export const homeDict = {
-  "home.categoriesTitle": { ar: "اكتشف منتجاتنا", en: "Discover our products" },
-  "home.mattressesTitle": { ar: "المراتب", en: "Mattresses" },
+  "home.categoriesTitle": { ar: "الأقسام الرئيسية", en: "Main Categories" },
+  "home.mattressesTitle": { ar: "ملابس أطفال", en: "Kids Clothing" },
   "home.mattressesText": {
-    ar: "استكشف مجموعتنا المتنوعة من المراتب المصممة لتناسب احتياجاتك الخاصة لتجربة نوم مريحة ومجددة",
-    en: "Explore our range of mattresses designed around your needs for restful, restorative sleep",
+    ar: "استكشف مجموعتنا المتنوعة من ملابس الأطفال الجذابة والمريحة للأولاد والبنات بكافة الأعمار.",
+    en: "Explore our wide range of kids clothing crafted for comfort and style across all ages.",
   },
-  "home.pillowsTitle": { ar: "الوسائد", en: "Pillows" },
+  "home.pillowsTitle": { ar: "مستلزمات مدرسية", en: "School Supplies" },
   "home.pillowsText": {
-    ar: "استكشف مجموعتنا المتنوعة من الوسائد المصممة لدعم تفضيلاتك الفريدة في النوم وتعزيز راحتك",
-    en: "Explore our range of pillows designed to support your sleep style and boost your comfort",
+    ar: "استكشف أحدث الشنط والمقالم والأدوات المدرسية والكتابية عالية الجودة لاستقبال العام الدراسي.",
+    en: "Explore premium school bags, pencil cases, and stationery supplies for the school year.",
   },
   "home.testimonialsTitle": { ar: "آراء العملاء", en: "Customer reviews" },
   "home.testimonialsText": {
-    ar: "اكتشف سبب اختيار عملائنا لـ سليب هاي. استمع إلى قصصهم عن الراحة المحسنة والنوم الأفضل",
-    en: "See why our customers choose SleepHigh — real stories about better comfort and deeper sleep",
+    ar: "اكتشف سبب اختيار العائلات لـ العزازي مول — تجارب حقيقية وجودة تتحدث عن نفسها.",
+    en: "See why parents choose Al3azzazy — real customer experiences and top quality.",
   },
   "home.testimonialNav": { ar: "آراء العميل {index}", en: "Customer review {index}" },
   "home.newsletterTitle": { ar: "كن أول من يعرف", en: "Be the first to know" },

@@ -100,8 +100,8 @@ export function ProductOptions({
                       "min-h-12 rounded-xl border px-5 text-sm font-bold transition-all",
                       compact && "min-h-10 px-3 text-xs",
                       selected
-                        ? "border-black bg-black text-white shadow-md"
-                        : "border-gray-200 bg-white text-gray-700 hover:border-gray-300 hover:bg-gray-50",
+                        ? "border-sky-600 bg-sky-600 text-white shadow-md shadow-sky-500/20"
+                        : "border-sky-100 bg-sky-50/50 text-slate-800 hover:border-sky-300 hover:bg-sky-100/50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200",
                       !available && "opacity-40 cursor-not-allowed",
                     )}
                   >

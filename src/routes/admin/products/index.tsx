@@ -132,7 +132,7 @@ function AdminProductsPage() {
             إدارة المنتجات
           </h1>
           <p className="text-xs md:text-sm text-gray-500 margin-0 mt-1">
-            عرض، تعديل، إضافة وإدارة كافة منتجات متجر سليب هاي ({products.length} منتج)
+            عرض، تعديل، إضافة وإدارة كافة منتجات متجر العزازي مول({products.length} منتج)
           </p>
         </div>
 

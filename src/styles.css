@@ -5,7 +5,7 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
- * SleepHigh design system — warm neutral, premium, calm.
+ * Al3azzazy design system — warm neutral, premium, calm.
  * All colors are oklch tokens. Never hardcode colors in components.
  */
 
@@ -62,90 +62,91 @@
 }
 
 :root {
-  --radius: 0.5rem;
+  --radius: 0.75rem;
 
-  --background: #fdfbf7;
-  --foreground: #1a1c1c;
+  --background: #f8fafc;
+  --foreground: #0f172a;
   --surface: #ffffff;
-  --surface-secondary: #f4f0eb;
+  --surface-secondary: #f1f5f9;
 
   --card: #ffffff;
-  --card-foreground: #1a1c1c;
+  --card-foreground: #0f172a;
   --popover: #ffffff;
-  --popover-foreground: #1a1c1c;
+  --popover-foreground: #0f172a;
 
-  --primary: #c8102e;
+  --primary: #0284c7;
   --primary-foreground: #ffffff;
-  --secondary: #f4f0eb;
-  --secondary-foreground: #1a1c1c;
+  --secondary: #fef08a;
+  --secondary-foreground: #713f12;
 
-  --muted: #f3ece6;
-  --muted-foreground: #6b7280;
+  --muted: #f1f5f9;
+  --muted-foreground: #64748b;
 
   /* shadcn hover surface */
-  --accent: #f8f4ef;
-  --accent-foreground: #1a1c1c;
+  --accent: #e0f2fe;
+  --accent-foreground: #0369a1;
 
-  /* SleepHigh Brand Colors */
-  --brand: #c8102e;
-  --brand-hover: #a50b23;
+  /* Al3azzazy Brand Colors - Baby Blue & Yellow */
+  --brand: #0284c7;
+  --brand-hover: #0369a1;
   --brand-foreground: #ffffff;
-  --brand-soft: #fde8ea;
-  --brand-yellow: #ffc700;
+  --brand-soft: #e0f2fe;
+  --brand-yellow: #eab308;
+  --brand-yellow-hover: #ca8a04;
 
   --destructive: #dc2626;
   --destructive-foreground: #ffffff;
   --success: #16a34a;
   --success-foreground: #ffffff;
-  --warning: #ffc700;
+  --warning: #eab308;
 
-  --border: #e5dfd7;
-  --input: #e5dfd7;
-  --ring: #c8102e;
+  --border: #e2e8f0;
+  --input: #cbd5e1;
+  --ring: #38bdf8;
 
-  --sidebar: #fdfbf7;
-  --sidebar-foreground: #1a1c1c;
-  --sidebar-primary: #c8102e;
+  --sidebar: #ffffff;
+  --sidebar-foreground: #0f172a;
+  --sidebar-primary: #0284c7;
   --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #f4f0eb;
-  --sidebar-accent-foreground: #1a1c1c;
-  --sidebar-border: #e5dfd7;
-  --sidebar-ring: #c8102e;
+  --sidebar-accent: #e0f2fe;
+  --sidebar-accent-foreground: #0369a1;
+  --sidebar-border: #e2e8f0;
+  --sidebar-ring: #38bdf8;
 }
 
 .dark {
-  --background: #121212;
-  --foreground: #f3f4f6;
-  --surface: #1e1e1e;
-  --surface-secondary: #27272a;
-  --card: #1e1e1e;
-  --card-foreground: #f3f4f6;
-  --popover: #1e1e1e;
-  --popover-foreground: #f3f4f6;
-  --primary: #e63946;
-  --primary-foreground: #ffffff;
-  --secondary: #27272a;
-  --secondary-foreground: #f3f4f6;
-  --muted: #27272a;
-  --muted-foreground: #9ca3af;
-  --accent: #2d2d30;
-  --accent-foreground: #f3f4f6;
-  --brand: #e63946;
-  --brand-hover: #c8102e;
-  --brand-foreground: #ffffff;
-  --brand-soft: #3d1c1f;
-  --brand-yellow: #ffc700;
+  --background: #0f172a;
+  --foreground: #f8fafc;
+  --surface: #1e293b;
+  --surface-secondary: #334155;
+  --card: #1e293b;
+  --card-foreground: #f8fafc;
+  --popover: #1e293b;
+  --popover-foreground: #f8fafc;
+  --primary: #38bdf8;
+  --primary-foreground: #0f172a;
+  --secondary: #334155;
+  --secondary-foreground: #f8fafc;
+  --muted: #334155;
+  --muted-foreground: #94a3b8;
+  --accent: #1e293b;
+  --accent-foreground: #38bdf8;
+  --brand: #38bdf8;
+  --brand-hover: #0284c7;
+  --brand-foreground: #0f172a;
+  --brand-soft: #0c4a6e;
+  --brand-yellow: #facc15;
   --border: rgba(255, 255, 255, 0.12);
   --input: rgba(255, 255, 255, 0.16);
-  --ring: #e63946;
-  --sidebar: #1e1e1e;
-  --sidebar-foreground: #f3f4f6;
-  --sidebar-primary: #e63946;
-  --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #2d2d30;
-  --sidebar-accent-foreground: #f3f4f6;
+  --ring: #38bdf8;
+  --sidebar: #1e293b;
+  --sidebar-foreground: #f8fafc;
+  --sidebar-primary: #38bdf8;
+  --sidebar-primary-foreground: #0f172a;
+  --sidebar-accent: #334155;
+  --sidebar-accent-foreground: #f8fafc;
   --sidebar-border: rgba(255, 255, 255, 0.12);
-  --sidebar-ring: #e63946;
+  --sidebar-ring: #38bdf8;
 }
 
 @layer base {
@@ -181,6 +182,7 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
+
     *,
     *::before,
     *::after {
@@ -231,7 +233,7 @@
     display: none;
   }
 
-  & > * {
+  &>* {
     scroll-snap-align: start;
     flex: 0 0 auto;
   }
@@ -570,7 +572,7 @@
   padding: 24px;
 }
 
-/* ── STATUS BADGES (Exact SleepHigh Palette) ─────────────── */
+/* ── STATUS BADGES (Exact Al3azzazy Palette) ─────────────── */
 .badge-status {
   display: inline-flex;
   align-items: center;
@@ -621,9 +623,11 @@
     align-items: flex-start;
     gap: 10px;
   }
+
   .admin-card-body {
     padding: 16px;
   }
+
   .admin-stat-card {
     padding: 16px;
   }
@@ -637,22 +641,25 @@
    ============================================================= */
 
 /* Sweep used by the preloader bar and by <SmartImage> skeletons.
-   (Also powers the existing SleepHighLoader `animate-[shimmer]`.) */
+   (Also powers the existing Al3azzazyLoader `animate-[shimmer]`.) */
 @keyframes shimmer {
   0% {
     transform: translateX(-100%);
   }
+
   100% {
     transform: translateX(100%);
   }
 }
 
 @keyframes shg-glow {
+
   0%,
   100% {
     opacity: 0.35;
     transform: scale(0.9);
   }
+
   50% {
     opacity: 0.7;
     transform: scale(1.12);
@@ -660,10 +667,12 @@
 }
 
 @keyframes shg-float {
+
   0%,
   100% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(-6px);
   }
@@ -673,6 +682,7 @@
   0% {
     transform: translateX(-140%);
   }
+
   100% {
     transform: translateX(340%);
   }
@@ -682,7 +692,8 @@
 .shg-splash {
   position: fixed;
   inset: 0;
-  z-index: 2147483000; /* above header (9999) and mobile drawer (100000) */
+  z-index: 2147483000;
+  /* above header (9999) and mobile drawer (100000) */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -739,22 +750,18 @@
   position: absolute;
   inset: 0;
   transform: translateX(-100%);
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.55),
-    transparent
-  );
+  background: linear-gradient(90deg,
+      transparent,
+      rgba(255, 255, 255, 0.55),
+      transparent);
   animation: shimmer 1.6s infinite;
 }
 
 .dark .shg-skel::after {
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.08),
-    transparent
-  );
+  background: linear-gradient(90deg,
+      transparent,
+      rgba(255, 255, 255, 0.08),
+      transparent);
 }
 
 /* Image fade-in once decoded — no pop, no layout shift. */
@@ -802,6 +809,7 @@
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
