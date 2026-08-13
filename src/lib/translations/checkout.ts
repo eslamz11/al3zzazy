@@ -1,0 +1,147 @@
+/** Cart, checkout, order confirmation and order status copy. */
+export const checkoutDict = {
+  // cart page
+  "cart.title": { ar: "سلة المشتريات", en: "Shopping cart" },
+  "cart.empty": { ar: "سلة مشترياتك فارغة", en: "Your cart is empty" },
+  "cart.emptyHint": {
+    ar: "أضف بعض المنتجات الرائعة واستمتع بنوم مريح.",
+    en: "Add a few great products and start sleeping better.",
+  },
+  "cart.startShopping": { ar: "تسوق الآن", en: "Shop now" },
+  "cart.columnProduct": { ar: "المنتج", en: "Product" },
+  "cart.columnQuantity": { ar: "الكمية", en: "Quantity" },
+  "cart.columnTotal": { ar: "الإجمالي", en: "Total" },
+  "cart.removeItem": { ar: "حذف المنتج", en: "Remove item" },
+  "cart.subtotal": { ar: "المجموع الفرعي", en: "Subtotal" },
+  "cart.shipping": { ar: "الشحن", en: "Shipping" },
+  "cart.total": { ar: "الإجمالي", en: "Total" },
+  "cart.checkout": { ar: "متابعة لعملية الدفع", en: "Proceed to checkout" },
+  "cart.viewCart": { ar: "عرض السلة", en: "View cart" },
+  "cart.remove": { ar: "حذف", en: "Remove" },
+  "cart.moveToWishlist": { ar: "نقل إلى المفضلة", en: "Move to wishlist" },
+  "cart.freeShipping": { ar: "مجاني", en: "Free" },
+  "cart.itemsCount": { ar: "عنصر", en: "items" },
+  "cart.continueShopping": { ar: "الاستمرار في التسوق", en: "Continue shopping" },
+  "cart.orderSummary": { ar: "ملخص الطلب", en: "Order summary" },
+  "cart.freeShippingUnlocked": {
+    ar: "تهانينا! لقد حصلت على شحن مجاني",
+    en: "Congratulations! You've unlocked free shipping",
+  },
+  "cart.freeShippingRemaining": {
+    ar: "أضف بـ {amount} للحصول على شحن مجاني",
+    en: "Add {amount} more to get free shipping",
+  },
+  "cart.securePayment": { ar: "دفع آمن ومحمي 100%", en: "100% safe and secure payment" },
+
+  // checkout
+  "checkout.title": { ar: "إتمام الطلب", en: "Checkout" },
+  "checkout.stepShipping": { ar: "الشحن", en: "Shipping" },
+  "checkout.stepPayment": { ar: "الدفع", en: "Payment" },
+  "checkout.shippingAddress": { ar: "عنوان الشحن", en: "Shipping address" },
+  "checkout.fullName": { ar: "الاسم بالكامل", en: "Full name" },
+  "checkout.fullNamePlaceholder": { ar: "الاسم الثلاثي", en: "Your full name" },
+  "checkout.phone": { ar: "رقم الهاتف", en: "Phone number" },
+  "checkout.email": { ar: "البريد الإلكتروني", en: "Email address" },
+  "checkout.emailOptional": {
+    ar: "البريد الإلكتروني (اختياري)",
+    en: "Email address (optional)",
+  },
+  "checkout.governorate": { ar: "المحافظة", en: "Governorate" },
+  "checkout.governoratePlaceholder": { ar: "القاهرة", en: "Cairo" },
+  "checkout.city": { ar: "المدينة / المنطقة", en: "City / area" },
+  "checkout.cityPlaceholder": { ar: "مدينة نصر", en: "Nasr City" },
+  "checkout.street": { ar: "الشارع ورقم المبنى", en: "Street and building number" },
+  "checkout.streetPlaceholder": {
+    ar: "12 شارع النزهة، الدور 3 شقة 5",
+    en: "12 El Nozha St., 3rd floor, apt 5",
+  },
+  "checkout.notes": { ar: "ملاحظات إضافية للمندوب (اختياري)", en: "Delivery notes (optional)" },
+  "checkout.notesPlaceholder": {
+    ar: "علامة مميزة أو موعد مفضل للتوصيل...",
+    en: "A landmark or a preferred delivery time…",
+  },
+  "checkout.optional": { ar: "اختياري", en: "optional" },
+  "checkout.paymentMethod": { ar: "طريقة الدفع", en: "Payment method" },
+  "checkout.cod": { ar: "الدفع عند الاستلام", en: "Cash on delivery" },
+  "checkout.codText": {
+    ar: "الدفع نقداً للمندوب عند استلام طلبك",
+    en: "Pay the courier in cash when your order arrives",
+  },
+  "checkout.card": { ar: "البطاقة الائتمانية", en: "Credit card" },
+  "checkout.cardText": {
+    ar: "فيزا / ماستركارد عبر بوابة دفع آمنة",
+    en: "Visa / Mastercard via a secure payment gateway",
+  },
+  "checkout.next": { ar: "المتابعة للدفع", en: "Continue to payment" },
+  "checkout.backToCart": { ar: "العودة للسلة", en: "Back to cart" },
+  "checkout.backToShipping": { ar: "العودة للشحن", en: "Back to shipping" },
+  "checkout.placeOrder": { ar: "تأكيد الطلب", en: "Place order" },
+  "checkout.placingOrder": { ar: "جاري التأكيد...", en: "Placing order…" },
+  "checkout.orderSummary": { ar: "ملخص الطلب", en: "Order summary" },
+  "checkout.orderSummaryCount": { ar: "ملخص الطلب ({count})", en: "Order summary ({count})" },
+  "checkout.emptyTitle": { ar: "عذراً السلة فارغة", en: "Your cart is empty" },
+  "checkout.emptyCart": {
+    ar: "لا يمكنك إتمام الطلب وسلة المشتريات فارغة.",
+    en: "You can't complete an order with an empty cart.",
+  },
+  "checkout.backToShopping": { ar: "العودة للتسوق", en: "Back to shopping" },
+  "checkout.missingFields": {
+    ar: "يرجى إكمال جميع الحقول المطلوبة",
+    en: "Please fill in all required fields",
+  },
+  "checkout.failed": {
+    ar: "حدث خطأ أثناء إتمام الطلب، يرجى المحاولة لاحقاً.",
+    en: "We couldn't place your order. Please try again later.",
+  },
+  "checkout.connectionFailed": {
+    ar: "تعذر الاتصال بالخادم.",
+    en: "We couldn't reach the server.",
+  },
+  "checkout.subtotal": { ar: "المجموع الفرعي", en: "Subtotal" },
+  "checkout.shipping": { ar: "الشحن", en: "Shipping" },
+  "checkout.total": { ar: "الإجمالي", en: "Total" },
+  "checkout.freeShipping": { ar: "مجاني", en: "Free" },
+
+  // confirmation
+  "confirm.title": { ar: "شكراً لطلبك!", en: "Thank you for your order!" },
+  "confirm.text": {
+    ar: "تم استلام طلبك بنجاح وجاري تجهيزه.",
+    en: "We've received your order and it's being prepared.",
+  },
+  "confirm.orderNumber": { ar: "رقم الطلب", en: "Order number" },
+  "confirm.orderDate": { ar: "تاريخ الطلب", en: "Order date" },
+  "confirm.products": { ar: "المنتجات المطلوبة ({count})", en: "Items ordered ({count})" },
+  "confirm.paymentMethod": { ar: "طريقة الدفع", en: "Payment method" },
+  "confirm.codNote": {
+    ar: "سيتم تحصيل المبلغ نقداً عند تسليم الطلب.",
+    en: "The amount will be collected in cash on delivery.",
+  },
+  "confirm.costSummary": { ar: "ملخص التكلفة", en: "Cost summary" },
+  "confirm.trackOrder": { ar: "متابعة حالة الطلب", en: "Track your order" },
+  "confirm.backToStore": { ar: "العودة للرئيسية", en: "Back to home" },
+  "confirm.notFound": { ar: "لم نجد هذا الطلب", en: "Order not found" },
+
+  // payment method labels
+  "payment.cod": { ar: "الدفع عند الاستلام", en: "Cash on delivery" },
+  "payment.codLong": { ar: "الدفع نقداً عند الاستلام", en: "Cash on delivery" },
+  "payment.card": { ar: "بطاقة ائتمانية", en: "Credit card" },
+  "payment.cardLong": { ar: "دفع إلكتروني مسبق", en: "Prepaid online payment" },
+
+  // order status labels
+  "orderStatus.pending": { ar: "قيد المراجعة", en: "Pending review" },
+  "orderStatus.confirmed": { ar: "تم التأكيد", en: "Confirmed" },
+  "orderStatus.processing": { ar: "جاري التجهيز", en: "Processing" },
+  "orderStatus.shipped": { ar: "تم الشحن", en: "Shipped" },
+  "orderStatus.delivered": { ar: "تم التوصيل", en: "Delivered" },
+  "orderStatus.cancelled": { ar: "ملغي", en: "Cancelled" },
+  "orderStatus.returned": { ar: "تم الاسترجاع", en: "Returned" },
+
+  // order timeline labels
+  "orderTimeline.pending": { ar: "تم استلام الطلب", en: "Order received" },
+  "orderTimeline.confirmed": { ar: "تم تأكيد الطلب", en: "Order confirmed" },
+  "orderTimeline.processing": { ar: "جاري التجهيز", en: "Being prepared" },
+  "orderTimeline.shipped": { ar: "في الطريق إليك", en: "On its way to you" },
+  "orderTimeline.delivered": { ar: "تم التوصيل بنجاح", en: "Delivered successfully" },
+  "orderTimeline.cancelled": { ar: "تم إلغاء الطلب", en: "Order cancelled" },
+  "orderTimeline.returned": { ar: "تم الاسترجاع", en: "Order returned" },
+} as const;
