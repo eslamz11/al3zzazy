@@ -1,9 +1,10 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Save, ArrowRight, Languages, Sparkles } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { ImageUploader, type ManagedImage } from "./ImageUploader";
 import { VariantEditor } from "./VariantEditor";
 import type { CategoryHandle, Product, ProductVariant } from "@/lib/types";
+import { adminListCategories } from "@/lib/services/firebase/categoryService";
 
 export interface ProductFormValues {
   nameAr: string;
@@ -53,14 +54,10 @@ interface ProductFormProps {
   onSubmit: (values: ProductFormValues) => Promise<void>;
 }
 
-const CATEGORIES: Array<{ handle: CategoryHandle; nameAr: string }> = [
-  { handle: "children-clothing", nameAr: "ملابس أطفال" },
-  { handle: "school-supplies", nameAr: "مستلزمات مدرسية" },
-];
-
 export function ProductForm({ initialValues, isEditing = false, onSubmit }: ProductFormProps) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [categories, setCategories] = useState<Array<{ id: string; handle: CategoryHandle; nameAr: string }>>([]);
 
   const [nameAr, setNameAr] = useState(initialValues?.nameAr || "");
   const [nameEn, setNameEn] = useState(initialValues?.nameEn || "");
@@ -127,6 +124,22 @@ export function ProductForm({ initialValues, isEditing = false, onSubmit }: Prod
     const newSku = `${prefix}-${ts}`;
     setSku(newSku);
   };
+
+  // Load categories from Firebase
+  useEffect(() => {
+    adminListCategories().then((cats) => {
+      const mapped = cats.map((c) => ({
+        id: c.id || c.handle,
+        handle: c.handle,
+        nameAr: c.name.ar,
+      }));
+      setCategories(mapped);
+      // Set default category if not already set
+      if (!categoryId && mapped.length > 0 && mapped[0]) {
+        setCategoryId(mapped[0].handle);
+      }
+    });
+  }, []);
 
   const [translating, setTranslating] = useState(false);
   const handleAutoTranslate = async () => {
@@ -577,11 +590,15 @@ export function ProductForm({ initialValues, isEditing = false, onSubmit }: Prod
                 onChange={(e) => setCategoryId(e.target.value as CategoryHandle)}
                 className="mt-1 w-full rounded-xl border border-input bg-background px-3 py-2 text-xs"
               >
-                {CATEGORIES.map((c) => (
-                  <option key={c.handle} value={c.handle}>
-                    {c.nameAr}
-                  </option>
-                ))}
+                {categories.length === 0 ? (
+                  <option value="">جاري التحميل...</option>
+                ) : (
+                  categories.map((c) => (
+                    <option key={c.handle} value={c.handle}>
+                      {c.nameAr}
+                    </option>
+                  ))
+                )}
               </select>
             </div>
 

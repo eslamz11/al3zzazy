@@ -49,70 +49,182 @@ export function ProductOptions({
     onChange(match ? { ...match.options } : withValue);
   };
 
+  // Check if option is color-related
+  const isColorOption = (key: string, label: string) => {
+    const lowerKey = key.toLowerCase();
+    const lowerLabel = label.toLowerCase();
+    return lowerKey.includes("color") || lowerKey.includes("لون") || 
+           lowerLabel.includes("color") || lowerLabel.includes("لون");
+  };
+
+  // Check if option is size-related
+  const isSizeOption = (key: string, label: string) => {
+    const lowerKey = key.toLowerCase();
+    const lowerLabel = label.toLowerCase();
+    return ["length", "width", "height", "size", "الطول", "العرض", "الارتفاع", "المقاس"].includes(lowerKey) ||
+           ["الطول", "العرض", "الارتفاع", "المقاس"].includes(lowerLabel) ||
+           lowerKey.includes("size") || lowerKey.includes("مقاس");
+  };
+
   return (
-    <div className={cn("space-y-4", compact && "space-y-3")}>
-      {product.options.map((option, optionIndex) => (
-        <fieldset key={option.key}>
-          <legend className="mb-2 text-sm font-bold text-gray-800 flex justify-between w-full">
-            <span>{L(option.label)}:</span>
-          </legend>
-          {["length", "width", "height", "size", "الطول", "العرض", "الارتفاع", "المقاس"].includes(
-            option.key.toLowerCase(),
-          ) || ["الطول", "العرض", "الارتفاع", "المقاس"].includes(L(option.label)) ? (
-            <div className="relative">
-              <select
-                value={selection[option.key] || ""}
-                onChange={(e) => handleSelect(option.key, e.target.value)}
-                className="w-full appearance-none rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm font-semibold text-gray-800 transition-colors focus:border-brand focus:outline-none focus:ring-1 focus:ring-brand hover:border-gray-300 pl-10"
-              >
+    <div className={cn("space-y-5", compact && "space-y-4")}>
+      {product.options.map((option, optionIndex) => {
+        const optionLabel = L(option.label);
+        const isColor = isColorOption(option.key, optionLabel);
+        const isSize = isSizeOption(option.key, optionLabel);
+
+        return (
+          <fieldset key={option.key}>
+            <legend className="mb-3 text-sm font-bold text-foreground">
+              {optionLabel}
+            </legend>
+
+            {/* Color Selector - Visual buttons with color indication */}
+            {isColor ? (
+              <div className="flex flex-wrap gap-2">
                 {option.values.map((value) => {
+                  const selected = selection[option.key] === value.value;
                   const available = isValueAvailable(optionIndex, option.key, value.value);
                   return (
-                    <option key={value.value} value={value.value} disabled={!available}>
-                       {L(value.label)} {available ? "" : t("product.unavailableOption")}
-                    </option>
+                    <button
+                      key={value.value}
+                      type="button"
+                      onClick={() => available && handleSelect(option.key, value.value)}
+                      disabled={!available}
+                      aria-pressed={selected}
+                      className={cn(
+                        "group relative rounded-xl border-2 px-4 py-2.5 text-sm font-bold transition-all",
+                        compact && "px-3 py-2 text-xs",
+                        selected
+                          ? "border-brand bg-brand text-brand-foreground shadow-md"
+                          : available
+                          ? "border-border bg-background text-foreground hover:border-brand/50 hover:bg-brand/5"
+                          : "border-border bg-muted text-muted-foreground opacity-50 cursor-not-allowed line-through",
+                      )}
+                    >
+                      <span className="flex items-center gap-2">
+                        <span className={cn(
+                          "h-4 w-4 rounded-full border border-border/50",
+                          selected && "ring-2 ring-brand-foreground ring-offset-2"
+                        )} style={{
+                          backgroundColor: getColorHex(value.value, L(value.label))
+                        }} />
+                        {L(value.label)}
+                      </span>
+                    </button>
                   );
                 })}
-              </select>
-              <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center px-4 text-gray-500">
-                <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M19 9l-7 7-7-7"
-                  />
-                </svg>
               </div>
-            </div>
-          ) : (
-            <div className="flex flex-wrap gap-2">
-              {option.values.map((value) => {
-                const selected = selection[option.key] === value.value;
-                const available = isValueAvailable(optionIndex, option.key, value.value);
-                return (
-                  <button
-                    key={value.value}
-                    type="button"
-                    onClick={() => handleSelect(option.key, value.value)}
-                    aria-pressed={selected}
-                    className={cn(
-                      "min-h-12 rounded-xl border px-5 text-sm font-bold transition-all",
-                      compact && "min-h-10 px-3 text-xs",
-                      selected
-                        ? "border-sky-600 bg-sky-600 text-white shadow-md shadow-sky-500/20"
-                        : "border-sky-100 bg-sky-50/50 text-slate-800 hover:border-sky-300 hover:bg-sky-100/50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200",
-                      !available && "opacity-40 cursor-not-allowed",
-                    )}
-                  >
-                    {L(value.label)}
-                  </button>
-                );
-              })}
-            </div>
-          )}
-        </fieldset>
-      ))}
+            ) : isSize ? (
+              /* Size Selector - Clean button grid */
+              <div className="flex flex-wrap gap-2">
+                {option.values.map((value) => {
+                  const selected = selection[option.key] === value.value;
+                  const available = isValueAvailable(optionIndex, option.key, value.value);
+                  return (
+                    <button
+                      key={value.value}
+                      type="button"
+                      onClick={() => available && handleSelect(option.key, value.value)}
+                      disabled={!available}
+                      aria-pressed={selected}
+                      className={cn(
+                        "min-w-[3.5rem] rounded-xl border-2 px-4 py-2.5 text-sm font-bold transition-all",
+                        compact && "min-w-[3rem] px-3 py-2 text-xs",
+                        selected
+                          ? "border-brand bg-brand text-brand-foreground shadow-md"
+                          : available
+                          ? "border-border bg-background text-foreground hover:border-brand/50 hover:bg-brand/5"
+                          : "border-border bg-muted text-muted-foreground opacity-50 cursor-not-allowed line-through",
+                      )}
+                    >
+                      {L(value.label)}
+                    </button>
+                  );
+                })}
+              </div>
+            ) : (
+              /* Other Options - Default style */
+              <div className="flex flex-wrap gap-2">
+                {option.values.map((value) => {
+                  const selected = selection[option.key] === value.value;
+                  const available = isValueAvailable(optionIndex, option.key, value.value);
+                  return (
+                    <button
+                      key={value.value}
+                      type="button"
+                      onClick={() => available && handleSelect(option.key, value.value)}
+                      disabled={!available}
+                      aria-pressed={selected}
+                      className={cn(
+                        "rounded-xl border-2 px-4 py-2.5 text-sm font-bold transition-all",
+                        compact && "px-3 py-2 text-xs",
+                        selected
+                          ? "border-brand bg-brand text-brand-foreground shadow-md"
+                          : available
+                          ? "border-border bg-background text-foreground hover:border-brand/50 hover:bg-brand/5"
+                          : "border-border bg-muted text-muted-foreground opacity-50 cursor-not-allowed",
+                      )}
+                    >
+                      {L(value.label)}
+                    </button>
+                  );
+                })}
+              </div>
+            )}
+          </fieldset>
+        );
+      })}
     </div>
   );
+}
+
+// Helper function to get color hex from color name
+function getColorHex(value: string, label: string): string {
+  const colorName = (value + " " + label).toLowerCase();
+  
+  const colorMap: Record<string, string> = {
+    // Arabic colors
+    "أبيض": "#FFFFFF",
+    "أسود": "#000000",
+    "أزرق": "#3B82F6",
+    "أحمر": "#EF4444",
+    "أخضر": "#10B981",
+    "أصفر": "#FCD34D",
+    "برتقالي": "#F97316",
+    "وردي": "#EC4899",
+    "بنفسجي": "#A855F7",
+    "بني": "#92400E",
+    "رمادي": "#6B7280",
+    "بيج": "#D4B896",
+    "كحلي": "#1E3A8A",
+    "سماوي": "#7DD3FC",
+    "زهري": "#F9A8D4",
+    "نيلي": "#4F46E5",
+    // English colors
+    "white": "#FFFFFF",
+    "black": "#000000",
+    "blue": "#3B82F6",
+    "red": "#EF4444",
+    "green": "#10B981",
+    "yellow": "#FCD34D",
+    "orange": "#F97316",
+    "pink": "#EC4899",
+    "purple": "#A855F7",
+    "brown": "#92400E",
+    "gray": "#6B7280",
+    "grey": "#6B7280",
+    "beige": "#D4B896",
+    "navy": "#1E3A8A",
+    "sky": "#7DD3FC",
+    "indigo": "#4F46E5",
+  };
+
+  for (const [name, hex] of Object.entries(colorMap)) {
+    if (colorName.includes(name)) {
+      return hex;
+    }
+  }
+
+  return "#E5E7EB"; // Default gray
 }
