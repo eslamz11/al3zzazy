@@ -220,11 +220,13 @@ export async function updateOrderStatus(
 
     // Clean existing history entries by removing undefined values
     const cleanedHistory = existingHistory.map((entry) => {
-      const cleaned: Partial<OrderStatusHistoryEntry> = {
+      const cleaned: Record<string, unknown> = {
         status: entry.status,
         timestamp: entry.timestamp,
-        adminId: entry.adminId,
       };
+      if (entry.adminId !== undefined) {
+        cleaned.adminId = entry.adminId;
+      }
       if (entry.note !== undefined) {
         cleaned.note = entry.note;
       }
