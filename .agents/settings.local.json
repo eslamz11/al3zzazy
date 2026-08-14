@@ -1,0 +1,25 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx tsc *)",
+      "Bash(grep -E '$locale/index\\\\.tsx|routes/\\\\$locale/index')",
+      "Bash(grep -oE 'fill=\"#[0-9A-Fa-f]{3,6}\"' public/icons/icon-192.svg)",
+      "Bash(timeout 300 npm run build)",
+      "Bash(node -e \"const i=require\\('lucide-react'\\); ['Handshake','Tag','Cpu','Headset','Truck','ShieldCheck','RotateCcw','ArrowRight','ShoppingBag','Star','CheckCircle','ChevronLeft','ChevronRight'].forEach\\(n=>console.log\\(n, typeof i[n]==='object'||typeof i[n]==='function'?'OK':'MISSING'\\)\\)\")",
+      "Bash(xargs -I{} echo \"Total pre-existing TS errors \\(unchanged\\): {}\")",
+      "Bash(npx vite *)",
+      "Read(//c/Al3azzazy/comfy-nest-eg-main/src/routes/\\\\$locale/collections/**)",
+      "Read(//c/Al3azzazy/comfy-nest-eg-main/src/routes/\\\\$locale/**)",
+      "Bash(npx eslint *)",
+      "Bash(echo \"exit: $?\")",
+      "WebFetch(domain:github.com)",
+      "Bash(curl -s \"https://api.github.com/repos/anthropics/skills/git/trees/main?recursive=1\")",
+      "Bash(curl -s \"https://api.github.com/repos/nextlevelbuilder/ui-ux-pro-max-skill/git/trees/main?recursive=1\")",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Bash(npm run *)",
+      "Bash(wait *)",
+      "Bash(cat)",
+      "Read(//tmp/**)"
+    ]
+  }
+}
