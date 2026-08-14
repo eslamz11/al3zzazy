@@ -42,6 +42,7 @@ import {
   createOrder as createFirestoreOrder,
   getUserOrders,
 } from "@/lib/services/firebase/orderService";
+import { validateCoupon } from "@/lib/services/firebase/couponService";
 
 import type { Address, CartLine, CartLineView, Order, PaymentMethod, User } from "@/lib/types";
 
@@ -374,6 +375,17 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     ) => {
       const orderSubtotal = cartLines.reduce((sum, line) => sum + line.lineTotal, 0);
 
+      let discount = 0;
+      let validatedCouponCode: string | undefined;
+
+      if (couponCode) {
+        const validation = await validateCoupon(couponCode, orderSubtotal);
+        if (validation.ok) {
+          discount = validation.discountAmount;
+          validatedCouponCode = validation.coupon.code;
+        }
+      }
+
       const orderPayload: any = {
         userId: user?.id,
         address,
@@ -381,8 +393,8 @@ export function StoreProvider({ children }: { children: ReactNode }) {
         cartLines,
         subtotal: orderSubtotal,
         shipping: shippingCost,
-        discount: 0,
-        couponCode,
+        discount,
+        couponCode: validatedCouponCode,
       };
 
       const res = await createFirestoreOrder(orderPayload);

@@ -102,6 +102,20 @@ export const checkoutDict = {
   "checkout.total": { ar: "الإجمالي", en: "Total" },
   "checkout.freeShipping": { ar: "مجاني", en: "Free" },
 
+  // coupon
+  "checkout.coupon.label": { ar: "كود الخصم", en: "Discount code" },
+  "checkout.coupon.placeholder": { ar: "أدخل كود الخصم", en: "Enter discount code" },
+  "checkout.coupon.apply": { ar: "تطبيق", en: "Apply" },
+  "checkout.coupon.applied": { ar: "تم تطبيق الكوبون", en: "Coupon applied" },
+  "checkout.coupon.remove": { ar: "إزالة", en: "Remove" },
+  "checkout.coupon.validating": { ar: "جاري التحقق...", en: "Validating..." },
+  "checkout.coupon.invalid": { ar: "كوبون غير صالح", en: "Invalid coupon" },
+  "checkout.coupon.expired": { ar: "الكوبون منتهي الصلاحية", en: "Coupon has expired" },
+  "checkout.coupon.notActive": { ar: "الكوبون غير مفعل بعد", en: "Coupon not yet active" },
+  "checkout.coupon.usageLimitReached": { ar: "تم الوصول للحد الأقصى لاستخدام الكوبون", en: "Coupon usage limit reached" },
+  "checkout.coupon.minOrderNotMet": { ar: "الحد الأدنى للطلب لاستخدام الكوبون هو {amount} ج.م", en: "Minimum order amount for this coupon is {amount} EGP" },
+  "checkout.discount": { ar: "الخصم", en: "Discount" },
+
   // confirmation
   "confirm.title": { ar: "شكراً لطلبك!", en: "Thank you for your order!" },
   "confirm.text": {

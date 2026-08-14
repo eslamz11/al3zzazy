@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { useLocalized, useDir, useHref, useT, useFormatters } from "@/lib/locale";
 import { useStore } from "@/lib/store";
-import type { Address, PaymentMethod } from "@/lib/types";
+import type { Address, PaymentMethod, Coupon } from "@/lib/types";
 import {
   Lock,
   Truck,
@@ -13,8 +13,12 @@ import {
   MapPin,
   Check,
   ShoppingBag,
+  Tag,
+  X,
+  Loader2,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { validateCoupon } from "@/lib/services/firebase/couponService";
 
 export const Route = createFileRoute("/$locale/checkout/")({
   component: CheckoutPage,
@@ -32,6 +36,11 @@ function CheckoutPage() {
   const [step, setStep] = useState<1 | 2>(1);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
+  const [couponCode, setCouponCode] = useState("");
+  const [appliedCoupon, setAppliedCoupon] = useState<{ coupon: Coupon; discountAmount: number } | null>(null);
+  const [couponValidating, setCouponValidating] = useState(false);
+  const [couponError, setCouponError] = useState("");
 
   const [address, setAddress] = useState<Address>({
     fullName: user?.name || "",
@@ -97,23 +106,47 @@ function CheckoutPage() {
     setStep(2);
   };
 
+  const discount = appliedCoupon?.discountAmount ?? 0;
+  const finalTotal = total - discount;
+
+  const handleApplyCoupon = async () => {
+    if (!couponCode.trim()) return;
+    setCouponValidating(true);
+    setCouponError("");
+    try {
+      const result = await validateCoupon(couponCode, subtotal);
+      if (result.ok) {
+        setAppliedCoupon({ coupon: result.coupon, discountAmount: result.discountAmount });
+        setCouponCode("");
+      } else {
+        setCouponError(result.error);
+      }
+    } catch {
+      setCouponError(t("checkout.coupon.invalid"));
+    } finally {
+      setCouponValidating(false);
+    }
+  };
+
+  const handleRemoveCoupon = () => {
+    setAppliedCoupon(null);
+    setCouponError("");
+  };
+
   const handlePlaceOrder = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError("");
 
     try {
-      const order = await placeOrder(address, paymentMethod, shipping);
+      const order = await placeOrder(address, paymentMethod, shipping, appliedCoupon?.coupon.code);
       if (order) {
         sessionStorage.setItem("lastOrder", JSON.stringify(order));
-        // Auto-save address and phone to user profile for future orders
         if (user) {
           updateProfile({
             phone: address.phone || undefined,
             defaultAddress: address,
-          }).catch(() => {
-            /* silent fail */
-          });
+          }).catch(() => {});
         }
         navigate({ to: href("/checkout/confirmation") });
       } else {
@@ -170,7 +203,16 @@ function CheckoutPage() {
                 subtotal={subtotal}
                 shipping={shipping}
                 total={total}
+                discount={discount}
+                finalTotal={finalTotal}
                 t={t}
+                couponCode={couponCode}
+                setCouponCode={setCouponCode}
+                appliedCoupon={appliedCoupon}
+                couponValidating={couponValidating}
+                couponError={couponError}
+                onApplyCoupon={handleApplyCoupon}
+                onRemoveCoupon={handleRemoveCoupon}
               />
             </div>
           </details>
@@ -383,7 +425,16 @@ function CheckoutPage() {
               subtotal={subtotal}
               shipping={shipping}
               total={total}
+              discount={discount}
+              finalTotal={finalTotal}
               t={t}
+              couponCode={couponCode}
+              setCouponCode={setCouponCode}
+              appliedCoupon={appliedCoupon}
+              couponValidating={couponValidating}
+              couponError={couponError}
+              onApplyCoupon={handleApplyCoupon}
+              onRemoveCoupon={handleRemoveCoupon}
             />
           </div>
         </div>
@@ -394,7 +445,7 @@ function CheckoutPage() {
         <div className="flex items-center justify-between gap-4">
           <div className="min-w-0">
             <div className="text-[11px] font-bold text-muted-foreground">{t("checkout.total")}</div>
-            <div className="truncate text-lg font-black text-brand">{price(total)}</div>
+            <div className="truncate text-lg font-black text-brand">{price(finalTotal)}</div>
           </div>
           <button
             type="submit"
@@ -500,7 +551,16 @@ function OrderSummaryContent({
   subtotal,
   shipping,
   total,
+  discount,
+  finalTotal,
   t,
+  couponCode,
+  setCouponCode,
+  appliedCoupon,
+  couponValidating,
+  couponError,
+  onApplyCoupon,
+  onRemoveCoupon,
 }: {
   cartLines: ReturnType<typeof useStore>["cartLines"];
   L: ReturnType<typeof useLocalized>;
@@ -508,7 +568,16 @@ function OrderSummaryContent({
   subtotal: number;
   shipping: number;
   total: number;
+  discount: number;
+  finalTotal: number;
   t: ReturnType<typeof useT>;
+  couponCode: string;
+  setCouponCode: (code: string) => void;
+  appliedCoupon: { coupon: Coupon; discountAmount: number } | null;
+  couponValidating: boolean;
+  couponError: string;
+  onApplyCoupon: () => void;
+  onRemoveCoupon: () => void;
 }) {
   return (
     <div className="space-y-6">
@@ -532,11 +601,65 @@ function OrderSummaryContent({
         ))}
       </div>
 
+      <div className="space-y-3 border-t border-border pt-4">
+        {appliedCoupon ? (
+          <div className="flex items-center justify-between gap-2 rounded-xl bg-green-500/10 px-3 py-2.5 text-sm">
+            <div className="flex items-center gap-2">
+              <Tag className="h-4 w-4 text-green-600" />
+              <span className="font-bold text-green-700">{appliedCoupon.coupon.code}</span>
+            </div>
+            <button
+              type="button"
+              onClick={onRemoveCoupon}
+              className="flex items-center gap-1 text-xs font-bold text-muted-foreground hover:text-foreground"
+            >
+              <X className="h-3.5 w-3.5" />
+              <span>{t("checkout.coupon.remove")}</span>
+            </button>
+          </div>
+        ) : (
+          <div className="space-y-2">
+            <label className="text-sm font-bold text-foreground">{t("checkout.coupon.label")}</label>
+            <div className="flex gap-2">
+              <input
+                type="text"
+                value={couponCode}
+                onChange={(e) => setCouponCode(e.target.value.toUpperCase())}
+                placeholder={t("checkout.coupon.placeholder")}
+                className="flex-1 rounded-xl border border-input bg-background px-3 py-2.5 text-sm uppercase tracking-wide outline-none transition-shadow focus:border-brand focus:ring-2 focus:ring-brand/10"
+                onKeyDown={(e) => e.key === "Enter" && (e.preventDefault(), onApplyCoupon())}
+              />
+              <button
+                type="button"
+                onClick={onApplyCoupon}
+                disabled={couponValidating || !couponCode.trim()}
+                className="shrink-0 rounded-xl bg-muted px-4 py-2.5 text-sm font-bold transition-colors hover:bg-muted/80 disabled:opacity-50"
+              >
+                {couponValidating ? (
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                ) : (
+                  t("checkout.coupon.apply")
+                )}
+              </button>
+            </div>
+            {couponError && (
+              <p className="text-xs font-bold text-destructive">{couponError}</p>
+            )}
+          </div>
+        )}
+      </div>
+
       <div className="space-y-3 border-t border-border pt-4 text-sm">
         <div className="flex justify-between text-muted-foreground">
           <span>{t("checkout.subtotal")}</span>
           <span className="font-bold text-foreground">{price(subtotal)}</span>
         </div>
+        {discount > 0 && (
+          <div className="flex justify-between text-green-600">
+            <span>{t("checkout.discount")}</span>
+            <span className="font-bold">-{price(discount)}</span>
+          </div>
+        )}
         <div className="flex justify-between text-muted-foreground">
           <span>{t("checkout.shipping")}</span>
           <span className="font-bold text-foreground">
@@ -547,7 +670,7 @@ function OrderSummaryContent({
 
       <div className="flex items-end justify-between border-t border-border pt-4">
         <span className="text-lg font-bold">{t("checkout.total")}</span>
-        <span className="text-2xl font-black text-brand">{price(total)}</span>
+        <span className="text-2xl font-black text-brand">{price(finalTotal)}</span>
       </div>
     </div>
   );
