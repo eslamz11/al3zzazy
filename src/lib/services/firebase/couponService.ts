@@ -17,6 +17,8 @@ import {
 import { db } from "@/lib/firebase";
 import type { Coupon } from "@/lib/types";
 
+const COUPONS_COL = "coupons";
+
 function docToCoupon(id: string, data: any): Coupon {
   return {
     id,
@@ -103,13 +105,23 @@ export async function createCoupon(
   input: Omit<Coupon, "id" | "usageCount" | "createdAt" | "updatedAt">,
 ): Promise<{ ok: true; id: string } | { ok: false; error: string }> {
   try {
-    const ref = await addDoc(collection(db, COUPONS_COL), {
-      ...input,
+    const data: Record<string, any> = {
       code: input.code.trim().toUpperCase(),
+      type: input.type,
+      value: input.value,
       usageCount: 0,
       createdAt: serverTimestamp(),
       updatedAt: serverTimestamp(),
-    });
+    };
+    if (input.productIds !== undefined) data.productIds = input.productIds;
+    if (input.categoryIds !== undefined) data.categoryIds = input.categoryIds;
+    if (input.startDate !== undefined) data.startDate = input.startDate;
+    if (input.endDate !== undefined) data.endDate = input.endDate;
+    if (input.usageLimit !== undefined) data.usageLimit = input.usageLimit;
+    if (input.minOrderAmount !== undefined) data.minOrderAmount = input.minOrderAmount;
+    if (input.maxDiscountAmount !== undefined) data.maxDiscountAmount = input.maxDiscountAmount;
+    if (input.active !== undefined) data.active = input.active;
+    const ref = await addDoc(collection(db, COUPONS_COL), data);
     return { ok: true, id: ref.id };
   } catch (err) {
     console.error("[couponService] createCoupon error:", err);

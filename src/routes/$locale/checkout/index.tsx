@@ -3,7 +3,17 @@ import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { useLocalized, useDir, useHref, useT, useFormatters } from "@/lib/locale";
 import { useStore } from "@/lib/store";
 import type { Address, PaymentMethod } from "@/lib/types";
-import { Lock, Truck, CreditCard, ChevronRight, ChevronLeft, MapPin } from "lucide-react";
+import {
+  Lock,
+  Truck,
+  CreditCard,
+  ChevronRight,
+  ChevronLeft,
+  ChevronDown,
+  MapPin,
+  Check,
+  ShoppingBag,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/$locale/checkout/")({
@@ -53,15 +63,20 @@ function CheckoutPage() {
 
   if (cartLines.length === 0) {
     return (
-      <div className="py-24 text-center space-y-4">
-         <h1 className="text-2xl font-bold">{t("checkout.emptyTitle")}</h1>
-         <p className="text-muted-foreground">{t("checkout.emptyCart")}</p>
-         <Link
-           to={href("/collections")}
-           className="inline-block mt-4 text-brand hover:underline font-bold"
-         >
-           {t("checkout.backToShopping")}
-         </Link>
+      <div className="container-page py-20 lg:py-28">
+        <div className="mx-auto flex max-w-md flex-col items-center gap-4 rounded-3xl border border-border bg-card px-6 py-12 text-center shadow-sm">
+          <div className="flex h-16 w-16 items-center justify-center rounded-full bg-muted">
+            <ShoppingBag className="h-7 w-7 text-muted-foreground" />
+          </div>
+          <h1 className="text-xl font-bold">{t("checkout.emptyTitle")}</h1>
+          <p className="text-sm text-muted-foreground">{t("checkout.emptyCart")}</p>
+          <Link
+            to={href("/collections")}
+            className="mt-2 inline-flex items-center justify-center rounded-xl bg-brand px-6 py-3 text-sm font-bold text-brand-foreground transition-colors hover:bg-brand-hover"
+          >
+            {t("checkout.backToShopping")}
+          </Link>
+        </div>
       </div>
     );
   }
@@ -75,7 +90,7 @@ function CheckoutPage() {
       !address.city ||
       !address.street
     ) {
-       setError(t("checkout.missingFields"));
+      setError(t("checkout.missingFields"));
       return;
     }
     setError("");
@@ -111,69 +126,74 @@ function CheckoutPage() {
     }
   };
 
+  const inputClass =
+    "w-full rounded-xl border border-input bg-background px-4 py-3 text-sm transition-shadow outline-none focus:border-brand focus:ring-4 focus:ring-brand/10";
+
   return (
     <div
       className={cn(
-        "container-page py-8 lg:py-12 space-y-8",
+        "container-page space-y-6 py-6 lg:space-y-8 lg:py-12 lg:pb-12",
+        "pb-[calc(var(--bottom-nav-h,4.25rem)+1rem)]",
         dir === "rtl" ? "dir-rtl" : "dir-ltr",
       )}
     >
       {/* Checkout Progress */}
-      <div className="flex items-center justify-center space-x-4 space-x-reverse mb-8">
-        <div
-          className={cn(
-            "flex items-center gap-2",
-            step >= 1 ? "text-brand" : "text-muted-foreground",
-          )}
-        >
+      <div className="mx-auto flex w-full max-w-xs items-center justify-center gap-3 sm:max-w-sm">
+        <StepBadge label={t("checkout.stepShipping")} index={1} active={step >= 1} done={step > 1} />
+        <div className="relative h-px flex-1 bg-border">
           <div
             className={cn(
-              "h-8 w-8 rounded-full flex items-center justify-center font-bold text-sm",
-              step >= 1 ? "bg-brand text-brand-foreground" : "bg-muted",
+              "absolute inset-y-0 right-0 bg-brand transition-all duration-300",
+              step > 1 ? "w-full" : "w-0",
             )}
-          >
-            1
-          </div>
-          <span className="font-bold">{t("checkout.stepShipping")}</span>
+          />
         </div>
-        <div className="h-px w-12 bg-border" />
-        <div
-          className={cn(
-            "flex items-center gap-2",
-            step === 2 ? "text-brand" : "text-muted-foreground",
-          )}
-        >
-          <div
-            className={cn(
-              "h-8 w-8 rounded-full flex items-center justify-center font-bold text-sm",
-              step === 2 ? "bg-brand text-brand-foreground" : "bg-muted",
-            )}
-          >
-            2
-          </div>
-          <span className="font-bold">{t("checkout.stepPayment")}</span>
-        </div>
+        <StepBadge label={t("checkout.stepPayment")} index={2} active={step === 2} done={false} />
       </div>
 
-      <div className="grid lg:grid-cols-12 gap-8">
+      <div className="grid gap-6 lg:grid-cols-12 lg:gap-8">
+        {/* Order summary — collapsible on mobile, sits above the form */}
+        <div className="lg:hidden">
+          <details className="group overflow-hidden rounded-2xl border border-border bg-muted/20">
+            <summary className="flex cursor-pointer list-none items-center justify-between px-4 py-3.5">
+              <div className="flex items-center gap-2 text-sm font-bold">
+                <span>{t("checkout.orderSummaryCount", { count: cartLines.length })}</span>
+                <ChevronDown className="h-4 w-4 text-muted-foreground transition-transform group-open:rotate-180" />
+              </div>
+              <span className="text-base font-black text-brand">{price(total)}</span>
+            </summary>
+            <div className="border-t border-border px-4 pb-4 pt-3">
+              <OrderSummaryContent
+                cartLines={cartLines}
+                L={L}
+                price={price}
+                subtotal={subtotal}
+                shipping={shipping}
+                total={total}
+                t={t}
+              />
+            </div>
+          </details>
+        </div>
+
         {/* Main Form */}
         <div className="lg:col-span-7">
           {error && (
-            <div className="mb-6 p-4 rounded-xl bg-destructive/10 text-destructive text-sm font-bold border border-destructive/20">
+            <div className="mb-6 rounded-xl border border-destructive/20 bg-destructive/10 p-4 text-sm font-bold text-destructive">
               {error}
             </div>
           )}
 
           {step === 1 ? (
-            <form onSubmit={handleNextStep} className="space-y-6">
-              <div className="rounded-3xl border border-border bg-card p-6 md:p-8 shadow-sm space-y-6">
+            <form id="checkout-step-form" onSubmit={handleNextStep} className="space-y-6">
+              <div className="space-y-6 rounded-3xl border border-border bg-card p-5 shadow-sm sm:p-8">
                 <div className="flex items-center gap-3 border-b border-border pb-4">
                   <MapPin className="h-6 w-6 text-brand" />
                   <h2 className="text-xl font-bold">{t("checkout.shippingAddress")}</h2>
                 </div>
 
-                <div className="grid sm:grid-cols-2 gap-4">
-                  <div className="space-y-1">
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <div className="space-y-1.5">
                     <label className="text-sm font-bold text-foreground">
                       {t("checkout.fullName")} <span className="text-destructive">*</span>
                     </label>
@@ -182,11 +202,11 @@ function CheckoutPage() {
                       required
                       value={address.fullName}
                       onChange={(e) => setAddress({ ...address, fullName: e.target.value })}
-                      className="w-full rounded-xl border border-input bg-background px-4 py-3"
+                      className={inputClass}
                       placeholder={t("checkout.fullNamePlaceholder")}
                     />
                   </div>
-                  <div className="space-y-1">
+                  <div className="space-y-1.5">
                     <label className="text-sm font-bold text-foreground">
                       {t("checkout.phone")} <span className="text-destructive">*</span>
                     </label>
@@ -195,27 +215,27 @@ function CheckoutPage() {
                       required
                       value={address.phone}
                       onChange={(e) => setAddress({ ...address, phone: e.target.value })}
-                      className="w-full rounded-xl border border-input bg-background px-4 py-3 dir-ltr"
+                      className={cn(inputClass, "dir-ltr text-right")}
                       placeholder="01012345678"
                     />
                   </div>
                 </div>
 
-                <div className="space-y-1">
-                    <label className="text-sm font-bold text-foreground">
-                      {t("checkout.emailOptional")}
-                    </label>
+                <div className="space-y-1.5">
+                  <label className="text-sm font-bold text-foreground">
+                    {t("checkout.emailOptional")}
+                  </label>
                   <input
                     type="email"
                     value={address.email}
                     onChange={(e) => setAddress({ ...address, email: e.target.value })}
-                    className="w-full rounded-xl border border-input bg-background px-4 py-3 dir-ltr"
+                    className={cn(inputClass, "dir-ltr text-right")}
                     placeholder="example@mail.com"
                   />
                 </div>
 
-                <div className="grid sm:grid-cols-2 gap-4">
-                  <div className="space-y-1">
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <div className="space-y-1.5">
                     <label className="text-sm font-bold text-foreground">
                       {t("checkout.governorate")} <span className="text-destructive">*</span>
                     </label>
@@ -224,11 +244,11 @@ function CheckoutPage() {
                       required
                       value={address.governorate}
                       onChange={(e) => setAddress({ ...address, governorate: e.target.value })}
-                      className="w-full rounded-xl border border-input bg-background px-4 py-3"
+                      className={inputClass}
                       placeholder={t("checkout.governoratePlaceholder")}
                     />
                   </div>
-                  <div className="space-y-1">
+                  <div className="space-y-1.5">
                     <label className="text-sm font-bold text-foreground">
                       {t("checkout.city")} <span className="text-destructive">*</span>
                     </label>
@@ -237,49 +257,47 @@ function CheckoutPage() {
                       required
                       value={address.city}
                       onChange={(e) => setAddress({ ...address, city: e.target.value })}
-                      className="w-full rounded-xl border border-input bg-background px-4 py-3"
+                      className={inputClass}
                       placeholder={t("checkout.cityPlaceholder")}
                     />
                   </div>
                 </div>
 
-                <div className="space-y-1">
-                    <label className="text-sm font-bold text-foreground">
-                      {t("checkout.street")} <span className="text-destructive">*</span>
-                    </label>
+                <div className="space-y-1.5">
+                  <label className="text-sm font-bold text-foreground">
+                    {t("checkout.street")} <span className="text-destructive">*</span>
+                  </label>
                   <input
                     type="text"
                     required
                     value={address.street}
                     onChange={(e) => setAddress({ ...address, street: e.target.value })}
-                    className="w-full rounded-xl border border-input bg-background px-4 py-3"
-                      placeholder={t("checkout.streetPlaceholder")}
+                    className={inputClass}
+                    placeholder={t("checkout.streetPlaceholder")}
                   />
                 </div>
 
-                <div className="space-y-1">
-                  <label className="text-sm font-bold text-foreground">
-                    {t("checkout.notes")}
-                  </label>
+                <div className="space-y-1.5">
+                  <label className="text-sm font-bold text-foreground">{t("checkout.notes")}</label>
                   <textarea
                     value={address.notes}
                     onChange={(e) => setAddress({ ...address, notes: e.target.value })}
-                    className="w-full rounded-xl border border-input bg-background px-4 py-3 h-24 resize-none"
+                    className={cn(inputClass, "h-24 resize-none")}
                     placeholder={t("checkout.notesPlaceholder")}
                   />
                 </div>
               </div>
 
-              <div className="flex items-center justify-between">
+              <div className="hidden items-center justify-between lg:flex">
                 <Link
                   to={href("/cart")}
-                  className="text-muted-foreground hover:text-foreground font-bold"
+                  className="font-bold text-muted-foreground hover:text-foreground"
                 >
-                 <span>{t("checkout.backToCart")}</span>
+                  <span>{t("checkout.backToCart")}</span>
                 </Link>
                 <button
                   type="submit"
-                  className="flex items-center gap-2 rounded-xl bg-brand px-8 py-3 font-bold text-brand-foreground hover:bg-brand-hover transition-colors"
+                  className="flex items-center gap-2 rounded-xl bg-brand px-8 py-3 font-bold text-brand-foreground transition-colors hover:bg-brand-hover"
                 >
                   <span>{t("checkout.next")}</span>
                   {dir === "rtl" ? (
@@ -289,153 +307,247 @@ function CheckoutPage() {
                   )}
                 </button>
               </div>
+
+              <Link
+                to={href("/cart")}
+                className="block text-center text-sm font-bold text-muted-foreground hover:text-foreground lg:hidden"
+              >
+                {t("checkout.backToCart")}
+              </Link>
             </form>
           ) : (
-            <form onSubmit={handlePlaceOrder} className="space-y-6">
-              <div className="rounded-3xl border border-border bg-card p-6 md:p-8 shadow-sm space-y-6">
+            <form id="checkout-step-form" onSubmit={handlePlaceOrder} className="space-y-6">
+              <div className="space-y-6 rounded-3xl border border-border bg-card p-5 shadow-sm sm:p-8">
                 <div className="flex items-center gap-3 border-b border-border pb-4">
                   <CreditCard className="h-6 w-6 text-brand" />
                   <h2 className="text-xl font-bold">{t("checkout.paymentMethod")}</h2>
                 </div>
 
-                <div className="space-y-4">
-                  <label
-                    className={cn(
-                      "flex flex-col sm:flex-row sm:items-center gap-4 rounded-2xl border p-4 cursor-pointer transition-colors",
-                      paymentMethod === "cod"
-                        ? "border-brand bg-brand/5"
-                        : "border-border hover:border-brand/50",
-                    )}
-                  >
-                    <div className="flex items-center gap-4 flex-1">
-                      <input
-                        type="radio"
-                        name="payment"
-                        value="cod"
-                        checked={paymentMethod === "cod"}
-                        onChange={() => setPaymentMethod("cod")}
-                        className="h-5 w-5 text-brand"
-                      />
-                      <div>
-                        <div className="font-bold text-foreground flex items-center gap-2">
-                          <Truck className="h-5 w-5 text-muted-foreground" />
-                           <span>{t("checkout.cod")}</span>
-                        </div>
-                        <div className="text-xs text-muted-foreground mt-1">
-                           {t("checkout.codText")}
-                        </div>
-                      </div>
-                    </div>
-                  </label>
-
-                  <label
-                    className={cn(
-                      "flex flex-col sm:flex-row sm:items-center gap-4 rounded-2xl border p-4 cursor-pointer transition-colors",
-                      paymentMethod === "card"
-                        ? "border-brand bg-brand/5"
-                        : "border-border hover:border-brand/50",
-                    )}
-                  >
-                    <div className="flex items-center gap-4 flex-1">
-                      <input
-                        type="radio"
-                        name="payment"
-                        value="card"
-                        checked={paymentMethod === "card"}
-                        onChange={() => setPaymentMethod("card")}
-                        className="h-5 w-5 text-brand"
-                      />
-                      <div>
-                        <div className="font-bold text-foreground flex items-center gap-2">
-                          <CreditCard className="h-5 w-5 text-muted-foreground" />
-                           <span>{t("checkout.card")}</span>
-                        </div>
-                        <div className="text-xs text-muted-foreground mt-1">
-                  {t("checkout.cardText")}
-                        </div>
-                      </div>
-                    </div>
-                  </label>
+                <div className="space-y-3">
+                  <PaymentOption
+                    icon={<Truck className="h-5 w-5 text-muted-foreground" />}
+                    title={t("checkout.cod")}
+                    description={t("checkout.codText")}
+                    checked={paymentMethod === "cod"}
+                    onSelect={() => setPaymentMethod("cod")}
+                  />
+                  <PaymentOption
+                    icon={<CreditCard className="h-5 w-5 text-muted-foreground" />}
+                    title={t("checkout.card")}
+                    description={t("checkout.cardText")}
+                    checked={paymentMethod === "card"}
+                    onSelect={() => setPaymentMethod("card")}
+                  />
                 </div>
               </div>
 
-              <div className="flex items-center justify-between">
+              <div className="hidden items-center justify-between lg:flex">
                 <button
                   type="button"
                   onClick={() => setStep(1)}
-                  className="text-muted-foreground hover:text-foreground font-bold"
+                  className="font-bold text-muted-foreground hover:text-foreground"
                 >
                   العودة للشحن
                 </button>
                 <button
                   type="submit"
                   disabled={loading}
-                  className="flex items-center gap-2 rounded-xl bg-brand px-8 py-3 font-bold text-brand-foreground hover:bg-brand-hover transition-colors disabled:opacity-50"
+                  className="flex items-center gap-2 rounded-xl bg-brand px-8 py-3 font-bold text-brand-foreground transition-colors hover:bg-brand-hover disabled:opacity-50"
                 >
                   <Lock className="h-5 w-5" />
                   <span>{loading ? t("checkout.placingOrder") : t("checkout.placeOrder")}</span>
                 </button>
               </div>
+
+              <button
+                type="button"
+                onClick={() => setStep(1)}
+                className="block w-full text-center text-sm font-bold text-muted-foreground hover:text-foreground lg:hidden"
+              >
+                العودة للشحن
+              </button>
             </form>
           )}
         </div>
 
-        {/* Order Summary */}
-        <div className="lg:col-span-5">
-          <div className="rounded-3xl border border-border bg-muted/20 p-6 space-y-6 lg:sticky lg:top-24">
-               <h3 className="text-lg font-bold border-b border-border pb-4">
-                 {t("checkout.orderSummaryCount", { count: cartLines.length })}
-               </h3>
-
-            <div className="space-y-4 max-h-[40vh] overflow-y-auto hide-scrollbar">
-              {cartLines.map((line) => (
-                <div key={line.id} className="flex gap-4">
-                  <div className="relative h-16 w-16 shrink-0 rounded-xl border border-border overflow-hidden bg-background">
-                    <img
-                      src={line.product.images[0]?.src}
-                      alt=""
-                      className="h-full w-full object-cover"
-                    />
-                    <span className="absolute -top-2 -right-2 bg-foreground text-background text-[10px] font-bold h-5 w-5 flex items-center justify-center rounded-full z-10 border-2 border-background">
-                      {line.quantity}
-                    </span>
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <h4 className="text-sm font-bold truncate">{L(line.product.name)}</h4>
-                    <p className="text-xs text-muted-foreground">
-                      {Object.values(line.variant.options).join(" - ")}
-                    </p>
-                  </div>
-                  <div className="font-bold text-sm text-brand">
-                    {line.lineTotal.toLocaleString("ar-EG")}
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <div className="border-t border-border pt-4 space-y-3 text-sm">
-              <div className="flex justify-between text-muted-foreground">
-                 <span>{t("checkout.subtotal")}</span>
-                 <span className="font-bold text-foreground">
-                   {price(subtotal)}
-                 </span>
-              </div>
-              <div className="flex justify-between text-muted-foreground">
-                 <span>{t("checkout.shipping")}</span>
-                 <span className="font-bold text-foreground">
-                   {shipping === 0 ? t("checkout.freeShipping") : price(shipping)}
-                 </span>
-              </div>
-            </div>
-
-            <div className="border-t border-border pt-4 flex justify-between items-end">
-               <span className="font-bold text-lg">{t("checkout.total")}</span>
-               <span className="text-2xl font-black text-brand">
-                 {price(total)}
-               </span>
-            </div>
+        {/* Order Summary — sticky sidebar on desktop */}
+        <div className="hidden lg:col-span-5 lg:block">
+          <div className="space-y-6 rounded-3xl border border-border bg-muted/20 p-6 lg:sticky lg:top-24">
+            <h3 className="border-b border-border pb-4 text-lg font-bold">
+              {t("checkout.orderSummaryCount", { count: cartLines.length })}
+            </h3>
+            <OrderSummaryContent
+              cartLines={cartLines}
+              L={L}
+              price={price}
+              subtotal={subtotal}
+              shipping={shipping}
+              total={total}
+              t={t}
+            />
           </div>
         </div>
+      </div>
+
+      {/* Mobile action bar — shows at bottom of the page */}
+      <div className="border-t border-border bg-background px-4 py-4 lg:hidden">
+        <div className="flex items-center justify-between gap-4">
+          <div className="min-w-0">
+            <div className="text-[11px] font-bold text-muted-foreground">{t("checkout.total")}</div>
+            <div className="truncate text-lg font-black text-brand">{price(total)}</div>
+          </div>
+          <button
+            type="submit"
+            form="checkout-step-form"
+            disabled={step === 2 && loading}
+            className="flex shrink-0 items-center gap-2 rounded-xl bg-brand px-6 py-3 text-sm font-bold text-brand-foreground transition-colors hover:bg-brand-hover disabled:opacity-50"
+          >
+            {step === 1 ? (
+              <>
+                <span>{t("checkout.next")}</span>
+                {dir === "rtl" ? (
+                  <ChevronLeft className="h-4 w-4" />
+                ) : (
+                  <ChevronRight className="h-4 w-4" />
+                )}
+              </>
+            ) : (
+              <>
+                <Lock className="h-4 w-4" />
+                <span>{loading ? t("checkout.placingOrder") : t("checkout.placeOrder")}</span>
+              </>
+            )}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function StepBadge({
+  label,
+  index,
+  active,
+  done,
+}: {
+  label: string;
+  index: number;
+  active: boolean;
+  done: boolean;
+}) {
+  return (
+    <div className={cn("flex items-center gap-2", active ? "text-brand" : "text-muted-foreground")}>
+      <div
+        className={cn(
+          "flex h-8 w-8 items-center justify-center rounded-full text-sm font-bold transition-colors",
+          active ? "bg-brand text-brand-foreground" : "bg-muted",
+        )}
+      >
+        {done ? <Check className="h-4 w-4" /> : index}
+      </div>
+      <span className="hidden text-sm font-bold sm:inline">{label}</span>
+    </div>
+  );
+}
+
+function PaymentOption({
+  icon,
+  title,
+  description,
+  checked,
+  onSelect,
+}: {
+  icon: React.ReactNode;
+  title: string;
+  description: string;
+  checked: boolean;
+  onSelect: () => void;
+}) {
+  return (
+    <label
+      className={cn(
+        "flex cursor-pointer items-start gap-4 rounded-2xl border p-4 transition-colors",
+        checked ? "border-brand bg-brand/5" : "border-border hover:border-brand/50",
+      )}
+    >
+      <input
+        type="radio"
+        name="payment"
+        checked={checked}
+        onChange={onSelect}
+        className="mt-1 h-5 w-5 accent-brand"
+      />
+      <div className="min-w-0 flex-1">
+        <div className="flex items-center gap-2 font-bold text-foreground">
+          {icon}
+          <span>{title}</span>
+        </div>
+        <div className="mt-1 text-xs text-muted-foreground">{description}</div>
+      </div>
+      {checked && (
+        <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-brand text-brand-foreground">
+          <Check className="h-3.5 w-3.5" />
+        </div>
+      )}
+    </label>
+  );
+}
+
+function OrderSummaryContent({
+  cartLines,
+  L,
+  price,
+  subtotal,
+  shipping,
+  total,
+  t,
+}: {
+  cartLines: ReturnType<typeof useStore>["cartLines"];
+  L: ReturnType<typeof useLocalized>;
+  price: ReturnType<typeof useFormatters>["price"];
+  subtotal: number;
+  shipping: number;
+  total: number;
+  t: ReturnType<typeof useT>;
+}) {
+  return (
+    <div className="space-y-6">
+      <div className="hide-scrollbar max-h-[40vh] space-y-4 overflow-y-auto">
+        {cartLines.map((line) => (
+          <div key={line.id} className="flex gap-4">
+            <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-xl border border-border bg-background">
+              <img src={line.product.images[0]?.src} alt="" className="h-full w-full object-cover" />
+              <span className="absolute -right-2 -top-2 z-10 flex h-5 w-5 items-center justify-center rounded-full border-2 border-background bg-foreground text-[10px] font-bold text-background">
+                {line.quantity}
+              </span>
+            </div>
+            <div className="min-w-0 flex-1">
+              <h4 className="truncate text-sm font-bold">{L(line.product.name)}</h4>
+              <p className="text-xs text-muted-foreground">
+                {Object.values(line.variant.options).join(" - ")}
+              </p>
+            </div>
+            <div className="text-sm font-bold text-brand">{price(line.lineTotal)}</div>
+          </div>
+        ))}
+      </div>
+
+      <div className="space-y-3 border-t border-border pt-4 text-sm">
+        <div className="flex justify-between text-muted-foreground">
+          <span>{t("checkout.subtotal")}</span>
+          <span className="font-bold text-foreground">{price(subtotal)}</span>
+        </div>
+        <div className="flex justify-between text-muted-foreground">
+          <span>{t("checkout.shipping")}</span>
+          <span className="font-bold text-foreground">
+            {shipping === 0 ? t("checkout.freeShipping") : price(shipping)}
+          </span>
+        </div>
+      </div>
+
+      <div className="flex items-end justify-between border-t border-border pt-4">
+        <span className="text-lg font-bold">{t("checkout.total")}</span>
+        <span className="text-2xl font-black text-brand">{price(total)}</span>
       </div>
     </div>
   );

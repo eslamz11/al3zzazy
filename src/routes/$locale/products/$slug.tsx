@@ -388,23 +388,6 @@ function ProductDetailsPage() {
 
           <div className="h-px bg-border w-full" />
 
-          {/* Clothing Size Guide */}
-          {(product.category === "children-clothing" || product.category === "kids-clothing" || product.options.some(o => o.key === "size")) && (
-            <div className="flex justify-end mb-[-1rem] relative z-10">
-              <Dialog>
-                <DialogTrigger asChild>
-                  <button className="flex items-center gap-1.5 text-xs font-bold text-sky-700 hover:text-sky-800 transition-colors">
-                    <Ruler className="h-4 w-4" />
-                    {t("product.sizeGuide")}
-                  </button>
-                </DialogTrigger>
-                <DialogContent className="max-w-2xl p-6 bg-white border border-sky-100 rounded-3xl dir-rtl">
-                  <SizeGuide />
-                </DialogContent>
-              </Dialog>
-            </div>
-          )}
-
           {product.options.length > 0 && (
             <ProductOptions product={product} selection={selection} onChange={setSelection} />
           )}
