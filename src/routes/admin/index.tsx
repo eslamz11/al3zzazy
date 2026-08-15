@@ -54,7 +54,7 @@ function AdminDashboardHome() {
 
   useEffect(() => {
     let isMounted = true;
-    const toastId = toastRef.current.loading("جاري تحميل لوحة التحكم...");
+    const toastId = toastRef.current.loading(" ");
 
     async function loadStats() {
       try {
@@ -142,7 +142,7 @@ function AdminDashboardHome() {
       <div className="flex items-center justify-center py-20">
         <div className="flex items-center gap-3 text-gray-600">
           <Loader2 className="h-6 w-6 animate-spin text-sky-600" />
-          <span className="text-sm font-medium">جاري تحميل لوحة التحكم...</span>
+
         </div>
       </div>
     );
@@ -284,7 +284,7 @@ function AdminDashboardHome() {
                       value={order.status}
                       onChange={(e) => handleStatusChange(order.id, e.target.value)}
                       disabled={isUpdating}
-                       className="text-xs px-2.5 py-1.5 rounded-md border border-[#e5dfd7] bg-white focus:border-sky-600 outline-none disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="text-xs px-2.5 py-1.5 rounded-md border border-[#e5dfd7] bg-white focus:border-sky-600 outline-none disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       <option value="pending">جديد</option>
                       <option value="confirmed">تم التأكيد</option>

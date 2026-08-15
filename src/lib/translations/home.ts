@@ -47,4 +47,31 @@ export const homeDict = {
     ar: "يرغب {email} في الاشتراك في النشرة البريدية لتلقي العروض.",
     en: "{email} would like to subscribe to the newsletter to receive offers.",
   },
+
+  // ── New homepage sections ──────────────────────────────────
+  "home.specialOffersTitle": { ar: "عروض وخصومات", en: "Special Offers" },
+  "home.specialOffersSub": {
+    ar: "وفّر أكثر على تشكيلة مختارة من المنتجات لفترة محدودة.",
+    en: "Save more on a hand-picked selection for a limited time.",
+  },
+  "home.newArrivalsTitle": { ar: "وصل حديثًا", en: "New Arrivals" },
+  "home.newArrivalsSub": {
+    ar: "أحدث القطع التي أضفناها للتو إلى المتجر.",
+    en: "The latest pieces we just added to the store.",
+  },
+  "home.saleEyebrow": { ar: "لفترة محدودة", en: "Limited time" },
+  "home.freeShippingNote": {
+    ar: "شحن مجاني للطلبات فوق {amount}",
+    en: "Free shipping on orders over {amount}",
+  },
+  "home.finalCtaEyebrow": { ar: "جاهز للتسوق؟", en: "Ready to shop?" },
+  "home.finalCtaTitle": {
+    ar: "كل ما يحتاجه طفلك في مكان واحد",
+    en: "Everything your child needs, in one place",
+  },
+  "home.finalCtaText": {
+    ar: "ملابس أطفال أنيقة ومستلزمات مدرسية عالية الجودة بأسعار مناسبة لكل عائلة.",
+    en: "Stylish kids clothing and quality school supplies at prices that fit every family.",
+  },
+  "home.finalCtaButton": { ar: "ابدأ التسوق الآن", en: "Start shopping now" },
 } as const;

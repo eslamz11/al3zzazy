@@ -23,8 +23,8 @@ const DEFAULT_SECTIONS: HomepageSection[] = [
     order: -1,
     active: true,
     content: {
-      textAr: "",
-      textEn: "",
+      textAr: "شحن سريع لجميع المحافظات · الدفع عند الاستلام",
+      textEn: "Fast shipping nationwide · Cash on delivery",
     },
   },
   {
@@ -36,29 +36,29 @@ const DEFAULT_SECTIONS: HomepageSection[] = [
       slides: [
         {
           id: "slide_1",
-          image:
-            "https://lh3.googleusercontent.com/aida-public/AB6AXuDUBSHwgL0VmBdEGE-Q5dt9DkbwG6eVXv_42_Cb3TecEe3jW-I3S0nuY3GNH-9ZsFborBsO_sAcQi5YpHeXI2ye5aw070Nf6jUMp7OGDweABdOdSnoukjNGKp-NsLWzvQC_DWJXOc3eOPug1dm0LOycsiz-197f8BWcb-TJ4bY6C-9LM95hM_kwYGU5jErK3ZIvUS0XvlLEiuy3C3k__CXCahFoJZfjEcQDNuyY9EUktArCgjOVPemv",
-          headingAr: "نوم أفضل يبدأ من هنا",
-          headingEn: "Better sleep starts here",
+          image: "",
+          headingAr: "أشيك ملابس الأطفال لكل المواسم",
+          headingEn: "Stylish kids fashion for every season",
           descriptionAr:
-            "اكتشف منتجات نوم مصممة لتمنحك الراحة والدعم كل ليلة، بخامات مختارة وتصنيع مصري بمعايير عالية.",
+            "تشكيلة متكاملة من ملابس حديثي الولادة والأطفال والمراهقين بخامات قطنية مريحة وأسعار مناسبة لكل عائلة.",
           descriptionEn:
-            "Discover sleep products designed for ultimate comfort and support every night.",
+            "Newborn, kids and teen clothing in soft cotton fabrics at family-friendly prices.",
           buttonTextAr: "تسوق الآن",
           buttonTextEn: "Shop now",
-          buttonLink: "/ar/collections",
+          buttonLink: "/ar/collections/children-clothing",
         },
         {
           id: "slide_2",
-          image:
-            "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?q=80&w=1200&auto=format&fit=crop",
-          headingAr: "قم بتصميم مرتبتك الخاصة",
-          headingEn: "Design your custom mattress",
-          descriptionAr: "كل تصميم ولون فراش مخصص لأحلامك. اختر العرض والطول والارتفاع والنوع",
-          descriptionEn: "Every design and color customized for your dreams.",
-          buttonTextAr: "ابدأ بالتصميم",
-          buttonTextEn: "Start designing",
-          buttonLink: "/ar/collections/mattresses",
+          image: "",
+          headingAr: "جهّز أطفالك للعام الدراسي",
+          headingEn: "Get ready for back to school",
+          descriptionAr:
+            "شنط ومقالم وأدوات مدرسية عالية الجودة تناسب العام الدراسي الجديد بأفضل الأسعار.",
+          descriptionEn:
+            "High-quality school bags, pencil cases and supplies for the new school year.",
+          buttonTextAr: "تصفح المستلزمات",
+          buttonTextEn: "Explore supplies",
+          buttonLink: "/ar/collections/school-supplies",
         },
       ],
     },
@@ -89,13 +89,13 @@ const DEFAULT_SECTIONS: HomepageSection[] = [
     order: 3,
     active: true,
     content: {
-      headingAr: "تجربة نوم فندقية في منزلك",
-      headingEn: "Hotel sleep experience at home",
-      descriptionAr: "احصل على مراتب وتطريات العزازي مولالمميزة بضمان حتى ٥ سنوات.",
-      descriptionEn: "Get premium Al3azzazy mattresses with up to 5 years warranty.",
+      headingAr: "كل مستلزمات المدرسة في مكان واحد",
+      headingEn: "All your school essentials in one place",
+      descriptionAr: "احصل على أفضل العروض على الشنط والأدوات المدرسية من العزازي.",
+      descriptionEn: "Get the best deals on school bags and supplies from Al3azzazy.",
       buttonTextAr: "اكتشف العروض",
       buttonTextEn: "Discover Offers",
-      buttonLink: "/ar/collections/mattresses",
+      buttonLink: "/ar/collections/school-supplies",
     },
   },
   {

@@ -25,6 +25,7 @@ export const productDict = {
   "product.reviewsCount": { ar: "({count} تقييم)", en: "({count} reviews)" },
   "product.save": { ar: "وفّر", en: "Save" },
   "product.discount": { ar: "خصم", en: "Off" },
+  "product.new": { ar: "جديد", en: "NEW" },
   "product.addedToCart": { ar: "تمت الإضافة إلى السلة", en: "Added to cart" },
   "product.addedToWishlist": { ar: "تمت الإضافة إلى المفضلة", en: "Added to wishlist" },
   "product.removedFromWishlist": { ar: "تم الحذف من المفضلة", en: "Removed from wishlist" },

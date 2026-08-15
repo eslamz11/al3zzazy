@@ -1,5 +1,6 @@
 import { useEffect, useState, useMemo } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { z } from "zod";
 import { ProductGrid } from "@/components/shop/ProductGrid";
 import {
   listAllActiveProducts,
@@ -11,8 +12,18 @@ import { useHref, useT, useDir, useLocalized } from "@/lib/locale";
 import { ChevronLeft, ChevronRight, LayoutGrid, SlidersHorizontal } from "lucide-react";
 import type { Category, CategoryHandle, Product, SortKey } from "@/lib/types";
 
+const collectionsSearchSchema = z.object({
+  sort: z
+    .enum(["featured", "price-asc", "price-desc", "newest", "rating"])
+    .optional()
+    .catch(undefined),
+  filter: z.literal("sale").optional().catch(undefined),
+  category: z.string().optional().catch(undefined),
+});
+
 export const Route = createFileRoute("/$locale/collections/")({
   component: StorefrontCollectionsIndexPage,
+  validateSearch: collectionsSearchSchema,
 });
 
 /* ── Skeleton Loader ─────────────────────────────────────── */
@@ -126,8 +137,9 @@ function StorefrontCollectionsIndexPage() {
   const [allProducts, setAllProducts] = useState<Product[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
-  const [sortKey, setSortKey] = useState<SortKey>("featured");
-  const [activeCategory, setActiveCategory] = useState<string>("all");
+  const search = Route.useSearch();
+  const [sortKey, setSortKey] = useState<SortKey>(search.sort ?? "featured");
+  const [activeCategory, setActiveCategory] = useState<string>(search.category ?? "all");
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = getPageSize();
 
@@ -147,11 +159,17 @@ function StorefrontCollectionsIndexPage() {
     };
   }, []);
 
-  // Filter by category
+  // Filter by category (and optional on-sale filter from ?filter=sale)
   const filtered = useMemo(() => {
-    if (activeCategory === "all") return allProducts;
-    return allProducts.filter((p) => p.category === activeCategory);
-  }, [allProducts, activeCategory]);
+    let list =
+      activeCategory === "all"
+        ? allProducts
+        : allProducts.filter((p) => p.category === activeCategory);
+    if (search.filter === "sale") {
+      list = list.filter((p) => p.compareAtPrice !== undefined && p.compareAtPrice > p.price);
+    }
+    return list;
+  }, [allProducts, activeCategory, search.filter]);
 
   // Sort
   const sorted = useMemo(() => sortProducts(filtered, sortKey), [filtered, sortKey]);
@@ -190,14 +208,14 @@ function StorefrontCollectionsIndexPage() {
         <div className="relative max-w-[1400px] mx-auto px-5 md:px-8 py-16 md:py-24 text-center">
           <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-1.5 rounded-full mb-6">
             <LayoutGrid className="h-4 w-4 text-brand-foreground" />
-             <span className="text-sm font-medium text-white/90">{t("collection.eyebrow")}</span>
+            <span className="text-sm font-medium text-white/90">{t("collection.eyebrow")}</span>
           </div>
-           <h1 className="text-4xl md:text-5xl lg:text-[56px] font-bold text-white mb-5 leading-tight">
-             {t("collection.heroTitle")}
-           </h1>
-           <p className="text-white/70 text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
-             {t("collection.heroText")}
-           </p>
+          <h1 className="text-4xl md:text-5xl lg:text-[56px] font-bold text-white mb-5 leading-tight">
+            {t("collection.heroTitle")}
+          </h1>
+          <p className="text-white/70 text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
+            {t("collection.heroText")}
+          </p>
         </div>
       </section>
 
@@ -216,7 +234,7 @@ function StorefrontCollectionsIndexPage() {
                   : "bg-surface-secondary text-foreground/70 hover:bg-brand-soft hover:text-brand"
               }`}
             >
-               {t("common.all")}
+              {t("common.all")}
             </button>
             {categories.map((cat) => (
               <button
@@ -240,13 +258,13 @@ function StorefrontCollectionsIndexPage() {
         {/* Sort bar */}
         <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
           <p className="text-sm text-muted-foreground font-medium">
-             {loading ? (
-               t("common.loading")
-             ) : (
-               <>
-                 {t("collection.showing", { shown: paginatedProducts.length, total: sorted.length })}
-               </>
-             )}
+            {loading ? (
+              t("common.loading")
+            ) : (
+              <>
+                {t("collection.showing", { shown: paginatedProducts.length, total: sorted.length })}
+              </>
+            )}
           </p>
 
           <div className="flex items-center gap-2">
@@ -256,11 +274,11 @@ function StorefrontCollectionsIndexPage() {
               onChange={(e) => setSortKey(e.target.value as SortKey)}
               className="rounded-xl border border-input bg-surface px-4 py-2.5 text-sm font-semibold text-foreground focus:outline-none focus:ring-2 focus:ring-brand/20 focus:border-brand transition-all cursor-pointer"
             >
-               <option value="featured">{t("collection.sortFeatured")}</option>
-               <option value="price-asc">{t("collection.sortPriceAsc")}</option>
-               <option value="price-desc">{t("collection.sortPriceDesc")}</option>
-               <option value="newest">{t("collection.sortNewest")}</option>
-               <option value="rating">{t("collection.sortRating")}</option>
+              <option value="featured">{t("collection.sortFeatured")}</option>
+              <option value="price-asc">{t("collection.sortPriceAsc")}</option>
+              <option value="price-desc">{t("collection.sortPriceDesc")}</option>
+              <option value="newest">{t("collection.sortNewest")}</option>
+              <option value="rating">{t("collection.sortRating")}</option>
             </select>
           </div>
         </div>
@@ -273,8 +291,8 @@ function StorefrontCollectionsIndexPage() {
             <div className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-surface-secondary flex items-center justify-center">
               <LayoutGrid className="h-10 w-10 text-muted-foreground/50" />
             </div>
-             <h3 className="text-xl font-bold text-foreground mb-2">{t("collection.noProducts")}</h3>
-             <p className="text-muted-foreground text-sm">{t("collection.noProductsHint")}</p>
+            <h3 className="text-xl font-bold text-foreground mb-2">{t("collection.noProducts")}</h3>
+            <p className="text-muted-foreground text-sm">{t("collection.noProductsHint")}</p>
           </div>
         ) : (
           <>

@@ -39,6 +39,8 @@
   --color-brand-hover: var(--brand-hover);
   --color-brand-foreground: var(--brand-foreground);
   --color-brand-soft: var(--brand-soft);
+  --color-brand-yellow: var(--brand-yellow);
+  --color-brand-yellow-hover: var(--brand-yellow-hover);
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
   --color-success: var(--success);
@@ -183,7 +185,6 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-
     *,
     *::before,
     *::after {
@@ -234,7 +235,7 @@
     display: none;
   }
 
-  &>* {
+  & > * {
     scroll-snap-align: start;
     flex: 0 0 auto;
   }
@@ -654,7 +655,6 @@
 }
 
 @keyframes shg-glow {
-
   0%,
   100% {
     opacity: 0.35;
@@ -668,7 +668,6 @@
 }
 
 @keyframes shg-float {
-
   0%,
   100% {
     transform: translateY(0);
@@ -700,8 +699,7 @@
   justify-content: center;
   padding: 1.5rem;
   /* Opaque brand background — fully hides the app behind it. */
-  background:
-    radial-gradient(130% 130% at 50% 0%, #ffffff 0%, var(--background) 58%, #f6efe9 100%);
+  background: radial-gradient(130% 130% at 50% 0%, #ffffff 0%, var(--background) 58%, #f6efe9 100%);
   opacity: 1;
   transform: scale(1);
   transition:
@@ -751,18 +749,12 @@
   position: absolute;
   inset: 0;
   transform: translateX(-100%);
-  background: linear-gradient(90deg,
-      transparent,
-      rgba(255, 255, 255, 0.55),
-      transparent);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.55), transparent);
   animation: shimmer 1.6s infinite;
 }
 
 .dark .shg-skel::after {
-  background: linear-gradient(90deg,
-      transparent,
-      rgba(255, 255, 255, 0.08),
-      transparent);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent);
 }
 
 /* Image fade-in once decoded — no pop, no layout shift. */
