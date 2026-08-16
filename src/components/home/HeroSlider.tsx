@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, BookOpen, Sparkles } from "lucide-react";
+import { ArrowRight, Sparkles } from "lucide-react";
 import { SmartImage } from "@/components/common/SmartImage";
 import { useDir, useHref, useLocalized, useT } from "@/lib/locale";
 import type { HeroSlide } from "@/lib/types";
@@ -104,13 +104,6 @@ export function HeroSlider({ slides }: { slides: HeroSlide[] }) {
                   >
                     {buttonText}
                     <ArrowRight className="h-4 w-4 rtl:-scale-x-100" />
-                  </Link>
-                  <Link
-                    to={href("/collections/school-supplies")}
-                    className="inline-flex items-center justify-center gap-2 rounded-xl bg-brand-yellow px-7 py-3.5 font-extrabold tracking-wide text-slate-950 shadow-lg shadow-brand-yellow/20 transition-all duration-300 hover:bg-brand-yellow-hover"
-                  >
-                    <BookOpen className="h-4 w-4" />
-                    {t("hero.ctaSecondary")}
                   </Link>
                 </div>
               </div>

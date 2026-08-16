@@ -2,6 +2,7 @@
 export const catalogDict = {
   // collections
   "collection.all": { ar: "كل المنتجات", en: "All products" },
+  "collection.allProducts": { ar: "كل المنتجات", en: "All Products" },
   "collection.filters": { ar: "الفلاتر", en: "Filters" },
   "collection.sort": { ar: "ترتيب", en: "Sort" },
   "collection.sortFeatured": { ar: "المميزة أولاً", en: "Featured first" },
@@ -47,6 +48,7 @@ export const catalogDict = {
   },
   "collection.browseAll": { ar: "تصفح كل المنتجات", en: "Browse all products" },
   "collection.sections": { ar: "الأقسام", en: "Categories" },
+  "collection.viewAllCategory": { ar: "عرض كل المنتجات", en: "View all" },
 
   // search
   "search.title": { ar: "البحث", en: "Search" },

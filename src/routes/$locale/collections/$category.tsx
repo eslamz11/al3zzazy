@@ -8,15 +8,17 @@ import {
   getPageSize,
 } from "@/lib/services/firebase/productService";
 import { getCategory } from "@/lib/services/firebase/categoryService";
+import { listSubcategories } from "@/lib/services/firebase/subcategoryService";
 import { useHref, useT, useDir, useLocalized } from "@/lib/locale";
-import { ChevronLeft, ChevronRight, Home, ChevronDown, SlidersHorizontal } from "lucide-react";
-import type { Category, CategoryHandle, Product, SortKey } from "@/lib/types";
+import { ChevronLeft, ChevronRight, Home, ChevronDown, SlidersHorizontal, Filter } from "lucide-react";
+import type { Category, CategoryHandle, Product, SortKey, Subcategory } from "@/lib/types";
 
 const categorySearchSchema = z.object({
   sort: z
     .enum(["featured", "price-asc", "price-desc", "newest", "rating"])
     .optional()
     .catch(undefined),
+  subcategory: z.string().optional().catch(undefined),
 });
 
 export const Route = createFileRoute("/$locale/collections/$category")({
@@ -135,30 +137,39 @@ function StorefrontCategoryCollectionPage() {
   const L = useLocalized();
   const [category, setCategory] = useState<Category | null>(null);
   const [products, setProducts] = useState<Product[]>([]);
+  const [subcategories, setSubcategories] = useState<Subcategory[]>([]);
   const [loading, setLoading] = useState(true);
   const search = Route.useSearch();
   const [sortKey, setSortKey] = useState<SortKey>(search.sort ?? "featured");
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = getPageSize();
 
+  const selectedSubcategoryId = search.subcategory;
+
   useEffect(() => {
     let cancelled = false;
     async function load() {
       setLoading(true);
-      const [catData, prodData] = await Promise.all([
+      const [catData, prodData, subData] = await Promise.all([
         getCategory(categoryHandle),
-        listAllActiveProducts(categoryHandle as CategoryHandle),
+        listAllActiveProducts(categoryHandle as CategoryHandle, selectedSubcategoryId),
+        listSubcategories(),
       ]);
       if (cancelled) return;
       setCategory(catData);
       setProducts(prodData);
+      // Filter subcategories to only show those belonging to this category
+      const catSubs = subData.filter(
+        (s) => s.parentCategoryId === catData?.id || s.parentCategoryId === catData?.handle
+      );
+      setSubcategories(catSubs);
       setLoading(false);
     }
     load();
     return () => {
       cancelled = true;
     };
-  }, [categoryHandle]);
+  }, [categoryHandle, selectedSubcategoryId]);
 
   // Sort
   const sorted = useMemo(() => sortProducts(products, sortKey), [products, sortKey]);
@@ -233,6 +244,36 @@ function StorefrontCategoryCollectionPage() {
 
       {/* ── Products Area ───────────────────────────────────── */}
       <section className="max-w-[1400px] mx-auto px-5 md:px-8 py-8 md:py-12">
+        {/* Subcategories Filter */}
+        {subcategories.length > 0 && (
+          <div className="flex flex-wrap items-center gap-2 mb-6 pb-6 border-b border-border">
+            <Filter className="h-4 w-4 text-muted-foreground shrink-0" />
+            <Link
+              to={href(`/collections/${categoryHandle}`)}
+              className={`inline-flex items-center px-4 py-2 rounded-full text-xs font-bold transition-all ${
+                !selectedSubcategoryId
+                  ? "bg-brand text-white shadow-md"
+                  : "bg-surface-secondary text-foreground hover:bg-brand-soft hover:text-brand"
+              }`}
+            >
+              {t("collection.allProducts")}
+            </Link>
+            {subcategories.map((sub) => (
+              <Link
+                key={sub.id || sub.handle}
+                to={href(`/collections/${categoryHandle}?subcategory=${sub.id}`)}
+                className={`inline-flex items-center px-4 py-2 rounded-full text-xs font-bold transition-all ${
+                  selectedSubcategoryId === sub.id
+                    ? "bg-brand text-white shadow-md"
+                    : "bg-surface-secondary text-foreground hover:bg-brand-soft hover:text-brand"
+                }`}
+              >
+                {L(sub.name)}
+              </Link>
+            ))}
+          </div>
+        )}
+
         {/* Sort bar */}
         <div className="flex flex-wrap items-center justify-between gap-4 mb-8 pb-6 border-b border-border">
           <p className="text-sm text-muted-foreground font-medium">

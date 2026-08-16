@@ -73,7 +73,9 @@ export interface Product {
   tagline: Localized;
   description: Localized;
   category: CategoryHandle;
+  categoryId?: string | undefined;
   subCategory?: string | undefined;
+  subcategoryId?: string | undefined;
   images: ProductImage[];
   /** base price, used when no variant is selected */
   price: number;
@@ -130,6 +132,19 @@ export interface Category {
   /** Firestore-specific fields */
   id?: string | undefined;
   slug?: string | undefined;
+  order?: number | undefined;
+  active?: boolean | undefined;
+  createdAt?: string | undefined;
+  updatedAt?: string | undefined;
+}
+
+export interface Subcategory {
+  id?: string | undefined;
+  handle: string;
+  slug: string;
+  name: Localized;
+  description: Localized;
+  parentCategoryId: string;
   order?: number | undefined;
   active?: boolean | undefined;
   createdAt?: string | undefined;

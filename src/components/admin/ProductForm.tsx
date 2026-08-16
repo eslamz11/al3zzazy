@@ -5,6 +5,7 @@ import { ImageUploader, type ManagedImage } from "./ImageUploader";
 import { VariantEditor } from "./VariantEditor";
 import type { CategoryHandle, Product, ProductVariant } from "@/lib/types";
 import { adminListCategories } from "@/lib/services/firebase/categoryService";
+import { adminListSubcategories } from "@/lib/services/firebase/subcategoryService";
 
 export interface ProductFormValues {
   nameAr: string;
@@ -15,6 +16,7 @@ export interface ProductFormValues {
   descriptionEn: string;
   slug: string;
   categoryId: CategoryHandle;
+  subcategoryId?: string;
   price: number;
   compareAtPrice?: number;
   costPrice?: number;
@@ -58,6 +60,8 @@ export function ProductForm({ initialValues, isEditing = false, onSubmit }: Prod
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [categories, setCategories] = useState<Array<{ id: string; handle: CategoryHandle; nameAr: string }>>([]);
+  const [subcategories, setSubcategories] = useState<Array<{ id: string; handle: string; nameAr: string; parentCategoryId: string }>>([]);
+  const [filteredSubcategories, setFilteredSubcategories] = useState<Array<{ id: string; handle: string; nameAr: string; parentCategoryId: string }>>([]);
 
   const [nameAr, setNameAr] = useState(initialValues?.nameAr || "");
   const [nameEn, setNameEn] = useState(initialValues?.nameEn || "");
@@ -69,6 +73,7 @@ export function ProductForm({ initialValues, isEditing = false, onSubmit }: Prod
   const [categoryId, setCategoryId] = useState<CategoryHandle>(
     initialValues?.categoryId || "children-clothing",
   );
+  const [subcategoryId, setSubcategoryId] = useState<string>(initialValues?.subcategoryId || "");
   const [price, setPrice] = useState<number>(initialValues?.price || 0);
   const [compareAtPrice, setCompareAtPrice] = useState<number | undefined>(
     initialValues?.compareAtPrice,
@@ -125,21 +130,43 @@ export function ProductForm({ initialValues, isEditing = false, onSubmit }: Prod
     setSku(newSku);
   };
 
-  // Load categories from Firebase
+  // Load categories and subcategories from Firebase
   useEffect(() => {
-    adminListCategories().then((cats) => {
-      const mapped = cats.map((c) => ({
+    Promise.all([adminListCategories(), adminListSubcategories()]).then(([cats, subs]) => {
+      const mappedCats = cats.map((c) => ({
         id: c.id || c.handle,
         handle: c.handle,
         nameAr: c.name.ar,
       }));
-      setCategories(mapped);
+      const mappedSubs = subs.map((s) => ({
+        id: s.id || s.handle,
+        handle: s.handle,
+        nameAr: s.name.ar,
+        parentCategoryId: s.parentCategoryId,
+      }));
+      setCategories(mappedCats);
+      setSubcategories(mappedSubs);
       // Set default category if not already set
-      if (!categoryId && mapped.length > 0 && mapped[0]) {
-        setCategoryId(mapped[0].handle);
+      if (!categoryId && mappedCats.length > 0 && mappedCats[0]) {
+        setCategoryId(mappedCats[0].handle);
       }
     });
   }, []);
+
+  // Filter subcategories when category changes
+  useEffect(() => {
+    const selectedCategory = categories.find((c) => c.handle === categoryId);
+    if (selectedCategory) {
+      const filtered = subcategories.filter((s) => s.parentCategoryId === selectedCategory.id);
+      setFilteredSubcategories(filtered);
+      // Reset subcategory if it doesn't belong to the new category
+      if (subcategoryId && !filtered.find((s) => s.id === subcategoryId)) {
+        setSubcategoryId("");
+      }
+    } else {
+      setFilteredSubcategories([]);
+    }
+  }, [categoryId, categories, subcategories, subcategoryId]);
 
   const [translating, setTranslating] = useState(false);
   const handleAutoTranslate = async () => {
@@ -218,6 +245,7 @@ export function ProductForm({ initialValues, isEditing = false, onSubmit }: Prod
       descriptionEn: descriptionEn.trim(),
       slug: slug.trim() || `product-${Date.now()}`,
       categoryId,
+      subcategoryId: subcategoryId || undefined,
       price,
       sku: sku.trim(),
       stock,
@@ -600,6 +628,28 @@ export function ProductForm({ initialValues, isEditing = false, onSubmit }: Prod
                   ))
                 )}
               </select>
+            </div>
+
+            <div>
+              <label className="text-xs font-bold text-foreground">التصنيف الفرعي</label>
+              <select
+                value={subcategoryId}
+                onChange={(e) => setSubcategoryId(e.target.value)}
+                className="mt-1 w-full rounded-xl border border-input bg-background px-3 py-2 text-xs"
+                disabled={filteredSubcategories.length === 0}
+              >
+                <option value="">بدون تصنيف فرعي</option>
+                {filteredSubcategories.map((s) => (
+                  <option key={s.id} value={s.id}>
+                    {s.nameAr}
+                  </option>
+                ))}
+              </select>
+              {filteredSubcategories.length === 0 && (
+                <p className="text-[10px] text-muted-foreground mt-1">
+                  لا توجد تصنيفات فرعية لهذا التصنيف الرئيسي
+                </p>
+              )}
             </div>
 
             <div>

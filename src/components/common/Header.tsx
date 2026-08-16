@@ -12,9 +12,13 @@ import {
   ChevronLeft,
   ChevronRight,
   ShieldCheck,
+  ChevronDown,
 } from "lucide-react";
 import { useLocale, useHref, swapLocaleInPath, useT } from "@/lib/locale";
 import { useStore } from "@/lib/store";
+import { listCategories } from "@/lib/services/firebase/categoryService";
+import { listSubcategories } from "@/lib/services/firebase/subcategoryService";
+import type { Category, Subcategory } from "@/lib/types";
 
 export function Header() {
   const locale = useLocale();
@@ -28,6 +32,13 @@ export function Header() {
   const searchInputRef = useRef<HTMLInputElement>(null);
   const [mounted, setMounted] = useState(false);
 
+  // Categories and subcategories state
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [subcategoriesMap, setSubcategoriesMap] = useState<Record<string, Subcategory[]>>({});
+  const [hoveredCategory, setHoveredCategory] = useState<string | null>(null);
+  const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const [expandedMobileCategories, setExpandedMobileCategories] = useState<Set<string>>(new Set());
+
   const isRTL = locale === "ar";
   const otherLocale = isRTL ? "en" : "ar";
   const [currentPath, setCurrentPath] = useState(`/${locale}`);
@@ -36,6 +47,23 @@ export function Header() {
     setMounted(true);
     setCurrentPath(window.location.pathname);
   }, [locale]);
+
+  // Load categories and subcategories
+  useEffect(() => {
+    async function loadCategories() {
+      const [cats, subs] = await Promise.all([listCategories(), listSubcategories()]);
+      setCategories(cats);
+      const map: Record<string, Subcategory[]> = {};
+      subs.forEach((sub) => {
+        if (!map[sub.parentCategoryId]) {
+          map[sub.parentCategoryId] = [];
+        }
+        map[sub.parentCategoryId].push(sub);
+      });
+      setSubcategoriesMap(map);
+    }
+    loadCategories();
+  }, []);
 
   useEffect(() => {
     if (mobileMenuOpen) {
@@ -73,10 +101,36 @@ export function Header() {
     }
   };
 
-  const navLinks = [
+  const handleCategoryHover = (categoryHandle: string) => {
+    if (hoverTimeoutRef.current) {
+      clearTimeout(hoverTimeoutRef.current);
+    }
+    setHoveredCategory(categoryHandle);
+  };
+
+  const handleCategoryLeave = () => {
+    if (hoverTimeoutRef.current) {
+      clearTimeout(hoverTimeoutRef.current);
+    }
+    hoverTimeoutRef.current = setTimeout(() => {
+      setHoveredCategory(null);
+    }, 150);
+  };
+
+  const toggleMobileCategory = (categoryId: string) => {
+    setExpandedMobileCategories((prev) => {
+      const next = new Set(prev);
+      if (next.has(categoryId)) {
+        next.delete(categoryId);
+      } else {
+        next.add(categoryId);
+      }
+      return next;
+    });
+  };
+
+  const staticNavLinks = [
     { to: href("/"), label: t("nav.home"), exact: true },
-    { to: href("/collections/children-clothing"), label: t("nav.childrenClothing") },
-    { to: href("/collections/school-supplies"), label: t("nav.schoolSupplies") },
     { to: href("/about"), label: t("nav.about") },
     { to: href("/contact"), label: t("nav.contact") },
   ];
@@ -136,18 +190,83 @@ export function Header() {
             <p className="text-[10px] font-black text-sky-600 uppercase tracking-widest px-4 mb-2">
               {isRTL ? t("nav.navigation") : "Navigation"}
             </p>
-            {navLinks.map((link) => (
+
+            {/* Home */}
+            <Link
+              to={href("/")}
+              onClick={() => setMobileMenuOpen(false)}
+              activeProps={{
+                className: "bg-sky-50 text-sky-700 font-bold border-sky-200",
+              }}
+              inactiveProps={{
+                className: "text-slate-700 hover:bg-sky-50/50 hover:text-sky-600 border-transparent",
+              }}
+              className="flex items-center justify-between py-3 px-4 rounded-xl transition-all text-sm font-bold border"
+            >
+              <span>{t("nav.home")}</span>
+              <ChevronIcon className="h-4 w-4 opacity-40 shrink-0" />
+            </Link>
+
+            {/* Categories with expandable subcategories */}
+            {categories.map((cat) => {
+              const catSubs = subcategoriesMap[cat.id || ""] || [];
+              const isExpanded = expandedMobileCategories.has(cat.id || "");
+
+              return (
+                <div key={cat.id || cat.handle}>
+                  <div className="flex items-center justify-between py-3 px-4 rounded-xl text-sm font-bold text-slate-700 border border-transparent">
+                    <Link
+                      to={href(`/collections/${cat.handle}`)}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="flex-1 hover:text-sky-600 transition-colors"
+                    >
+                      {cat.name.ar}
+                    </Link>
+                    {catSubs.length > 0 && (
+                      <button
+                        onClick={() => toggleMobileCategory(cat.id || "")}
+                        className="p-1.5 text-sky-600 hover:bg-sky-50 rounded-lg transition-all"
+                      >
+                        <ChevronDown
+                          className={`h-4 w-4 transition-transform duration-200 ${
+                            isExpanded ? "rotate-180" : ""
+                          }`}
+                        />
+                      </button>
+                    )}
+                  </div>
+
+                  {/* Subcategories */}
+                  {isExpanded && catSubs.length > 0 && (
+                    <div className="bg-sky-50/50 mr-4 rounded-xl py-2 mb-1">
+                      {catSubs.map((sub) => (
+                        <Link
+                          key={sub.id || sub.handle}
+                          to={href(`/collections/${cat.handle}?subcategory=${sub.id}`)}
+                          onClick={() => setMobileMenuOpen(false)}
+                          className="flex items-center py-2.5 px-6 text-xs font-semibold text-slate-600 hover:text-sky-700 hover:bg-sky-100/50 transition-all"
+                        >
+                          <span className="w-1.5 h-1.5 rounded-full bg-sky-400 ml-2 shrink-0" />
+                          {sub.name.ar}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+
+            {/* Other static links */}
+            {staticNavLinks.slice(1).map((link) => (
               <Link
                 key={link.to}
                 to={link.to}
-                activeOptions={{ exact: !!link.exact }}
                 onClick={() => setMobileMenuOpen(false)}
                 activeProps={{
                   className: "bg-sky-50 text-sky-700 font-bold border-sky-200",
                 }}
                 inactiveProps={{
-                  className:
-                    "text-slate-700 hover:bg-sky-50/50 hover:text-sky-600 border-transparent",
+                  className: "text-slate-700 hover:bg-sky-50/50 hover:text-sky-600 border-transparent",
                 }}
                 className="flex items-center justify-between py-3 px-4 rounded-xl transition-all text-sm font-bold border"
               >
@@ -277,14 +396,98 @@ export function Header() {
               alt={t("brand.logoAlt")}
               className="h-10 sm:h-12 lg:h-[52px] w-auto object-contain transition-transform duration-300 group-hover:scale-105"
             />
-            <span className="font-extrabold text-sky-900 text-base sm:text-lg hidden sm:inline-block">
-              {t("brand.name")}
-            </span>
           </Link>
         </div>
 
         <nav className="hidden lg:flex items-center gap-6 xl:gap-8 font-bold text-sm text-slate-700">
-          {navLinks.map((link) => (
+          {/* Home Link */}
+          <Link
+            to={href("/")}
+            activeProps={{
+              className:
+                "text-sky-600 font-black relative after:absolute after:-bottom-2 after:left-0 after:right-0 after:h-0.5 after:bg-sky-500 after:rounded-full",
+            }}
+            inactiveProps={{ className: "hover:text-sky-600 transition-colors" }}
+          >
+            {t("nav.home")}
+          </Link>
+
+          {/* Category Links with Mega Menu */}
+          {categories.map((cat) => {
+            const catSubs = subcategoriesMap[cat.id || ""] || [];
+            const isHovered = hoveredCategory === cat.handle;
+
+            return (
+              <div
+                key={cat.id || cat.handle}
+                className="relative"
+                onMouseEnter={() => handleCategoryHover(cat.handle)}
+                onMouseLeave={handleCategoryLeave}
+              >
+                <Link
+                  to={href(`/collections/${cat.handle}`)}
+                  activeProps={{
+                    className:
+                      "text-sky-600 font-black relative after:absolute after:-bottom-2 after:left-0 after:right-0 after:h-0.5 after:bg-sky-500 after:rounded-full flex items-center gap-1",
+                  }}
+                  inactiveProps={{
+                    className: `hover:text-sky-600 transition-colors flex items-center gap-1 ${
+                      isHovered ? "text-sky-600" : ""
+                    }`,
+                  }}
+                >
+                  <span>{cat.name[locale]}</span>
+                  {catSubs.length > 0 && (
+                    <ChevronDown
+                      className={`h-3.5 w-3.5 transition-transform duration-200 ${
+                        isHovered ? "rotate-180" : ""
+                      }`}
+                    />
+                  )}
+                </Link>
+
+                {/* Mega Menu Dropdown */}
+                {catSubs.length > 0 && isHovered && (
+                  <div
+                    className="absolute top-full pt-3 -right-4 z-50"
+                    style={{ minWidth: "200px" }}
+                    onMouseEnter={() => handleCategoryHover(cat.handle)}
+                    onMouseLeave={handleCategoryLeave}
+                  >
+                    <div className="bg-white rounded-2xl shadow-xl border border-sky-100 overflow-hidden py-3">
+                      {/* Category Header */}
+                      <div className="px-4 pb-3 border-b border-sky-100">
+                        <Link
+                          to={href(`/collections/${cat.handle}`)}
+                          className="text-xs font-black text-sky-700 hover:text-sky-800 flex items-center gap-2"
+                        >
+                          <span>{t("collection.viewAllCategory")}</span>
+                          <ChevronIcon className="h-3 w-3" />
+                        </Link>
+                      </div>
+
+                      {/* Subcategories List */}
+                      <div className="py-2">
+                        {catSubs.map((sub) => (
+                          <Link
+                            key={sub.id || sub.handle}
+                            to={href(`/collections/${cat.handle}?subcategory=${sub.id}`)}
+                            className="flex items-center gap-3 px-4 py-2.5 text-sm font-bold text-slate-700 hover:text-sky-700 hover:bg-sky-50 transition-all"
+                          >
+                            <span className="w-1.5 h-1.5 rounded-full bg-sky-400 shrink-0" />
+                            <span>{sub.name[locale]}</span>
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            );
+          })}
+
+          {/* Other Static Links */}
+          {staticNavLinks.slice(1).map((link) => (
             <Link
               key={link.to}
               to={link.to}
@@ -370,15 +573,22 @@ export function Header() {
             )}
           </Link>
 
+          {/* Desktop Search Icon - Click to open search box */}
           <button
             onClick={() => {
-              setSearchOpenMobile(!searchOpenMobile);
-              setMobileMenuOpen(false);
+              // For desktop, we need to focus the search input if it's visible
+              // If we want a search box that opens on click, we need to add state for that
+              // For now, we'll keep the existing desktop search form but make it more professional
+              if (searchOpenMobile) {
+                setSearchOpenMobile(false);
+              }
             }}
-            className={`p-2 rounded-xl transition-all lg:hidden ${
-              searchOpenMobile ? "bg-sky-100 text-sky-700" : "text-slate-700 hover:bg-sky-50"
-            }`}
-            aria-label={t("header.search")}
+            className="p-2 rounded-xl transition-all text-slate-700 hover:bg-sky-50 hidden lg:flex"
+            title={t("header.search")}
+            onMouseDown={(e) => {
+              // Prevent form submission when clicking the icon area
+              e.preventDefault();
+            }}
           >
             <Search className="h-5 w-5 stroke-[2]" />
           </button>

@@ -19,6 +19,7 @@ function AdminNewProductPage() {
       descriptionEn: values.descriptionEn,
       slug: values.slug,
       categoryId: values.categoryId,
+      subcategoryId: values.subcategoryId,
       price: values.price,
       compareAtPrice: values.compareAtPrice,
       costPrice: values.costPrice,

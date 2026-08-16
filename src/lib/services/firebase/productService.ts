@@ -37,6 +37,8 @@ function docToProduct(id: string, data: any): Product {
     tagline: (data.tagline as Product["tagline"]) ?? { ar: "", en: "" },
     description: (data.description as Product["description"]) ?? { ar: "", en: "" },
     category: (data.categoryId as CategoryHandle) ?? "mattresses",
+    categoryId: data.categoryId as string | undefined,
+    subcategoryId: data.subcategoryId as string | undefined,
     images: ((data.images as Product["images"]) ?? []).map((img: unknown) => {
       const i = img as Record<string, unknown>;
       return {
@@ -288,6 +290,7 @@ export interface ProductInput {
   descriptionEn: string;
   slug: string;
   categoryId: CategoryHandle;
+  subcategoryId?: string;
   price: number;
   compareAtPrice?: number;
   costPrice?: number;
@@ -330,6 +333,7 @@ export async function createProduct(
       tagline: { ar: input.taglineAr, en: input.taglineEn },
       description: { ar: input.descriptionAr, en: input.descriptionEn },
       categoryId: input.categoryId,
+      subcategoryId: input.subcategoryId ?? null,
       price: input.price,
       compareAtPrice: input.compareAtPrice ?? null,
       costPrice: input.costPrice ?? null,
@@ -382,6 +386,7 @@ export async function updateProduct(
     if (input.descriptionEn !== undefined) updates["description.en"] = input.descriptionEn;
     if (input.slug !== undefined) updates.slug = input.slug;
     if (input.categoryId !== undefined) updates.categoryId = input.categoryId;
+    if (input.subcategoryId !== undefined) updates.subcategoryId = input.subcategoryId;
     if (input.price !== undefined) updates.price = input.price;
     if (input.compareAtPrice !== undefined) updates.compareAtPrice = input.compareAtPrice;
     if (input.costPrice !== undefined) updates.costPrice = input.costPrice;
@@ -570,11 +575,17 @@ export function invalidateAllProductsCache() {
 }
 
 /** Get all active products (cached 1 min). Used for client-side pagination on storefront. */
-export async function listAllActiveProducts(category?: CategoryHandle): Promise<Product[]> {
+export async function listAllActiveProducts(
+  category?: CategoryHandle,
+  subcategoryId?: string,
+): Promise<Product[]> {
   if (cachedAllProducts && Date.now() - allProductsFetchTime < CACHE_TTL_MS) {
-    const items = category
+    let items = category
       ? cachedAllProducts.filter((p) => p.category === category)
       : cachedAllProducts;
+    if (subcategoryId) {
+      items = items.filter((p) => p.subcategoryId === subcategoryId);
+    }
     return items;
   }
 
@@ -589,10 +600,17 @@ export async function listAllActiveProducts(category?: CategoryHandle): Promise<
     cachedAllProducts = all;
     allProductsFetchTime = Date.now();
 
-    return category ? all.filter((p) => p.category === category) : all;
+    let items = category ? all.filter((p) => p.category === category) : all;
+    if (subcategoryId) {
+      items = items.filter((p) => p.subcategoryId === subcategoryId);
+    }
+    return items;
   } catch (err) {
     console.error("[productService] listAllActiveProducts error:", err);
-    const items = category ? demoProducts.filter((p) => p.category === category) : demoProducts;
+    let items = category ? demoProducts.filter((p) => p.category === category) : demoProducts;
+    if (subcategoryId) {
+      items = items.filter((p) => p.subcategoryId === subcategoryId);
+    }
     return items;
   }
 }
