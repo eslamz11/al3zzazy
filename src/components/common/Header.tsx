@@ -29,7 +29,9 @@ export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [searchOpenMobile, setSearchOpenMobile] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
   const searchInputRef = useRef<HTMLInputElement>(null);
+  const desktopSearchInputRef = useRef<HTMLInputElement>(null);
   const [mounted, setMounted] = useState(false);
 
   // Categories and subcategories state
@@ -66,7 +68,7 @@ export function Header() {
   }, []);
 
   useEffect(() => {
-    if (mobileMenuOpen) {
+    if (mobileMenuOpen || searchOpen) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "";
@@ -74,17 +76,24 @@ export function Header() {
     return () => {
       document.body.style.overflow = "";
     };
-  }, [mobileMenuOpen]);
+  }, [mobileMenuOpen, searchOpen]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape" && mobileMenuOpen) {
-        setMobileMenuOpen(false);
+      if (e.key === "Escape") {
+        if (mobileMenuOpen) setMobileMenuOpen(false);
+        if (searchOpen) setSearchOpen(false);
       }
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [mobileMenuOpen]);
+  }, [mobileMenuOpen, searchOpen]);
+
+  useEffect(() => {
+    if (!searchOpen) return;
+    const id = setTimeout(() => desktopSearchInputRef.current?.focus(), 60);
+    return () => clearTimeout(id);
+  }, [searchOpen]);
 
   useEffect(() => {
     if (searchOpenMobile && searchInputRef.current) {
@@ -97,6 +106,7 @@ export function Header() {
     if (searchQuery.trim()) {
       navigate({ to: href(`/search`), search: { q: searchQuery.trim() } });
       setSearchOpenMobile(false);
+      setSearchOpen(false);
       setMobileMenuOpen(false);
     }
   };
@@ -365,6 +375,84 @@ export function Header() {
     </div>
   );
 
+  const searchOverlayMarkup = (
+    <div
+      className={`hidden lg:block fixed inset-0 z-[100001] transition-all duration-300 ${
+        searchOpen ? "visible pointer-events-auto" : "invisible pointer-events-none"
+      }`}
+      role="dialog"
+      aria-modal="true"
+      aria-hidden={!searchOpen}
+      aria-label={t("header.searchShort")}
+    >
+      {/* Backdrop */}
+      <div
+        className={`absolute inset-0 bg-slate-900/50 backdrop-blur-sm transition-opacity duration-300 ${
+          searchOpen ? "opacity-100" : "opacity-0"
+        }`}
+        onClick={() => setSearchOpen(false)}
+      />
+
+      {/* Search panel */}
+      <div className="absolute inset-x-0 top-0 flex justify-center px-4 pt-[12vh]">
+        <div
+          dir={isRTL ? "rtl" : "ltr"}
+          className={`relative w-full max-w-2xl transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] ${
+            searchOpen ? "opacity-100 translate-y-0 scale-100" : "opacity-0 -translate-y-4 scale-95"
+          }`}
+        >
+          <div className="bg-white rounded-3xl shadow-2xl ring-1 ring-sky-100 overflow-hidden">
+            <form onSubmit={handleSearchSubmit} className="relative flex items-center">
+              <Search className="pointer-events-none absolute ltr:left-5 rtl:right-5 h-5 w-5 text-sky-500" />
+              <input
+                ref={desktopSearchInputRef}
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder={t("header.searchPlaceholder")}
+                className="w-full bg-transparent py-5 ltr:pl-14 ltr:pr-36 rtl:pr-14 rtl:pl-36 text-base font-medium text-slate-800 placeholder:text-slate-400 focus:outline-none"
+              />
+              <div className="absolute ltr:right-3 rtl:left-3 flex items-center gap-1.5">
+                {searchQuery && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setSearchQuery("");
+                      desktopSearchInputRef.current?.focus();
+                    }}
+                    className="rounded-lg p-1.5 text-slate-400 transition-all hover:bg-slate-100 hover:text-slate-600"
+                    aria-label={t("header.searchClear")}
+                  >
+                    <X className="h-4 w-4" />
+                  </button>
+                )}
+                <button
+                  type="submit"
+                  disabled={!searchQuery.trim()}
+                  className="rounded-xl bg-sky-600 px-4 py-2 text-sm font-bold text-white transition-all hover:bg-sky-700 disabled:cursor-not-allowed disabled:opacity-40"
+                >
+                  {t("header.searchShort")}
+                </button>
+              </div>
+            </form>
+          </div>
+
+          {/* Footer hint */}
+          <div className="mt-3 flex items-center justify-between px-2 text-xs font-medium text-white/85">
+            <span>{isRTL ? "اكتب ثم اضغط Enter للبحث" : "Type and press Enter to search"}</span>
+            <button
+              onClick={() => setSearchOpen(false)}
+              className="flex items-center gap-1.5 transition-colors hover:text-white"
+            >
+              <span className="rounded-md bg-white/15 px-1.5 py-0.5 font-bold">ESC</span>
+              <span>{isRTL ? "إغلاق" : "Close"}</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
   return (
     <header className="w-full bg-white/95 backdrop-blur-md border-b border-sky-100 shadow-xs relative z-30">
       <div
@@ -504,32 +592,6 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-1 sm:gap-2">
-          <form onSubmit={handleSearchSubmit} className="hidden lg:flex items-center relative">
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder={isRTL ? "بحث في المتجر..." : "Search store..."}
-              className="w-44 xl:w-56 py-2 px-3.5 text-xs bg-sky-50/60 border border-sky-100 rounded-xl focus:bg-white focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-100 transition-all placeholder:text-slate-400"
-            />
-            {searchQuery && (
-              <button
-                type="button"
-                onClick={() => setSearchQuery("")}
-                className="absolute ltr:right-8 rtl:left-8 text-slate-400 hover:text-slate-600 text-xs font-bold"
-              >
-                ✕
-              </button>
-            )}
-            <button
-              type="submit"
-              className="absolute ltr:right-2.5 rtl:left-2.5 text-sky-500 hover:text-sky-700 transition-colors"
-              aria-label="Search"
-            >
-              <Search className="h-4 w-4" />
-            </button>
-          </form>
-
           <a
             href={swapLocaleInPath(currentPath, otherLocale)}
             className="hidden lg:flex items-center gap-1.5 text-xs font-bold text-slate-700 hover:text-sky-700 bg-sky-50 hover:bg-sky-100/70 border border-sky-100 px-3 py-2 rounded-xl transition-all"
@@ -573,22 +635,14 @@ export function Header() {
             )}
           </Link>
 
-          {/* Desktop Search Icon - Click to open search box */}
+          {/* Desktop-only search icon — opens the search overlay */}
           <button
-            onClick={() => {
-              // For desktop, we need to focus the search input if it's visible
-              // If we want a search box that opens on click, we need to add state for that
-              // For now, we'll keep the existing desktop search form but make it more professional
-              if (searchOpenMobile) {
-                setSearchOpenMobile(false);
-              }
-            }}
-            className="p-2 rounded-xl transition-all text-slate-700 hover:bg-sky-50 hidden lg:flex"
-            title={t("header.search")}
-            onMouseDown={(e) => {
-              // Prevent form submission when clicking the icon area
-              e.preventDefault();
-            }}
+            onClick={() => setSearchOpen(true)}
+            className="hidden lg:flex p-2 rounded-xl transition-all text-slate-700 hover:text-sky-600 hover:bg-sky-50"
+            title={t("header.searchShort")}
+            aria-label={t("header.searchShort")}
+            aria-haspopup="dialog"
+            aria-expanded={searchOpen}
           >
             <Search className="h-5 w-5 stroke-[2]" />
           </button>
@@ -634,6 +688,7 @@ export function Header() {
       </div>
 
       {mounted ? createPortal(mobileDrawerMarkup, document.body) : null}
+      {mounted ? createPortal(searchOverlayMarkup, document.body) : null}
     </header>
   );
 }
