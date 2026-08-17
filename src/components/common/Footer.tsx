@@ -30,7 +30,7 @@ export function Footer() {
   const address = settings?.address || "كفر الزيات — محافظة الغربية — مصر";
   const locationUrl = settings?.locationUrl || "";
 
-  const storeLogo = "https://i.ibb.co/Z5Sxv6K/Chat-GPT-Image-Aug-13-2026-06-46-12-PM.png";
+  const storeLogo = "/icons/logo.png";
 
   return (
     <footer className="relative bg-slate-900 text-slate-300 mt-16 transition-colors">

@@ -28,7 +28,7 @@ export function Al3azzazyLoader({
     lg: "p-8 space-y-4",
   };
 
-  const storeLogo = "https://i.ibb.co/Z5Sxv6K/Chat-GPT-Image-Aug-13-2026-06-46-12-PM.png";
+  const storeLogo = "/icons/logo.png";
 
   const content = (
     <div

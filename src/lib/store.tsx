@@ -117,7 +117,17 @@ export function StoreProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     // Complete any pending Google redirect sign-in (mobile fallback flow).
     // Creates the Firestore user doc if new; onAuthStateChanged then fires.
-    completeGoogleRedirect().catch(() => {});
+    completeGoogleRedirect()
+      .then(async (user) => {
+        // If redirect sign-in completed, onAuthStateChanged will handle the rest.
+        // Log for debugging mobile sign-in issues.
+        if (user) {
+          console.log("[Store] Google redirect sign-in completed for:", user.email);
+        }
+      })
+      .catch((err) => {
+        console.error("[Store] Google redirect error:", err);
+      });
 
     const unsub = onAuthStateChanged(async (currentUser) => {
       setUser(currentUser);

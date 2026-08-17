@@ -223,11 +223,22 @@ export async function signInWithGoogle(): Promise<
  */
 export async function completeGoogleRedirect(): Promise<User | null> {
   try {
+    console.log("[authService] Checking for Google redirect result...");
     const cred = await getRedirectResult(auth);
-    if (!cred?.user) return null;
+    if (!cred?.user) {
+      console.log("[authService] No redirect result found");
+      return null;
+    }
+    console.log("[authService] Google redirect result found for:", cred.user.email);
     return await finalizeGoogleUser(cred.user);
-  } catch (err) {
-    console.error("[authService] completeGoogleRedirect error:", err);
+  } catch (err: unknown) {
+    const code = (err as { code?: string }).code ?? "";
+    console.error("[authService] completeGoogleRedirect error:", code, err);
+    // Common error: auth/no-auth-event - means no redirect happened
+    if (code === "auth/no-auth-event") {
+      console.log("[authService] No auth event from redirect - user may have cancelled");
+      return null;
+    }
     return null;
   }
 }

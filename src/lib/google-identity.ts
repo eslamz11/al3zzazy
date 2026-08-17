@@ -68,7 +68,10 @@ function loadGis(): Promise<GsiId | null> {
     s.async = true;
     s.defer = true;
     s.onload = done;
-    s.onerror = () => resolve(null);
+    s.onerror = (err) => {
+      console.error("[Google Identity] Failed to load GIS script:", err);
+      resolve(null);
+    };
     document.head.appendChild(s);
   });
   return scriptPromise;

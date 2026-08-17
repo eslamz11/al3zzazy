@@ -146,7 +146,7 @@ export function Header() {
   ];
 
   const ChevronIcon = isRTL ? ChevronLeft : ChevronRight;
-  const storeLogo = "https://i.ibb.co/Z5Sxv6K/Chat-GPT-Image-Aug-13-2026-06-46-12-PM.png";
+  const storeLogo = "/icons/logo.png";
 
   const mobileDrawerMarkup = (
     <div
