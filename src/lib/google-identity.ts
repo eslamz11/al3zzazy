@@ -126,10 +126,28 @@ export function promptOneTap(): void {
   if (!id || promptRequested) return;
   promptRequested = true;
   try {
-    id.prompt();
-  } catch {
+    id.prompt((notification: any) => {
+      // Log the notification for debugging
+      if (notification?.isNotDisplayed()) {
+        console.log('[Google One Tap] Not displayed:', notification.getNotDisplayedReason());
+      } else if (notification?.isSkippedMoment()) {
+        console.log('[Google One Tap] Skipped:', notification.getSkippedReason());
+      } else if (notification?.isDismissedMoment()) {
+        console.log('[Google One Tap] Dismissed:', notification.getDismissedReason());
+      }
+    });
+  } catch (err) {
+    console.warn('[Google One Tap] Prompt failed:', err);
     /* One Tap unavailable — the rendered button remains the fallback. */
   }
+}
+
+/**
+ * Reset the One Tap prompt flag to allow showing it again.
+ * Call this when navigating between auth pages or after sign-out.
+ */
+export function resetOneTapPrompt(): void {
+  promptRequested = false;
 }
 
 /** Render the official Google button into `el`. Returns false if GIS is unavailable. */
@@ -158,6 +176,18 @@ export function renderGoogleButton(
 export function cancelOneTap(): void {
   try {
     window.google?.accounts?.id?.cancel();
+  } catch {
+    /* no-op */
+  }
+}
+
+/**
+ * Disable auto-select for the current session.
+ * Call this after a failed sign-in attempt to prevent automatic re-prompting.
+ */
+export function disableAutoSelect(): void {
+  try {
+    window.google?.accounts?.id?.disableAutoSelect();
   } catch {
     /* no-op */
   }

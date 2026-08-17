@@ -6,6 +6,7 @@ import {
   promptOneTap,
   renderGoogleButton,
   cancelOneTap,
+  disableAutoSelect,
   GOOGLE_CLIENT_ID,
   type GsiContext,
 } from "@/lib/google-identity";
@@ -77,12 +78,19 @@ export function GoogleSignInPanel({ context, onSuccess, onError, disabled }: Pro
     let cancelled = false;
 
     const handleCredential = async (idToken: string) => {
+      if (cancelled) return;
       setLoading(true);
       onError("");
       const res = await loginWithGoogleCredential(idToken);
+      if (cancelled) return;
       setLoading(false);
-      if (res.ok) onSuccess();
-      else onError(failMessage(res.error));
+      if (res.ok) {
+        onSuccess();
+      } else {
+        onError(failMessage(res.error));
+        // Disable auto-select to prevent automatic re-prompting after failure
+        disableAutoSelect();
+      }
     };
 
     (async () => {
@@ -94,7 +102,12 @@ export function GoogleSignInPanel({ context, onSuccess, onError, disabled }: Pro
           text: context === "signup" ? "signup_with" : "signin_with",
         });
         setGisReady(rendered);
-        if (rendered) promptOneTap();
+        if (rendered) {
+          // Delay One Tap slightly to ensure the page is fully loaded
+          setTimeout(() => {
+            if (!cancelled) promptOneTap();
+          }, 500);
+        }
       } else {
         setGisReady(false);
       }

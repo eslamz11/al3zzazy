@@ -331,8 +331,9 @@ export function StoreProvider({ children }: { children: ReactNode }) {
 
   const loginWithGoogle = useCallback(async () => {
     const res = await signInWithGoogle();
+    // Don't set user here - let onAuthStateChanged handle it
+    // This prevents duplicate updates and ensures consistent state
     if (res.ok) {
-      setUser(res.user);
       return { ok: true };
     }
     return { ok: false, error: res.error };
@@ -340,8 +341,9 @@ export function StoreProvider({ children }: { children: ReactNode }) {
 
   const loginWithGoogleCredential = useCallback(async (idToken: string) => {
     const res = await signInWithGoogleCredential(idToken);
+    // Don't set user here - let onAuthStateChanged handle it
+    // This prevents duplicate updates and ensures consistent state
     if (res.ok) {
-      setUser(res.user);
       return { ok: true };
     }
     return { ok: false, error: res.error };
